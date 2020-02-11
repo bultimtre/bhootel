@@ -13,4 +13,4 @@
 
 </div>
 
-<h1>a simple project for junior developer :-) </h1>
+<h3>a simple project for junior developer :-) </h3>
