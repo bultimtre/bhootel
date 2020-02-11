@@ -11,6 +11,6 @@ class ConfigSeeder extends Seeder
      */
     public function run()
     {
-        //
+        
     }
 }
