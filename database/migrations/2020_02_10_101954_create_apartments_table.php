@@ -21,11 +21,11 @@ class CreateApartmentsTable extends Migration
             $table->string('address');
             $table->decimal('lat', 10, 8)->nullable();  //temp nullable
             $table->decimal('lon', 11, 8)->nullable();
-            $table->smallInteger('rooms');
-            $table->smallInteger('beds');
-            $table->smallInteger('bath');
-            $table->smallInteger('square_mt');
-            $table->boolean('show')->defaut(true);
+            $table->integer('rooms');
+            $table->integer('beds');
+            $table->integer('bath');
+            $table->integer('square_mt');
+            $table->boolean('show')->defaut(true)->nullable();
             $table->timestamps();
 
         });

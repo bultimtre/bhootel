@@ -10,8 +10,8 @@ class Stat extends Model
         "stats"
     ];
 
-    public function apartments()
+    public function apartment()
     {
-        return $this->belongsToMany(Apartment::class);
+        return $this->belongsTo(Apartment::class);
     }
 }
