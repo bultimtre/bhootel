@@ -1,7 +1,7 @@
 
 # WELCOME TO OUR #
 
-<div style="widht:100%;>
+<div style="widht:100%;">
 
 
      /$$$$$$$  /$$                             /$$               /$$
