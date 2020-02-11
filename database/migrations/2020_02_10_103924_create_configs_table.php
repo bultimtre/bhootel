@@ -15,12 +15,7 @@ class CreateConfigsTable extends Migration
     {
         Schema::create('configs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->boolean('wifi')->default(false);
-            $table->boolean('parking')->default(false);
-            $table->boolean('pool')->default(false);
-            $table->boolean('reception')->default(false);
-            $table->boolean('sauna')->default(false);
-            $table->boolean('sight')->default(false);
+            $table->string('service');
             $table->timestamps();
 
         });
