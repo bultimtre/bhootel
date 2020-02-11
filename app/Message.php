@@ -12,8 +12,8 @@ class Message extends Model
         "email"
     ];
 
-    public function apartments()
+    public function apartment()
     {
-        return $this->belongsToMany(Apartment::class);
+        return $this->belongsTo(Apartment::class);
     }
 }

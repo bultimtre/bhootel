@@ -10,6 +10,6 @@ use App\Ad;
 
 $factory->define(Ad::class, function (Faker $faker) {
     return [
-        'price' => 'ad'.$faker -> word
+        'price' => rand(100, 1000)
     ];
 });

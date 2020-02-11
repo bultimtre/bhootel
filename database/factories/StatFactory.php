@@ -10,6 +10,6 @@ use App\Stat;
 
 $factory->define(Stat::class, function (Faker $faker) {
     return [
-        'stats' => 'stats'.rand(1, 3)
+        'stats' => rand(1, 3)
     ];
 });
