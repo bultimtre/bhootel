@@ -57,23 +57,27 @@ class UserApartmentController extends Controller
             'address' => 'required',
             'lat' => 'nullable',
             'lon' => 'nullable',
-            'rooms' => 'nullable',
-            'beds' => 'nullable',
-            'bath' => 'nullable',
-            'square_mt' => 'nullable',
+            'rooms' => 'required',
+            'beds' => 'required',
+            'bath' => 'required',
+            'square_mt' => 'required',
         ]);
 
         if ($validateApartmentData) {
+            $file = $request->file('imagefile');
+
+            $filename = $file -> getClientOriginalName(); 
+            $file -> move('images/user/'. Auth::user()->name, $filename);
+            //save image path db da verificare
+            $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
+            $validateApartmentData['image'] = $imageFilePath;
 
             $user = Auth::user();
             $apartment = Apartment::make($validateApartmentData);
             $apartment -> user() -> associate($user);
             $apartment -> save();
 
-            $file = $request->file('imagefile');
-
-            $filename = $file -> getClientOriginalName(); 
-            $file -> move('images/user/'. Auth::user()->name, $filename);
+            
 
             return Response()->json([
                 "success" => true,
