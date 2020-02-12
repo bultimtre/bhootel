@@ -49522,10 +49522,162 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+// const app = new Vue({
+//     el: '#app',
+// });
 
-var app = new Vue({
-  el: '#app'
-});
+var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'); //Refers to form http://localhost:8000/user/aparts/create
+
+function getCoordByAddress(e) {
+  e.preventDefault();
+  var formData = new FormData(this); // Display the key/value pairs
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var pair = _step.value;
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+        _iterator["return"]();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  var address = $('#apart-address').serialize().split('=')[1]; // var address = $('#apart-address').val().replace(/\s/g, "%20"); //refactor da serialize ARr
+  // console.log('serialize address: ', address);
+
+  var apartUrl = "https://api.tomtom.com/search/2/geocode/" + address + ".json?limit=1&key=" + api_key;
+  console.log(apartUrl);
+  $.ajax({
+    url: apartUrl,
+    method: "GET",
+    success: function success(data) {
+      if (data.results) {
+        console.log("data", data.results[0]);
+      } // console.log("data: ", data);
+
+
+      var position = data.results[0].position;
+      var lat = position.lat;
+      var lon = position.lon;
+      formData.append('lat', lat);
+      formData.append('lon', lon); // Display the key/value pairs
+      // for (var pair of formData.entries()) {
+      //     console.log(pair[0] + ', ' + pair[1]);
+      // }
+
+      addNewApart(formData);
+    },
+    error: function error(_error) {
+      console.log("error", _error); //posso chiamare addNewApart e salvare dati senza Geoloc
+    }
+  });
+} // send Apartment data with coord to UserApartmentsController@store
+
+
+function addNewApart(formData) {
+  $.ajax({
+    url: "http://localhost:8000/user/aparts/test",
+    enctype: 'multipart/form-data',
+    type: "POST",
+    headers: {
+      'X-CSRF-TOKEN': CSRF_TOKEN
+    },
+    // data: $.param(apartData)
+    data: formData,
+    success: function success(data) {
+      // alert(data);
+      console.log("data", data);
+      window.location.href = 'http://localhost:8000/user/aparts/';
+    },
+    cache: false,
+    contentType: false,
+    processData: false
+  });
+} //testing addNewApart with file upload
+
+
+function testPostwithFile(e) {
+  e.preventDefault(); // var apartData = $(this).serializeArray();
+  // console.log('apartData', apartData);
+
+  var formData = new FormData(this); // Display the key/value pairs
+
+  var _iteratorNormalCompletion2 = true;
+  var _didIteratorError2 = false;
+  var _iteratorError2 = undefined;
+
+  try {
+    for (var _iterator2 = formData.entries()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+      var pair = _step2.value;
+      console.log(pair[0] + ', ' + pair[1]);
+    } // Display the values
+    // for (var value of formData.values()) {
+    //     console.log(value);
+    // }
+
+  } catch (err) {
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+        _iterator2["return"]();
+      }
+    } finally {
+      if (_didIteratorError2) {
+        throw _iteratorError2;
+      }
+    }
+  }
+
+  $.ajax({
+    url: "http://localhost:8000/user/aparts/test",
+    enctype: 'multipart/form-data',
+    type: "POST",
+    headers: {
+      'X-CSRF-TOKEN': CSRF_TOKEN
+    },
+    // data: $.param(apartData)
+    data: formData,
+    success: function success(data) {
+      // alert(data);
+      console.log("data", data); // window.location.href = 'http://localhost:8000/user/aparts/';
+    },
+    cache: false,
+    contentType: false,
+    processData: false
+  });
+}
+
+function init() {
+  // $.ajaxSetup({
+  //     headers: {
+  //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //     }
+  // });
+  $('#addApartForm').submit(getCoordByAddress); // $('#addApartForm').submit(testPostwithFile);
+  // $('#create-apartment').on('click', addNewApart);
+  // $('#create-apartment').on('click', function(e) {
+  // });
+}
+
+;
+$(document).ready(init);
 
 /***/ }),
 
@@ -49661,8 +49813,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Flavio\Desktop\Nuova cartella\bhootel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Flavio\Desktop\Nuova cartella\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
