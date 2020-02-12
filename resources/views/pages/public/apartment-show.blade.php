@@ -17,7 +17,7 @@
         <p> Baths:{{$apartment -> bath}}</p>
     @endif
     
-</div>
+  </div>
 
 
 
