@@ -15,6 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+Route::get('/giuseppe', 'MyController@index') -> name('giuseppe.index');
 Route::resource('user', 'UserController');
 Route::resource('info', 'InfoController');
