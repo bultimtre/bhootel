@@ -5,14 +5,19 @@ use App\Ad;
 use App\Apartment;
 
 class AdSeeder extends Seeder
-{    
+{
     public function run()
     {
-        factory(Ad::class, 3) 
-                -> create()
-                -> each(function($ad) {
-                    $apartment = Apartment::inRandomOrder() -> first();
-                    $ad -> apartments() -> attach($apartment);
-        });
+        $prices = [299,599,999];
+
+        foreach($prices as $price) { //Listo i miei servizi da inserire...
+            $price = Ad::create([
+                'price' => $price
+            ]);
+
+            //Associo ad N annunci/appartamenti un prezzo tra questi tre
+            $apartment = Apartment::inRandomOrder() -> take(rand(1, 10)) -> get();
+            $price -> apartments() -> attach($apartment);
+        }
     }
 }

@@ -25,6 +25,7 @@ class CreateApartmentsTable extends Migration
             $table->integer('beds');
             $table->integer('bath');
             $table->integer('square_mt');
+            $table->timestamp('ads_expired')->nullable();
             $table->boolean('show')->defaut(true)->nullable();
             $table->timestamps(); ///push test
 

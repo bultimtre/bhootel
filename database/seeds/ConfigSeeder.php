@@ -13,11 +13,25 @@ class ConfigSeeder extends Seeder
      */
     public function run()
     {
-        factory(Config::class, 6) 
-                -> create()
-                -> each(function($config) {
-                    $apartment = Apartment::inRandomOrder() -> take(rand(1, 5)) -> get();
-                    $config -> apartments() -> attach($apartment);
-        });
+
+        $configs = [
+            'wifi',
+            'parking',
+            'pool',
+            'reception',
+            'sauna',
+            'sight'
+        ];
+
+        foreach($configs as $config) { //Listo i miei servizi da inserire...
+            $config = Config::create([
+                'service' => $config
+            ]);
+
+            //Associo ad N post il tag appena inserito
+            $apartment = Apartment::inRandomOrder() -> take(rand(1, 10)) -> get();
+            $config -> apartments() -> attach($apartment);
+        }
+
     }
 }
