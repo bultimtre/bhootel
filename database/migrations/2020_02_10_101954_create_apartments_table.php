@@ -26,7 +26,7 @@ class CreateApartmentsTable extends Migration
             $table->integer('bath');
             $table->integer('square_mt');
             $table->boolean('show')->defaut(true)->nullable();
-            $table->timestamps();
+            $table->timestamps(); ///push test
 
         });
     }
