@@ -56,17 +56,20 @@ class UserApartmentController extends Controller
             'description' => 'required',
             'address' => 'required',
             'lat' => 'nullable',
-            'lon' => 'nullable'
+            'lon' => 'nullable',
+            'rooms' => 'nullable',
+            'beds' => 'nullable',
+            'bath' => 'nullable',
+            'square_mt' => 'nullable',
         ]);
 
-        $user = Auth::user();
-        $apartment = Apartment::make($validateApartmentData);
-        $apartment -> user() -> associate($user);
-        $apartment -> save();
-
-        //img file upload
-        // if (($file = $request->file('image')) && request('description')) {
         if ($validateApartmentData) {
+
+            $user = Auth::user();
+            $apartment = Apartment::make($validateApartmentData);
+            $apartment -> user() -> associate($user);
+            $apartment -> save();
+
             $file = $request->file('imagefile');
 
             $filename = $file -> getClientOriginalName(); 
