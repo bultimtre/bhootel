@@ -16,7 +16,7 @@ class Apartment extends Model
         'beds', 
         'bath', 
         'square_mt', 
-        'show'
+        'show'    
     ];
     
     public function user()

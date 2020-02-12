@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Apartment;
 use Illuminate\Http\Request;
 
-class _User extends Controller
+class GuestController extends Controller
 {
 
     /**
@@ -15,9 +16,28 @@ class _User extends Controller
      */
     public function index()
     {
-        $user=User::all();
-        return
+        $users=User::all();
+        $apartments= Apartment::all();
+        return view('pages.public.index',compact('users','apartments'));
     }
+
+      public function search(Request $request)
+    {
+        $data = $request ->all();
+        $result = $data['search_field'];
+    
+        $apartments = Apartment::where('address', 'LIKE','%'.$result.'%')->get();
+       
+        return view('pages.public.search',compact('apartments'));
+    }
+
+    public function show($id)
+    {
+       
+        $apartment= Apartment::findOrFail($id);
+        return view('pages.public.apartment-show',compact('apartment'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -40,23 +60,7 @@ class _User extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit(User $user)
     {
         //

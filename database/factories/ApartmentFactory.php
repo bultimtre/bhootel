@@ -18,6 +18,7 @@ $factory->define(Apartment::class, function (Faker $faker) {
         'square_mt' => rand(50, 120),
         'lat' => $faker -> latitude($min = -90, $max = 90),
         'lon' => $faker -> longitude($min = -180, $max = 180),
-        'image' => $faker -> imageUrl($width = 400, $height = 200, 'city')  
+        'image' => $faker -> imageUrl($width = 400, $height = 200, 'city')
+         
     ];
 });
