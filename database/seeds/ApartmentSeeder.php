@@ -13,12 +13,12 @@ class ApartmentSeeder extends Seeder
      */
     public function run()
     {
-        factory(Apartment::class, 10) 
+        factory(Apartment::class, 30)
                 -> make()
                 -> each(function($apartment) {
                     $user = User::inRandomOrder() -> first();
                     $apartment -> user() -> associate($user);
-                    $apartment -> save(); 
+                    $apartment -> save();
         });
     }
 }
