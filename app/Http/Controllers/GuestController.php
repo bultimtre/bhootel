@@ -24,7 +24,7 @@ class GuestController extends Controller
     public function index()
     {
         $users=User::all();
-        $apartments= Apartment::all();
+        $apartments= Apartment::orderBy('id', 'DESC')->paginate(10);
         return view('pages.index',compact('users','apartments'));
     }
 
