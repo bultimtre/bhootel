@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Apartment;
+use Illuminate\Support\Str;
 
-class UserApartmentController extends Controller
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,10 +23,22 @@ class UserApartmentController extends Controller
     }
     public function index()
     {
-        echo 'return list all user apartments';
-
+        //return if logged
+        $apartments= Apartment::all();
+        return view('pages.index', compact('apartments'));
     }
-
+    public function search(Request $request)
+    {
+        $data = $request ->all();
+        $result = strtolower($data['search_field']);
+        $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
+        return view('pages.search',compact('apartments', 'result'));
+    }
+    public function show($id)
+    {
+        $apartment= Apartment::findOrFail($id);
+        return view('pages.user.show-apt',compact('apartment'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -33,7 +47,7 @@ class UserApartmentController extends Controller
     public function create()
     {
         // echo 'hello world';
-        return view('user-apart.create');
+        return view('pages.user.create-apt');
     }
 
     /**
@@ -43,7 +57,6 @@ class UserApartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function testStore(Request $request) {
-
         // $dataAll = $request -> all();
         // dd($dataAll); //Debug not working with ajax call
 
@@ -66,7 +79,7 @@ class UserApartmentController extends Controller
         if ($validateApartmentData) {
             $file = $request->file('imagefile');
 
-            $filename = $file -> getClientOriginalName(); 
+            $filename = $file -> getClientOriginalName();
             $file -> move('images/user/'. Auth::user()->name, $filename);
             //save image path db da verificare
             $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
@@ -77,16 +90,16 @@ class UserApartmentController extends Controller
             $apartment -> user() -> associate($user);
             $apartment -> save();
 
-            
+
 
             return Response()->json([
                 "success" => true,
                 "imagefile" => $filename,
                 "description" => $validateApartmentData['description']
             ]);
- 
+
         }
- 
+
         return Response()->json([
                 "success" => false,
                 "imagefile" => ''
@@ -111,21 +124,10 @@ class UserApartmentController extends Controller
         $apartment = Apartment::make($validateApartmentData);
         $apartment -> user() -> associate($user);
         $apartment -> save();
-        
+
         // return view('user-apart.index'); // error con jquery
         return response() -> json(compact('validateApartmentData'));
         // return redirect(route('aparts.index'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
