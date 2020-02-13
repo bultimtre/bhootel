@@ -8,7 +8,7 @@
         @foreach ($apartments as $apartment)
             <div class="card flex-row w-25" style="margin:20px">
                 <div class="wrapper">
-                    <img  class ="card-img-top w-100" src='{{$apartment -> image}}'/>
+                    <img  class ="card-img-top w-100" src='{{asset ($apartment -> image) }}'/>
                     <div class="card-body w-100" style="">
                     <p class="card-text"  style="height:80px; overflow-y:hidden">{{$apartment -> description}}</p>
                     <div class="d-flex justify-content-end">

@@ -15,7 +15,7 @@
         <div class="carousel-caption text-left" style="bottom:200px" >
             <h1>Vista sul Mare</h1>
             <p>Descrizione {{$apartment -> description}}</p>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">Modifica</a></p>
+        <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Modifica</a></p>
         </div>
         <div class="carousel-item active">
             <img class="first-slide" src="{{ $apartment -> image }}" alt="First slide">
@@ -61,15 +61,16 @@
 
 </div>
 <hr>
-<div class="d-flex flex-wrap mt-3">
+{{-- <div class="d-flex flex-wrap mt-3">
     <div class="col-12 p-5">
         <h3>Posizione dell'appartamento</h3>
         <p>{{$apartment -> address}}</p>
         <p>MAPPA QUI?</p>
     </div>
-</div>
+</div> --}}
+
 
 </main>
-
+{{-- mettere le statistiche --}}
 @include('components.footer')
 @endsection

@@ -58,7 +58,7 @@
             <li> {{$config -> service}}</li>
         @endforeach
     </div>
-
+    {{-- mettere anche il form --}}
 </div>
 <hr>
 <div class="d-flex flex-wrap mt-3">

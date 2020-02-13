@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Config;
 
-use Illuminate\Support\Facades\Auth;
 use App\Apartment;
-
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use League\CommonMark\Inline\Element\Code;
 
 class UserController extends Controller
 {
@@ -46,8 +46,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        // echo 'hello world';
-        return view('pages.user.create-apt');
+
+        return view('pages.user.create-apt', [
+            'configs' => Config::all()
+        ]);
     }
 
     /**
@@ -56,7 +58,8 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function testStore(Request $request) {
+    public function store(Request $request) {
+
         // $dataAll = $request -> all();
         // dd($dataAll); //Debug not working with ajax call
 
@@ -86,8 +89,11 @@ class UserController extends Controller
             $apartment = Apartment::make($validateApartmentData);
             $apartment -> user() -> associate($user);
             $apartment -> save();
-
-
+            //associo le configs allo user apartment
+            if (isset($validateApartmentData['configs_id'])) {
+                $configs = Config::find($validateApartmentData['configs_id']);
+                $apartment -> configs() -> attach($configs);
+            }
 
             return Response()->json([
                 "success" => true,
@@ -95,32 +101,16 @@ class UserController extends Controller
                 "description" => $validateApartmentData['description'],
                 "configs_id" => $validateApartmentData['configs_id']
             ]);
+
         }
 
         return Response()->json([
                 "success" => false,
                 "imagefile" => ''
             ]);
-    }
-    public function store(Request $request)
-    {
-        $validateApartmentData = $request -> validate([
-            'description' => 'required',
-            'address' => 'required',
-            'lat' => 'nullable',
-            'lon' => 'nullable'
-        ]);
-        // return $validateApartmentData;
 
-        $user = Auth::user();
-        $apartment = Apartment::make($validateApartmentData);
-        $apartment -> user() -> associate($user);
-        $apartment -> save();
-
-        // return view('user-apart.index'); // error con jquery
-        return response() -> json(compact('validateApartmentData'));
-        // return redirect(route('aparts.index'));
     }
+
 
 
     /**
@@ -130,8 +120,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   $apartment =Apartment::find($id);
+        $configs=Config::all();
+        return view('pages.user.update-apt',compact('apartment','configs'));
     }
 
     /**
@@ -143,7 +134,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request);
+        $data = $request->all();
+        $apartment = Apartment::findOrFail($id);
+        $apartment->update($data);
+        $configs = Config::find($data['configs']);
+        $apartment->configs()->sync($configs);
+
+        return view('pages.user.show-apt',compact('apartment','configs'));
+
     }
 
     /**
