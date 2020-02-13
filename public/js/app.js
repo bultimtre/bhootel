@@ -49593,7 +49593,7 @@ function getCoordByAddress(e) {
 
 function addNewApart(formData) {
   $.ajax({
-    url: "http://localhost:8000/user/aparts",
+    url: "http://localhost:8000/user/index",
     enctype: 'multipart/form-data',
     type: "POST",
     headers: {
@@ -49602,7 +49602,7 @@ function addNewApart(formData) {
     data: formData,
     success: function success(data) {
       console.log("data", data);
-      window.location.href = 'http://localhost:8000/user/aparts/'; //redirect finito create
+      window.location.href = 'http://localhost:8000/user/index/'; //redirect finito create
     },
     cache: false,
     contentType: false,
@@ -49775,8 +49775,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
