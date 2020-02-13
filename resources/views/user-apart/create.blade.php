@@ -44,6 +44,17 @@
           </div>
 
           <div class="form-group">
+            @foreach ($configs as $config)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="config-check" name="configs_id[]" value="{{ $config->id }}">
+                    <label class="form-check-label" for="config-check">
+                        {{ $config->service }}
+                    </label>
+                </div>
+            @endforeach
+            </div>
+
+          <div class="form-group">
               <input type="submit" class="btn btn-primary" id="create-apartment" value="Create" />
           </div>
         </form>
