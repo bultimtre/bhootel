@@ -5,13 +5,7 @@ Vue.component(
     'adv-search', require('./components/AdvanceSearch.vue')
 );
 
-function init() {
-    const app = new Vue({
-        el: '#app',
-    });
-}
-$(function() {
-    init();
-})
-
+const app = new Vue({
+    el: '#app',
+});
 
