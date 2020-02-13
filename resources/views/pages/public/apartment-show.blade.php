@@ -18,7 +18,14 @@
     @endif
     
 </div>
+  <div id="apart-map">
+    <div class="data-lat" data-lat="{{ $apartment -> lat }}"></div>
+    <div class="data-lon" data-lon="{{ $apartment -> lon }}"></div>
+  </div>
 
+  <div class="result"></div>
+
+  <img class="map-img" src="" alt="apart-map">
 
 
 @endsection
