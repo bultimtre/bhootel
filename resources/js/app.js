@@ -70,6 +70,7 @@ function getCoordByAddress(e) {
         error: function (error) {
             console.log("error", error);
             //posso chiamare addNewApart e salvare dati senza Geoloc
+            addNewApart(formData);
         }
     });
 }
@@ -77,54 +78,17 @@ function getCoordByAddress(e) {
 function addNewApart(formData) {
 
     $.ajax({
-        url: "http://localhost:8000/user/aparts/test",
+        url: "http://localhost:8000/user/aparts",
         enctype: 'multipart/form-data',
         type: "POST",
         headers: {
             'X-CSRF-TOKEN': CSRF_TOKEN
         },
-        // data: $.param(apartData)
         data: formData
         ,
         success: function (data) {
-            // alert(data);
             console.log("data", data);
-            // window.location.href = 'http://localhost:8000/user/aparts/';
-        },
-        cache: false,
-        contentType: false,
-        processData: false
-    });
-}
-//testing addNewApart with file upload
-function testPostwithFile(e) {
-    e.preventDefault();
-    // var apartData = $(this).serializeArray();
-    // console.log('apartData', apartData);
-    var formData = new FormData(this);
-    // Display the key/value pairs
-    for (var pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
-    }
-    // Display the values
-    // for (var value of formData.values()) {
-    //     console.log(value);
-    // }
-
-    $.ajax({
-        url: "http://localhost:8000/user/aparts/test",
-        enctype: 'multipart/form-data',
-        type: "POST",
-        headers: {
-            'X-CSRF-TOKEN': CSRF_TOKEN
-        },
-        // data: $.param(apartData)
-        data: formData
-        ,
-        success: function (data) {
-            // alert(data);
-            console.log("data", data);
-            // window.location.href = 'http://localhost:8000/user/aparts/';
+            window.location.href = 'http://localhost:8000/user/aparts/';
         },
         cache: false,
         contentType: false,
@@ -133,22 +97,11 @@ function testPostwithFile(e) {
 }
 
 function init() {
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
+
 
     $('#addApartForm').submit(getCoordByAddress);
 
-    // $('#addApartForm').submit(testPostwithFile);
 
-    // $('#create-apartment').on('click', addNewApart);
-
-    // $('#create-apartment').on('click', function(e) {
-
-
-    // });
 };
 
 $(document).ready(init);

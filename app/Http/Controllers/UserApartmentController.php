@@ -33,8 +33,7 @@ class UserApartmentController extends Controller
      */
     public function create()
     {
-        // echo 'hello world';
-        // return view('user-apart.create');
+
         return view('user-apart.create', [
             'configs' => Config::all()
         ]);
@@ -46,22 +45,22 @@ class UserApartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function testStore(Request $request) {
+    public function store(Request $request) {
 
         // $dataAll = $request -> all();
         // dd($dataAll); //Debug not working with ajax call
 
-        $validateApartmentData = $request -> validate([  // migliorare validazione
-            'imagefile' => 'required',
-            'description' => 'required',
-            'address' => 'required',
-            'lat' => 'nullable',
-            'lon' => 'nullable',
-            'rooms' => 'required',
-            'beds' => 'required',
-            'bath' => 'required',
-            'square_mt' => 'required',
-            'configs_id' => 'nullable'
+        $validateApartmentData = $request -> validate([  
+            'imagefile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|max:850',
+            'address' => 'required|max:255',
+            'lat' => 'nullable|numeric|between:-90,90',
+            'lon' => 'nullable|numeric|between:-90,180',
+            'rooms' => 'required|numeric|max:200',
+            'beds' => 'required|numeric|max:200',
+            'bath' => 'required|numeric|max:200',
+            'square_mt' => 'required|numeric|max:10000',
+            'configs_id' => 'nullable|array|exists:configs,id'
         ]);
 
         if ($validateApartmentData) {
@@ -96,31 +95,9 @@ class UserApartmentController extends Controller
                 "success" => false,
                 "imagefile" => ''
             ]);
-        // $data = $request -> values();
-        // echo 'hello';
-        // return response()->json(compact('data'));
-        // return response()->json('ok');
+
     }
 
-    public function store(Request $request)
-    {
-        $validateApartmentData = $request -> validate([
-            'description' => 'required',
-            'address' => 'required',
-            'lat' => 'nullable',
-            'lon' => 'nullable'
-        ]);
-        // return $validateApartmentData;
-
-        $user = Auth::user();
-        $apartment = Apartment::make($validateApartmentData);
-        $apartment -> user() -> associate($user);
-        $apartment -> save();
-        
-        // return view('user-apart.index'); // error con jquery
-        return response() -> json(compact('validateApartmentData'));
-        // return redirect(route('aparts.index'));
-    }
 
     /**
      * Display the specified resource.
