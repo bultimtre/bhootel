@@ -9,8 +9,10 @@
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	</head>
 	<body>
+		<main>
 		@yield('guest_index')
 		@yield('search')
 		@yield('apt-show')
+		</main>
 	</body>
 </html>

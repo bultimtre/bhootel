@@ -7,6 +7,42 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-main {
-  margin-top: 80px;
+body {
+  background-color: rgb(231, 229, 224);
+
+  .search-label {
+    color: #fff;
+  }
+
+  main {
+    margin-top: 80px;
+  
+    .apt {
+      margin: 10px;
+      padding: 5px;
+      background-color: rgb(199, 194, 194);
+      height: 180px;
+      display: flex;
+      justify-content: space-between;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+
+      &:hover {
+      text-decoration: none;
+      }      
+
+      img {
+        height: 100%;
+      }
+    }
+  }
+  
+  .links {
+    display: flex;
+    justify-content: center;
+  }
 }

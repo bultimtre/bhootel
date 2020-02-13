@@ -10884,7 +10884,43 @@ a.text-dark:focus {
   }
 }
 
-main {
+body {
+  background-color: #e7e5e0;
+}
+
+body .search-label {
+  color: #fff;
+}
+
+body main {
   margin-top: 80px;
+}
+
+body main .apt {
+  margin: 10px;
+  padding: 5px;
+  background-color: #c7c2c2;
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+}
+
+body main .apt .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+body main .apt:hover {
+  text-decoration: none;
+}
+
+body main .apt img {
+  height: 100%;
+}
+
+body .links {
+  display: flex;
+  justify-content: center;
 }
 
