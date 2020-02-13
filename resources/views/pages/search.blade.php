@@ -2,6 +2,7 @@
 
 @section('search')
 @include('components.header')
+@include('components.adv-search')
     <main>
         @if($apartments->count()>0)
             <div class="d-flex flex-wrap justify-content-center" style="">

@@ -31,3 +31,8 @@ Route::post('/user/index/{id}', 'UserController@update')-> name('index.update');
 
 ///USERS UPRA solo statistiche
 
+
+//view test
+
+Route::view('/adv-search','components.adv-search');
+
