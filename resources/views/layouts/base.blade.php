@@ -11,6 +11,9 @@
 	<body>
 		@yield('guest_index')
 		@yield('search')
+		@yield('login')
+		@yield('register')
 		@yield('apt-show')
+		@yield('new-apt-upa')
 	</body>
 </html>
