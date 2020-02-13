@@ -49602,7 +49602,7 @@ function addNewApart(formData) {
     data: formData,
     success: function success(data) {
       console.log("data", data);
-      window.location.href = 'http://localhost:8000/user/aparts/';
+      window.location.href = 'http://localhost:8000/user/aparts/'; //redirect finito create
     },
     cache: false,
     contentType: false,
