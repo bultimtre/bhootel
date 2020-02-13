@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+
+
+
 use App\User;
 use App\Apartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class GuestController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('guest')->except('login');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,24 +25,21 @@ class GuestController extends Controller
     {
         $users=User::all();
         $apartments= Apartment::all();
-        return view('pages.public.index',compact('users','apartments'));
+        return view('pages.index',compact('users','apartments'));
     }
 
-      public function search(Request $request)
+    public function search(Request $request)
     {
         $data = $request ->all();
-        $result = $data['search_field'];
-    
-        $apartments = Apartment::where('address', 'LIKE','%'.$result.'%')->get();
-       
-        return view('pages.public.search',compact('apartments'));
+        $result = strtolower($data['search_field']);
+        $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
+        return view('pages.search',compact('apartments', 'result'));
     }
 
     public function show($id)
     {
-       
         $apartment= Apartment::findOrFail($id);
-        return view('pages.public.apartment-show',compact('apartment'));
+        return view('pages.public.show-apt',compact('apartment'));
     }
 
 
@@ -60,7 +64,7 @@ class GuestController extends Controller
         //
     }
 
-    
+
     public function edit(User $user)
     {
         //
@@ -88,4 +92,6 @@ class GuestController extends Controller
     {
         //
     }
+
+
 }

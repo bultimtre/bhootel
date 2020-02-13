@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use Illuminate\Support\Facades\Auth;
-use App\Apartment;
 use App\Config;
 
-class UserApartmentController extends Controller
+use App\Apartment;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use League\CommonMark\Inline\Element\Code;
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,10 +23,22 @@ class UserApartmentController extends Controller
     }
     public function index()
     {
-        echo 'return list all user apartments';
-
+        //return if logged
+        $apartments= Apartment::all();
+        return view('pages.index', compact('apartments'));
     }
-
+    public function search(Request $request)
+    {
+        $data = $request ->all();
+        $result = strtolower($data['search_field']);
+        $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
+        return view('pages.search',compact('apartments', 'result'));
+    }
+    public function show($id)
+    {
+        $apartment= Apartment::findOrFail($id);
+        return view('pages.user.show-apt',compact('apartment'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -34,7 +47,7 @@ class UserApartmentController extends Controller
     public function create()
     {
 
-        return view('user-apart.create', [
+        return view('pages.user.create-apt', [
             'configs' => Config::all()
         ]);
     }
@@ -50,7 +63,7 @@ class UserApartmentController extends Controller
         // $dataAll = $request -> all();
         // dd($dataAll); //Debug not working with ajax call
 
-        $validateApartmentData = $request -> validate([  
+        $validateApartmentData = $request -> validate([
             'imagefile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
@@ -66,7 +79,7 @@ class UserApartmentController extends Controller
         if ($validateApartmentData) {
             $file = $request->file('imagefile');
 
-            $filename = $file -> getClientOriginalName(); 
+            $filename = $file -> getClientOriginalName();
             $file -> move('images/user/'. Auth::user()->name, $filename);
             //save image path db da verificare
             $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
@@ -88,9 +101,9 @@ class UserApartmentController extends Controller
                 "description" => $validateApartmentData['description'],
                 "configs_id" => $validateApartmentData['configs_id']
             ]);
- 
+
         }
- 
+
         return Response()->json([
                 "success" => false,
                 "imagefile" => ''
@@ -99,16 +112,6 @@ class UserApartmentController extends Controller
     }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -118,7 +121,9 @@ class UserApartmentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $apartment =Apartment::find($id);
+        $configs=Config::all();
+        return view('pages.user.update-apt',compact('apartment','configs'));
     }
 
     /**
@@ -130,7 +135,15 @@ class UserApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request);
+        /* $data = $request->all();
+        $apartment = Apartment::findOrFail($id);
+        $apartment->update($data);
+        $configs = Config::find($data['configs']);
+        $apartment->configs()->sync($configs);
+
+        return view('pages.user.show-apt',compact('apartment','configs')); */
+
     }
 
     /**

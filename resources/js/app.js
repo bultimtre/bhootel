@@ -30,6 +30,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 // const app = new Vue({
 //     el: '#app',
 // });
+
 var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
@@ -54,7 +55,7 @@ function getCoordByAddress(e) {
         success: function (data) {
             if (data.results) {
                 console.log("data", data.results[0]);
-            }   
+            }
             // console.log("data: ", data);
             var position = data.results[0].position;
             var lat = position.lat;
@@ -78,7 +79,7 @@ function getCoordByAddress(e) {
 function addNewApart(formData) {
 
     $.ajax({
-        url: "http://localhost:8000/user/aparts",
+        url: "http://localhost:8000/user/index",
         enctype: 'multipart/form-data',
         type: "POST",
         headers: {
@@ -88,7 +89,7 @@ function addNewApart(formData) {
         ,
         success: function (data) {
             console.log("data", data);
-            window.location.href = 'http://localhost:8000/user/aparts/'; //redirect finito create
+            window.location.href = 'http://localhost:8000/user/index/'; //redirect finito create
         },
         cache: false,
         contentType: false,
