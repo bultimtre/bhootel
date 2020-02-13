@@ -89,7 +89,7 @@ function addNewApart(formData) {
         success: function (data) {
             // alert(data);
             console.log("data", data);
-            window.location.href = 'http://localhost:8000/user/aparts/';
+            // window.location.href = 'http://localhost:8000/user/aparts/';
         },
         cache: false,
         contentType: false,

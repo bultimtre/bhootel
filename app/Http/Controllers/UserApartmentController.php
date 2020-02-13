@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Apartment;
+use App\Config;
 
 class UserApartmentController extends Controller
 {
@@ -33,7 +34,10 @@ class UserApartmentController extends Controller
     public function create()
     {
         // echo 'hello world';
-        return view('user-apart.create');
+        // return view('user-apart.create');
+        return view('user-apart.create', [
+            'configs' => Config::all()
+        ]);
     }
 
     /**
@@ -47,11 +51,7 @@ class UserApartmentController extends Controller
         // $dataAll = $request -> all();
         // dd($dataAll); //Debug not working with ajax call
 
-        // request()->validate([
-        //     'imagefile' => 'required',
-        // ]);
-
-        $validateApartmentData = $request -> validate([
+        $validateApartmentData = $request -> validate([  // migliorare validazione
             'imagefile' => 'required',
             'description' => 'required',
             'address' => 'required',
@@ -61,6 +61,7 @@ class UserApartmentController extends Controller
             'beds' => 'required',
             'bath' => 'required',
             'square_mt' => 'required',
+            'configs_id' => 'nullable'
         ]);
 
         if ($validateApartmentData) {
@@ -71,18 +72,22 @@ class UserApartmentController extends Controller
             //save image path db da verificare
             $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
             $validateApartmentData['image'] = $imageFilePath;
-
+            //creo Appartamento e lo associo allo user
             $user = Auth::user();
             $apartment = Apartment::make($validateApartmentData);
             $apartment -> user() -> associate($user);
             $apartment -> save();
-
-            
+            //associo le configs allo user apartment
+            if (isset($validateApartmentData['configs_id'])) {
+                $configs = Config::find($validateApartmentData['configs_id']);
+                $apartment -> configs() -> attach($configs);
+            }
 
             return Response()->json([
                 "success" => true,
                 "imagefile" => $filename,
-                "description" => $validateApartmentData['description']
+                "description" => $validateApartmentData['description'],
+                "configs_id" => $validateApartmentData['configs_id']
             ]);
  
         }
