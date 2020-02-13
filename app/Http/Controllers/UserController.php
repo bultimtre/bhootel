@@ -120,7 +120,8 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   $apartment =Apartment::find($id);
+    {
+        $apartment =Apartment::find($id);
         $configs=Config::all();
         return view('pages.user.update-apt',compact('apartment','configs'));
     }
@@ -135,13 +136,13 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         dd($request);
-        $data = $request->all();
+        /* $data = $request->all();
         $apartment = Apartment::findOrFail($id);
         $apartment->update($data);
         $configs = Config::find($data['configs']);
         $apartment->configs()->sync($configs);
 
-        return view('pages.user.show-apt',compact('apartment','configs'));
+        return view('pages.user.show-apt',compact('apartment','configs')); */
 
     }
 

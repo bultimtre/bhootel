@@ -11,9 +11,9 @@
 
       </div>
       <div class="col-12">
-        <form action="{{ route('user-apt.show', $apartment->id) }}" method="post" id="addApartForm" enctype="multipart/form-data">
+        <form action="{{ route('index.update', $apartment->id) }}" method="get" enctype="multipart/form-data">
             @csrf
-            @method('POST')
+            @method('GET')
           {{-- <div class="form-group">
             <input type="file" name="imagefile"><br>
           </div> --}}
@@ -57,7 +57,7 @@
             </div>
 
           <div class="form-group">
-              <input type="submit" class="btn btn-primary" id="create-apartment" value="Aggiorna"/>
+              <input type="submit" class="btn btn-primary" value="Aggiorna"/>
           </div>
         </form>
       </div>
