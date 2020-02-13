@@ -16,6 +16,12 @@
             <h1>Vista sul Mare</h1>
             <p>Descrizione {{$apartment -> description}}</p>
         <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Modifica</a></p>
+        <form action=" {{route('index.destroy', $apartment->id)}} " method="POST">
+            @csrf
+            @method('DELETE')
+            <input type="submit" value="Elimina" class="btn btn-lg btn-danger">
+            {{-- <a class="btn btn-lg btn-danger" href="{{route('index.delete', $apartment->id)}}" role="button">Elimina</a> --}}
+        </form>
         </div>
         <div class="carousel-item active">
             <img class="first-slide" src="{{ $apartment -> image }}" alt="First slide">

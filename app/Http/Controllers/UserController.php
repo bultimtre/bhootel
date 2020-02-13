@@ -24,7 +24,7 @@ class UserController extends Controller
     public function index()
     {
         //return if logged
-        $apartments= Apartment::all();
+        $apartments= Apartment::orderBy('id', 'DESC')->paginate(10);
         return view('pages.index', compact('apartments'));
     }
     public function search(Request $request)
@@ -135,15 +135,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
-        /* $data = $request->all();
+        $data = $request->all();
         $apartment = Apartment::findOrFail($id);
         $apartment->update($data);
-        $configs = Config::find($data['configs']);
+        $configs = Config::find(isset($data['configs_id']));
         $apartment->configs()->sync($configs);
-
-        return view('pages.user.show-apt',compact('apartment','configs')); */
-
+        
+        return view('pages.user.show-apt', compact('apartment','configs'));
+        
     }
 
     /**
@@ -154,6 +153,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $apartment = Apartment::findOrFail($id);
+        $apartment->configs()->sync([]);
+        $apartment->delete();
+
+        return redirect()->route('index.index');
     }
 }

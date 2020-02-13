@@ -11,9 +11,9 @@
 
       </div>
       <div class="col-12">
-        <form action="{{ route('index.update', $apartment->id) }}" method="get" enctype="multipart/form-data">
+        <form action="{{ route('index.update', $apartment->id) }}" method="post" enctype="multipart/form-data">
             @csrf
-            @method('GET')
+            @method('POST')
           {{-- <div class="form-group">
             <input type="file" name="imagefile"><br>
           </div> --}}
