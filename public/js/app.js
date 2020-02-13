@@ -49610,8 +49610,32 @@ function addNewApart(formData) {
   });
 }
 
+function getApartMap() {
+  var dataLat = $('.data-lat').attr("data-lat");
+  var dataLon = $('.data-lon').attr("data-lon");
+  console.log('dataLat', dataLat, ' - dataLon', dataLon);
+  var map_obj = {
+    layer: 'basic',
+    style: 'main',
+    format: 'jpg',
+    center: parseFloat(dataLon).toFixed(6) + ', ' + parseFloat(dataLat).toFixed(6),
+    width: '512',
+    height: '512',
+    view: 'Unified',
+    key: api_key
+  };
+  var map_url = jQuery.param(map_obj);
+  var api_map_url = 'https://api.tomtom.com/map/1/staticimage?' + map_url;
+  console.log(api_map_url);
+  $('.map-img').attr("src", api_map_url);
+}
+
 function init() {
   $('#addApartForm').submit(getCoordByAddress);
+
+  if ($('#apart-map').length) {
+    getApartMap();
+  }
 }
 
 ;
@@ -49751,8 +49775,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

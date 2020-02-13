@@ -16,6 +16,7 @@
                     <a class="nav-link" href="{{ route('register') }}">Register</a>
                 </li>
             @elseif(Auth::user() && !Route::is('login') && !Route::is('register'))
+                <a href="">{{Auth::user()->name}}</a>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
                     onclick="event.preventDefault();

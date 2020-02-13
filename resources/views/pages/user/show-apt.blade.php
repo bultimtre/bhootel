@@ -15,7 +15,16 @@
         <div class="carousel-caption text-left" style="bottom:200px" >
             <h1>Vista sul Mare</h1>
             <p>Descrizione {{$apartment -> description}}</p>
-        <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Modifica</a></p>
+            @if (Auth::user() -> id == $apartment -> user -> id) 
+                <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Modifica</a></p>
+                <form action=" {{route('index.destroy', $apartment->id)}} " method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" value="Elimina" class="btn btn-lg btn-danger">
+                </form>
+            @else
+                <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Chiedi Informazioni</a></p>
+            @endif
         </div>
         <div class="carousel-item active">
             <img class="first-slide" src="{{ $apartment -> image }}" alt="First slide">

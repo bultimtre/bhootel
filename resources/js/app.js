@@ -97,12 +97,36 @@ function addNewApart(formData) {
     });
 }
 
-function init() {
+function getApartMap() {
+    var dataLat = $('.data-lat').attr("data-lat");
+    var dataLon = $('.data-lon').attr("data-lon");
+    console.log('dataLat', dataLat, ' - dataLon', dataLon);
 
+    var map_obj = {
+        layer: 'basic',
+        style: 'main',
+        format: 'jpg',
+        center: parseFloat(dataLon).toFixed(6) + ', ' + parseFloat(dataLat).toFixed(6),
+        width: '512',
+        height: '512',
+        view: 'Unified',
+        key: api_key
+    };
+    var map_url = jQuery.param(map_obj);
+
+    var api_map_url = 'https://api.tomtom.com/map/1/staticimage?' + map_url;
+    console.log(api_map_url);
+    $('.map-img').attr("src", api_map_url);
+}
+
+function init() {
 
     $('#addApartForm').submit(getCoordByAddress);
 
+    if ($('#apart-map').length) {
 
+        getApartMap();
+    }
 };
 
 $(document).ready(init);

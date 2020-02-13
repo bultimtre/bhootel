@@ -15,7 +15,7 @@
         <div class="carousel-caption text-left" style="bottom:200px" >
             <h1>Vista sul Mare</h1>
             <p>Descrizione {{$apartment -> description}}</p>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">Prenota oggi</a></p>
+            <p><a class="btn btn-lg btn-primary" href="#" role="button">Chiedi Informazioni</a></p>
         </div>
         <div class="carousel-item active">
             <img class="first-slide w-100" src="{{ $apartment -> image }}" alt="First slide">
@@ -65,7 +65,11 @@
     <div class="col-12 p-5">
         <h3>Posizione dell'appartamento</h3>
         <p>{{$apartment -> address}}</p>
-        <p>MAPPA QUI?</p>
+        <img class="map-img" src="" alt="apart-map">
+        <div id="apart-map">
+            <div class="data-lat" data-lat="{{ $apartment -> lat }}"></div>
+            <div class="data-lon" data-lon="{{ $apartment -> lon }}"></div>
+        </div>
     </div>
 </div>
 
