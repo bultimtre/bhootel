@@ -16,4 +16,4 @@ Auth::routes();
 //rotta crud User Apartments
 Route::resource('/user/aparts', 'UserApartmentController');
 //test
-Route::post('/user/aparts/test', 'UserApartmentController@testStore')->name('aparts.store.test');
+// Route::post('/user/aparts/test', 'UserApartmentController@testStore')->name('aparts.store.test');
