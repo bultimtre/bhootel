@@ -27,6 +27,129 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+// const app = new Vue({
+//     el: '#app',
+// });
+var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+//Refers to form http://localhost:8000/user/aparts/create
+function getCoordByAddress(e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+    // Display the key/value pairs
+    for (var pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+    }
+
+    var address = $('#apart-address').serialize().split('=')[1];
+    // var address = $('#apart-address').val().replace(/\s/g, "%20"); //refactor da serialize ARr
+    // console.log('serialize address: ', address);
+    var apartUrl = "https://api.tomtom.com/search/2/geocode/" + address + ".json?limit=1&key=" + api_key;
+    console.log(apartUrl);
+    $.ajax({
+        url: apartUrl,
+        method: "GET",
+        success: function (data) {
+            if (data.results) {
+                console.log("data", data.results[0]);
+            }   
+            // console.log("data: ", data);
+            var position = data.results[0].position;
+            var lat = position.lat;
+            var lon = position.lon;
+            formData.append('lat', lat);
+            formData.append('lon', lon);
+            // Display the key/value pairs
+            // for (var pair of formData.entries()) {
+            //     console.log(pair[0] + ', ' + pair[1]);
+            // }
+            addNewApart(formData);
+        },
+        error: function (error) {
+            console.log("error", error);
+            //posso chiamare addNewApart e salvare dati senza Geoloc
+        }
+    });
+}
+// send Apartment data with coord to UserApartmentsController@store
+function addNewApart(formData) {
+
+    $.ajax({
+        url: "http://localhost:8000/user/aparts/test",
+        enctype: 'multipart/form-data',
+        type: "POST",
+        headers: {
+            'X-CSRF-TOKEN': CSRF_TOKEN
+        },
+        // data: $.param(apartData)
+        data: formData
+        ,
+        success: function (data) {
+            // alert(data);
+            console.log("data", data);
+            window.location.href = 'http://localhost:8000/user/aparts/';
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+}
+//testing addNewApart with file upload
+function testPostwithFile(e) {
+    e.preventDefault();
+    // var apartData = $(this).serializeArray();
+    // console.log('apartData', apartData);
+    var formData = new FormData(this);
+    // Display the key/value pairs
+    for (var pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+    }
+    // Display the values
+    // for (var value of formData.values()) {
+    //     console.log(value);
+    // }
+
+    $.ajax({
+        url: "http://localhost:8000/user/aparts/test",
+        enctype: 'multipart/form-data',
+        type: "POST",
+        headers: {
+            'X-CSRF-TOKEN': CSRF_TOKEN
+        },
+        // data: $.param(apartData)
+        data: formData
+        ,
+        success: function (data) {
+            // alert(data);
+            console.log("data", data);
+            // window.location.href = 'http://localhost:8000/user/aparts/';
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+}
+
+function init() {
+    // $.ajaxSetup({
+    //     headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //     }
+    // });
+
+    $('#addApartForm').submit(getCoordByAddress);
+
+    // $('#addApartForm').submit(testPostwithFile);
+
+    // $('#create-apartment').on('click', addNewApart);
+
+    // $('#create-apartment').on('click', function(e) {
+
+
+    // });
+};
+
+$(document).ready(init);
+
