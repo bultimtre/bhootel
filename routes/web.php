@@ -26,7 +26,7 @@ Route::post('/user/search', 'UserController@search')-> name('user.search');
 Route::get('/user/apartment/{id}', 'UserController@show')-> name('user-apt.show');
 
 //test
-Route::post('/user/aparts', 'UserController@testStore')->name('aparts.store.test');
+//Route::post('/user/aparts', 'UserController@testStore')->name('aparts.store.test');
 
 
 ///USERS UPRA solo statistiche

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Apartment;
-use Illuminate\Support\Str;
+
 
 
 class UserController extends Controller
@@ -60,20 +60,17 @@ class UserController extends Controller
         // $dataAll = $request -> all();
         // dd($dataAll); //Debug not working with ajax call
 
-        // request()->validate([
-        //     'imagefile' => 'required',
-        // ]);
-
         $validateApartmentData = $request -> validate([
-            'imagefile' => 'required',
-            'description' => 'required',
-            'address' => 'required',
-            'lat' => 'nullable',
-            'lon' => 'nullable',
-            'rooms' => 'required',
-            'beds' => 'required',
-            'bath' => 'required',
-            'square_mt' => 'required',
+            'imagefile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|max:850',
+            'address' => 'required|max:255',
+            'lat' => 'nullable|numeric|between:-90,90',
+            'lon' => 'nullable|numeric|between:-90,180',
+            'rooms' => 'required|numeric|max:200',
+            'beds' => 'required|numeric|max:200',
+            'bath' => 'required|numeric|max:200',
+            'square_mt' => 'required|numeric|max:10000',
+            'configs_id' => 'nullable|array|exists:configs,id'
         ]);
 
         if ($validateApartmentData) {
@@ -84,7 +81,7 @@ class UserController extends Controller
             //save image path db da verificare
             $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
             $validateApartmentData['image'] = $imageFilePath;
-
+            //creo Appartamento e lo associo allo user
             $user = Auth::user();
             $apartment = Apartment::make($validateApartmentData);
             $apartment -> user() -> associate($user);
@@ -95,21 +92,16 @@ class UserController extends Controller
             return Response()->json([
                 "success" => true,
                 "imagefile" => $filename,
-                "description" => $validateApartmentData['description']
+                "description" => $validateApartmentData['description'],
+                "configs_id" => $validateApartmentData['configs_id']
             ]);
-
         }
 
         return Response()->json([
                 "success" => false,
                 "imagefile" => ''
             ]);
-        // $data = $request -> values();
-        // echo 'hello';
-        // return response()->json(compact('data'));
-        // return response()->json('ok');
     }
-
     public function store(Request $request)
     {
         $validateApartmentData = $request -> validate([
@@ -129,6 +121,7 @@ class UserController extends Controller
         return response() -> json(compact('validateApartmentData'));
         // return redirect(route('aparts.index'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
