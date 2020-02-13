@@ -49618,9 +49618,7 @@ function getApartMap() {
     layer: 'basic',
     style: 'main',
     format: 'jpg',
-    // center: parseFloat(dataLat).toFixed(6) + ', ' + parseFloat(dataLon).toFixed(6),
     center: parseFloat(dataLon).toFixed(6) + ', ' + parseFloat(dataLat).toFixed(6),
-    // center: '12.338050' + ', ' + '45.434240',
     width: '512',
     height: '512',
     view: 'Unified',
@@ -49629,29 +49627,13 @@ function getApartMap() {
   var map_url = jQuery.param(map_obj);
   var api_map_url = 'https://api.tomtom.com/map/1/staticimage?' + map_url;
   console.log(api_map_url);
-  $('.result').text(api_map_url);
-  $('.map-img').attr("src", api_map_url); // $.ajax({
-  //     url: api_map_url,
-  //     method: "GET",
-  //     success: function (data) {
-  //         if (data.results) {
-  //             console.log("data", data.results);
-  //         }
-  //         console.log(data);
-  //     },
-  //     error: function (error) {
-  //         console.log("error", error);
-  //     }
-  // });
+  $('.map-img').attr("src", api_map_url);
 }
 
 function init() {
-  // https://api.tomtom.com/map/1/staticimage?
-  // layer = basic & style=main & format=jpg & center=4.899886 % 2C % 2052.379031 & width=512 & height=512 & view=Unified & key=*****
   $('#addApartForm').submit(getCoordByAddress);
 
   if ($('#apart-map').length) {
-    // console.log('i exist');
     getApartMap();
   }
 }
