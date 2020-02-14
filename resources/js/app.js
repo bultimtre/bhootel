@@ -123,7 +123,7 @@ function init() {
 
     $('#addApartForm').submit(getCoordByAddress);
 
-    if ($('#apart-map').length) {
+    if($('#apart-map').length) {
 
         getApartMap();
     }

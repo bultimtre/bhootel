@@ -54,7 +54,15 @@
                     </label>
                 </div>
             @endforeach
-            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="show">Rendi l'annuncio visibile a tutti?</label>
+            <select class="form-control" name="show">
+                <option {{ $apartment -> show == "1" ? 'selected' : '' }} value="1">Si</option>
+                <option {{ $apartment -> show == "0" ? 'selected' : '' }} value="0">No</option>
+            </select>
+          </div>
 
           <div class="form-group">
               <input type="submit" class="btn btn-primary" value="Aggiorna"/>
