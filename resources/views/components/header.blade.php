@@ -16,7 +16,7 @@
                     <a class="nav-link" href="{{ route('register') }}">Register</a>
                 </li>
             @elseif(Auth::user() && !Route::is('login') && !Route::is('register'))
-                <a href="">{{Auth::user()->name}}</a>
+                <a href="{{ route('user.user-panel') }}">{{Auth::user()->name}}</a>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
@@ -28,10 +28,10 @@
                     </form>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route ('index.create') }}">Inserisci appartamento</a>
-                </li>
-            @endif
+                @endif
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route (Auth::user() ? 'create' : 'login') }}">Inserisci appartamento</a>
+            </li>
         </ul>
         {{-- if per la ricerca --}}
         @if(!Route::is('login') && !Route::is('register'))
