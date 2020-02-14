@@ -1,5 +1,6 @@
 <?php
 
+use App\Apartment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,6 @@ Route::post('/user/index/{id}', 'UserController@update')-> name('index.update');
 
 
 //view test
-
-Route::view('/adv-search','components.adv-search');
+$apartments =Apartment::all();
+Route::view('/data','components.adv-search',compact('apartments'));
 

@@ -2,8 +2,8 @@
 
 @section('search')
 @include('components.header')
-@include('components.adv-search')
     <main>
+        @include('components.adv-search')
         @if($apartments->count()>0)
             <div class="d-flex flex-wrap justify-content-center" style="">
                 @foreach ($apartments as $apartment)

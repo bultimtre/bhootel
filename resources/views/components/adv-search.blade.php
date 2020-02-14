@@ -1,7 +1,5 @@
 @extends('layouts.base')
-@section('search')
-
-    <adv-search></adv-search>
-
-@endsection
+<div id="app" clss="text-center">
+<adv-search :apts='{{$apartments}}'></adv-search>
+</div>
 

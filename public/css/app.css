@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+.dark {
+  background-color: #343a40;
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -10885,6 +10889,10 @@ a.text-dark:focus {
 }
 
 main {
-  margin-top: 80px;
+  margin-top: 55px;
+}
+
+h1 {
+  margin: 0 !important;
 }
 

@@ -1,10 +1,5 @@
 window.Vue = require('vue');
-
-//components vue
-Vue.component(
-    'adv-search', require('./components/AdvanceSearch.vue')
-);
-
+Vue.component('adv-search', require('./components/AdvanceSearch.vue').default);
 const app = new Vue({
     el: '#app',
 });
