@@ -60,11 +60,9 @@ class UserController extends Controller
      */
     public function store(Request $request) {
 
-        // $dataAll = $request -> all();
-        // dd($dataAll); //Debug not working with ajax call
-
+        // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
-            'imagefile' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -76,15 +74,20 @@ class UserController extends Controller
             'configs_id' => 'nullable|array|exists:configs,id',
             'show' => 'required|integer|min:0|max:1'
         ]);
-
+            
         if ($validateApartmentData) {
-            $file = $request->file('imagefile');
+            
+            if (isset($validateApartmentData['imagefile'])) {
+                
 
-            $filename = $file -> getClientOriginalName();
-            $file -> move('images/user/'. Auth::user()->name, $filename);
-            //save image path db da verificare
-            $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
-            $validateApartmentData['image'] = $imageFilePath;
+                $file = $request->file('imagefile');
+                $filename = $file -> getClientOriginalName();
+                $file -> move('images/user/'. Auth::user()->name, $filename);
+                //save image path db da verificare
+                $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
+                $validateApartmentData['image'] = $imageFilePath;
+            }
+            
             //creo Appartamento e lo associo allo user
             $user = Auth::user();
             $apartment = Apartment::make($validateApartmentData);
@@ -95,16 +98,14 @@ class UserController extends Controller
                 $configs = Config::find($validateApartmentData['configs_id']);
                 $apartment -> configs() -> attach($configs);
             }
-
+            
             return Response()->json([
                 "success" => true,
-                "imagefile" => $filename,
-                "description" => $validateApartmentData['description'],
-                "configs_id" => $validateApartmentData['configs_id'],
-                "show" => $validateApartmentData['show']
+                "description" => $validateApartmentData['description']
             ]);
 
         }
+        
 
         return Response()->json([
                 "success" => false,

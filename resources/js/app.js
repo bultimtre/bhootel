@@ -40,15 +40,22 @@ var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 function getCoordByAddress(e) {
     e.preventDefault();
     console.log('data submit');
-    var formData = new FormData(this);
-    // Display the key/value pairs
-    for (var pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
+    // var formData = new FormData(this);
+    var formData = new FormData($(this)[0]);  //potrebbe risolvere un tipo di errore
+    console.log('is image: ', formData.has('imagefile'));
+    if (formData.get('imagefile').size == 0) {
+        formData.delete('imagefile');  // cancella file immagine vuoto
     }
-
+    // Display the key/value pairs
+    // for (var pair of formData.entries()) {
+    //     console.log(pair[0] + ', ' + pair[1]);
+    // }
+    // Display formData values
+    // for (var pair of formData.values()) {
+    //     console.log(pair);
+    // }
     var address = $('#apart-address').serialize().split('=')[1];
-    // var address = $('#apart-address').val().replace(/\s/g, "%20"); //refactor da serialize ARr
-    // console.log('serialize address: ', address);
+    // var address = $('#apart-address').val().replace(/\s/g, "%20"); //alt vers
     var apartUrl = "https://api.tomtom.com/search/2/geocode/" + address + ".json?limit=1&key=" + api_key;
     console.log(apartUrl);
     $.ajax({
@@ -87,7 +94,7 @@ function addNewApart(formData) {
         ,
         success: function (data) {
             console.log("data", data);
-            window.location.href = 'http://localhost:8000/user/index/'; //redirect finito create
+            // window.location.href = 'http://localhost:8000/user/index/'; //redirect finito create
         },
         cache: false,
         contentType: false,

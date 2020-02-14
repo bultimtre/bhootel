@@ -52017,35 +52017,25 @@ var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'); //Refers to form 
 
 function getCoordByAddress(e) {
   e.preventDefault();
-  console.log('data submit');
-  var formData = new FormData(this); // Display the key/value pairs
+  console.log('data submit'); // var formData = new FormData(this);
 
-  var _iteratorNormalCompletion = true;
-  var _didIteratorError = false;
-  var _iteratorError = undefined;
+  var formData = new FormData($(this)[0]); //potrebbe risolvere un tipo di errore
 
-  try {
-    for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-      var pair = _step.value;
-      console.log(pair[0] + ', ' + pair[1]);
-    }
-  } catch (err) {
-    _didIteratorError = true;
-    _iteratorError = err;
-  } finally {
-    try {
-      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-        _iterator["return"]();
-      }
-    } finally {
-      if (_didIteratorError) {
-        throw _iteratorError;
-      }
-    }
-  }
+  console.log('is image: ', formData.has('imagefile'));
 
-  var address = $('#apart-address').serialize().split('=')[1]; // var address = $('#apart-address').val().replace(/\s/g, "%20"); //refactor da serialize ARr
-  // console.log('serialize address: ', address);
+  if (formData.get('imagefile').size == 0) {
+    formData["delete"]('imagefile'); // cancella file immagine vuoto
+  } // Display the key/value pairs
+  // for (var pair of formData.entries()) {
+  //     console.log(pair[0] + ', ' + pair[1]);
+  // }
+  // Display formData values
+  // for (var pair of formData.values()) {
+  //     console.log(pair);
+  // }
+
+
+  var address = $('#apart-address').serialize().split('=')[1]; // var address = $('#apart-address').val().replace(/\s/g, "%20"); //alt vers
 
   var apartUrl = "https://api.tomtom.com/search/2/geocode/" + address + ".json?limit=1&key=" + api_key;
   console.log(apartUrl);
@@ -52084,8 +52074,7 @@ function addNewApart(formData) {
     },
     data: formData,
     success: function success(data) {
-      console.log("data", data);
-      window.location.href = 'http://localhost:8000/user/index/'; //redirect finito create
+      console.log("data", data); // window.location.href = 'http://localhost:8000/user/index/'; //redirect finito create
     },
     cache: false,
     contentType: false,
