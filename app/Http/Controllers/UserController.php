@@ -86,6 +86,8 @@ class UserController extends Controller
                 //save image path db da verificare
                 $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
                 $validateApartmentData['image'] = $imageFilePath;
+            } else {
+                $validateApartmentData['image'] = 'images/user/default-apart.jpg';
             }
             
             //creo Appartamento e lo associo allo user
