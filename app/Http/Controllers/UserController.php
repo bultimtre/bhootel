@@ -159,6 +159,6 @@ class UserController extends Controller
         $apartment->configs()->sync([]);
         $apartment->delete();
 
-        return redirect()->route('index.index');
+        return redirect()->route('index.index');// nuova modifica
     }
 }
