@@ -69,11 +69,12 @@ class UserController extends Controller
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
             'lon' => 'nullable|numeric|between:-90,180',
-            'rooms' => 'required|numeric|max:200',
-            'beds' => 'required|numeric|max:200',
-            'bath' => 'required|numeric|max:200',
-            'square_mt' => 'required|numeric|max:10000',
-            'configs_id' => 'nullable|array|exists:configs,id'
+            'rooms' => 'required|integer|max:200',
+            'beds' => 'required|integer|max:200',
+            'bath' => 'required|integer|max:200',
+            'square_mt' => 'required|integer|max:10000',
+            'configs_id' => 'nullable|array|exists:configs,id',
+            'show' => 'required|integer|min:0|max:1'
         ]);
 
         if ($validateApartmentData) {
@@ -99,7 +100,8 @@ class UserController extends Controller
                 "success" => true,
                 "imagefile" => $filename,
                 "description" => $validateApartmentData['description'],
-                "configs_id" => $validateApartmentData['configs_id']
+                "configs_id" => $validateApartmentData['configs_id'],
+                "show" => $validateApartmentData['show']
             ]);
 
         }
