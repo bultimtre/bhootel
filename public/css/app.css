@@ -10888,3 +10888,26 @@ main {
   margin-top: 80px;
 }
 
+.apt {
+  margin: 10px;
+  padding: 5px;
+  background-color: #c7c2c2;
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.apt .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.apt:hover {
+  text-decoration: none;
+}
+
+.apt img {
+  height: 100%;
+}
+

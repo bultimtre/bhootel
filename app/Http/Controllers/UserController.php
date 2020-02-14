@@ -19,7 +19,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this -> middleware('auth');
     }
     public function index()
     {
@@ -29,7 +29,7 @@ class UserController extends Controller
     }
     public function search(Request $request)
     {
-        $data = $request ->all();
+        $data = $request -> all();
         $result = strtolower($data['search_field']);
         $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
         return view('pages.search',compact('apartments', 'result'));
@@ -158,5 +158,17 @@ class UserController extends Controller
         $apartment->delete();
 
         return redirect()->route('index.index');
+    }
+
+
+
+
+
+    public function userPanel()
+    {
+        $user = Auth::user();
+        $apartments = $user -> apartments() -> get();
+
+        return view('pages.user.user-panel', compact('apartments'));
     }
 }

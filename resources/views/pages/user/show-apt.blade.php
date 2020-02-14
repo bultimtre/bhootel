@@ -70,16 +70,22 @@
 
 </div>
 <hr>
-{{-- <div class="d-flex flex-wrap mt-3">
+
+<div class="d-flex flex-wrap mt-3">
     <div class="col-12 p-5">
         <h3>Posizione dell'appartamento</h3>
         <p>{{$apartment -> address}}</p>
-        <p>MAPPA QUI?</p>
+        <img class="map-img" src="" alt="apart-map">
+        <div id="apart-map">
+            <div class="data-lat" data-lat="{{ $apartment -> lat }}"></div>
+            <div class="data-lon" data-lon="{{ $apartment -> lon }}"></div>
+        </div>
     </div>
-</div> --}}
+</div>
 
-
-</main>
 {{-- mettere le statistiche --}}
+@if (Auth::user() -> id == $apartment -> user -> id)
+@endif
+</main>
 @include('components.footer')
 @endsection

@@ -11,6 +11,7 @@
 	<body>
 		@yield('guest_index')
 		@yield('search')
+		@yield('user-panel')
 		@yield('login')
 		@yield('register')
 		@yield('apt-show')

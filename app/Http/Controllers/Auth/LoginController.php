@@ -29,7 +29,7 @@ class LoginController extends Controller
     // protected $redirectTo = RouteServiceProvider::HOME;
 
      //temp route
-    protected $redirectTo = '/user/index/';
+    protected $redirectTo = '/user/user-panel/';
 
     /**
      * Create a new controller instance.
