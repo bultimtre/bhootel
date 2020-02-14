@@ -5,6 +5,8 @@
  */
 
 require('./bootstrap');
+// import parsleyjs for front-end validation
+require('parsleyjs');
 
 window.Vue = require('vue');
 
@@ -37,7 +39,7 @@ var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 //Refers to form http://localhost:8000/user/aparts/create
 function getCoordByAddress(e) {
     e.preventDefault();
-
+    console.log('data submit');
     var formData = new FormData(this);
     // Display the key/value pairs
     for (var pair of formData.entries()) {
@@ -53,19 +55,15 @@ function getCoordByAddress(e) {
         url: apartUrl,
         method: "GET",
         success: function (data) {
-            if (data.results) {
-                console.log("data", data.results[0]);
+            console.log('data', data);
+            if (data.results.length != 0) {
+                var position = data.results[0].position;
+                var lat = position.lat;
+                var lon = position.lon;
+                formData.append('lat', lat);
+                formData.append('lon', lon);
             }
-            // console.log("data: ", data);
-            var position = data.results[0].position;
-            var lat = position.lat;
-            var lon = position.lon;
-            formData.append('lat', lat);
-            formData.append('lon', lon);
-            // Display the key/value pairs
-            // for (var pair of formData.entries()) {
-            //     console.log(pair[0] + ', ' + pair[1]);
-            // }
+
             addNewApart(formData);
         },
         error: function (error) {
@@ -120,6 +118,43 @@ function getApartMap() {
 }
 
 function init() {
+
+    $('#addApartForm').parsley();
+
+    // $('.form-control').parsley().on('field:error', function() {
+    //     $('.create-apartment').removeClass('btn-primary').addClass('btn-warning');
+
+    // });
+
+    // $.listen('parsley:field:error', function (ParsleyField) {
+    //     ParsleyField.$element.addClass('is-invalid');
+    // });
+
+    // $.listen('parsley:field:success', function (ParsleyField) {
+    //     ParsleyField.$element.removeClass('is-invalid');
+    // });
+
+    $('#addApartForm').parsley().on('field:error', function(ParsleyField) {
+        ParsleyField.$element.addClass('is-invalid');
+        console.log('fired error');
+    });
+    $('#addApartForm').parsley().on('field:success', function(ParsleyField) {
+        ParsleyField.$element.removeClass('is-invalid');
+    });
+    var $createApart = $('#create-apartment');
+    $('#addApartForm').parsley().on('field:error', function (ParsleyField) {
+
+        if ($createApart.hasClass('btn-primary')) {
+            $('#create-apartment').removeClass('btn-primary').addClass('btn-danger');
+        }
+    });
+
+    $('#addApartForm').parsley().on('field:success', function () {
+
+        if ($createApart.hasClass('btn-danger')) {
+            $('#create-apartment').removeClass('btn-danger').addClass('btn-primary');
+        }
+    });
 
     $('#addApartForm').submit(getCoordByAddress);
 

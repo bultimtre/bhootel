@@ -19,20 +19,33 @@
 
           <div class="form-group">
               <label for="description">Title</label>
-              <input value="" id="apart-title" class="form-control" name="description" type="text" placeholder="Inserisci un titolo" />
+              <input value="" id="apart-title" class="form-control" name="description" type="text" placeholder="Inserisci un titolo"
+              required data-parsley-maxlength="850" data-parsley-trigger="keyup"/>
           </div>
           <div class="form-group">
               <label for="address">Address</label>
-              <input value="" id="apart-address" class="form-control" name="address" type="text" placeholder="Inserisci un indirizzo" />
+              <input value="" id="apart-address" class="form-control" name="address" type="text" placeholder="Inserisci un indirizzo"
+              required data-parsley-maxlength="255" data-parsley-trigger="keyup"/>
           </div>
+
+{{-- <form class="was-validated">
+  <div class="mb-3">
+    <label for="validationTextarea">Textarea</label>
+    <textarea class="form-control is-invalid" id="validationTextarea" placeholder="Required example textarea" required></textarea>
+    <div class="invalid-feedback">
+      Please enter a message in the textarea.
+    </div>
+  </div> --}}
 
           <div class="form-group">
               <label for="rooms">rooms</label>
-              <input value="" id="apart-rooms" class="form-control" name="rooms" type="text" placeholder="Inserisci un indirizzo" />
+              <input value="" id="apart-rooms" class="form-control" name="rooms" type="text" placeholder="Inserisci un indirizzo"
+              required data-parsley-type="integer" data-parsley-range="[1, 200]" data-parsley-trigger="keyup" />
           </div>
           <div class="form-group">
               <label for="beds">beds</label>
-              <input value="" id="apart-beds" class="form-control" name="beds" type="text" placeholder="Inserisci un indirizzo" />
+              <input value="" id="apart-beds" class="form-control" name="beds" type="text" placeholder="Inserisci un indirizzo"
+              required data-parsley-type="integer" data-parsley-range="[1, 200]" data-parsley-trigger="keyup" />
           </div>
           <div class="form-group">
               <label for="bath">bath</label>
@@ -46,8 +59,8 @@
           <div class="form-group">
             @foreach ($configs as $config)
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="config-check" name="configs_id[]" value="{{ $config->id }}">
-                    <label class="form-check-label" for="config-check">
+                    <input class="form-check-input" type="checkbox" name="configs_id[]" value="{{ $config->id }}">
+                    <label class="form-check-label">
                         {{ $config->service }}
                     </label>
                 </div>
@@ -71,4 +84,5 @@
 
     </div>
   </div>
+
 @endsection
