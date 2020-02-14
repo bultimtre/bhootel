@@ -52114,15 +52114,15 @@ function formApartValidation() {
   $('.addApartForm').parsley().on('field:success', function (ParsleyField) {
     ParsleyField.$element.removeClass('is-invalid');
   });
-  var $createApart = $('#create-apartment');
-  $('.addApartForm').parsley().on('field:error', function (ParsleyField) {
+  var $createApart = $('.apartment-submit');
+  $('.addApartForm').parsley().on('field:error', function () {
     if ($createApart.hasClass('btn-primary')) {
-      $('#create-apartment').removeClass('btn-primary').addClass('btn-danger');
+      $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
     }
   });
   $('.addApartForm').parsley().on('field:success', function () {
     if ($createApart.hasClass('btn-danger')) {
-      $('#create-apartment').removeClass('btn-danger').addClass('btn-primary');
+      $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
     }
   });
 }

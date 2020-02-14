@@ -76,7 +76,7 @@
           </div>
 
           <div class="form-group">
-              <input type="submit" class="btn btn-primary" value="Aggiorna"/>
+              <input type="submit" class="btn btn-primary apartment-submit" value="Aggiorna"/>
           </div>
         </form>
       </div>
