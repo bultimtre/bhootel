@@ -8,8 +8,8 @@ use Illuminate\Support\Str;
 use App\Stat;
 
 
-$factory->define(Stat::class, function (Faker $faker) {
-    return [
-        'stats' => rand(1, 3)
-    ];
-});
+// $factory->define(Stat::class, function (Faker $faker) {
+//     return [
+//         'stats' => rand(1, 3)
+//     ];
+// });
