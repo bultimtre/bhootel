@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Apartment extends Model
 {
@@ -43,5 +44,18 @@ class Apartment extends Model
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    public function viewsCount($request, $id, $apartment) {
+            if (Auth::id() !== $apartment -> user -> id) {
+            //implementing view counter with sessions
+            $apartKey = 'apart_' .$id;
+
+            if(!$request->session()->has($apartKey)) {
+                $request->session()->put('apart_' .$id, 1);
+                //update view counter apartment
+                $apartment->increment('views');
+            } 
+        }
     }
 }

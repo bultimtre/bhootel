@@ -28,3 +28,6 @@ Route::get('/user/apartment/{id}', 'UserController@show') -> name('user-apt.show
 Route::post('/user/index/{id}', 'UserController@update') -> name('index.update');
 
 Route::get('/user/user-panel', 'UserController@userPanel') -> name('user.user-panel');
+
+//testRoute only for session clear
+Route::get('/clear', 'TestSession@clearSession');

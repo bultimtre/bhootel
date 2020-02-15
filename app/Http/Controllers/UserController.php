@@ -34,8 +34,20 @@ class UserController extends Controller
         $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
         return view('pages.search',compact('apartments', 'result'));
     }
-    public function show($id)
+    // public function show($id)
+    // {
+        public function show(Request $request, $id)
     {
+        $apartment= Apartment::findOrFail($id);
+        //test
+        $apartment -> viewsCount($request, $id, $apartment);
+        return $apartment;
+        // if(Auth::id()) {
+        //     return Auth::id();
+        // } else {
+        //     return 'no id';
+        // }
+        //endtest
         $apartment= Apartment::findOrFail($id);
         return view('pages.user.show-apt',compact('apartment'));
     }
