@@ -72,10 +72,10 @@ class GuestController extends Controller
 
         // $value = $request->session()->all();
         // return $value;
-        return $apartment;
+        // return $apartment;
 
         // $apartment= Apartment::findOrFail($id);
-        // return view('pages.public.show-apt',compact('apartment'));
+        return view('pages.public.show-apt',compact('apartment'));
     }
 
 

@@ -154,6 +154,10 @@ function formApartValidation() {
 
 function init() {
 
+    //map test
+
+
+    //end map test
     if ($('.addApartForm').length) {
 
        formApartValidation();

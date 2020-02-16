@@ -41,14 +41,14 @@ class UserController extends Controller
         $apartment= Apartment::findOrFail($id);
         //test
         $apartment -> viewsCount($request, $id, $apartment);
-        return $apartment;
+        // return $apartment;
         // if(Auth::id()) {
         //     return Auth::id();
         // } else {
         //     return 'no id';
         // }
         //endtest
-        $apartment= Apartment::findOrFail($id);
+        // $apartment= Apartment::findOrFail($id);
         return view('pages.user.show-apt',compact('apartment'));
     }
     /**

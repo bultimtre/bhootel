@@ -84,6 +84,7 @@
 </div>
 
 {{-- mettere le statistiche --}}
+<h2 class="view-count">Total Views: {{ $apartment -> views }}</h2>
 @if (Auth::user() -> id == $apartment -> user -> id)
 @endif
 </main>
