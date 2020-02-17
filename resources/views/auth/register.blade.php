@@ -68,6 +68,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+                                or
+                                <a href="{{route('bhootel.login','upr')}}">{{__('login')}}</a>
                             </div>
                         </div>
                     </form>
