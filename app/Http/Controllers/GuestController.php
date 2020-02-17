@@ -36,7 +36,7 @@ class GuestController extends Controller
     public function show($id)
     {
         $apartment= Apartment::findOrFail($id);
-        return view('pages.public.show-apt',compact('apartment'));
+        return view('pages.show',compact('apartment'));
     }
 
 
