@@ -5,7 +5,10 @@
  */
 
 require('./bootstrap');
-
+// import parsleyjs for front-end validation
+require('parsleyjs');
+//import validation
+require('./validation.js');
 window.Vue = require('vue');
 
 /**
@@ -37,35 +40,38 @@ var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 //Refers to form http://localhost:8000/user/aparts/create
 function getCoordByAddress(e) {
     e.preventDefault();
-
-    var formData = new FormData(this);
-    // Display the key/value pairs
-    for (var pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1]);
+    console.log('data submit');
+    // var formData = new FormData(this);
+    var formData = new FormData($(this)[0]);  //potrebbe risolvere un tipo di errore
+    console.log('is image: ', formData.has('imagefile'));
+    if (formData.get('imagefile').size == 0) {
+        formData.delete('imagefile');  // cancella file immagine vuoto
     }
-
+    // Display the key/value pairs
+    // for (var pair of formData.entries()) {
+    //     console.log(pair[0] + ', ' + pair[1]);
+    // }
+    // Display formData values
+    // for (var pair of formData.values()) {
+    //     console.log(pair);
+    // }
     var address = $('#apart-address').serialize().split('=')[1];
-    // var address = $('#apart-address').val().replace(/\s/g, "%20"); //refactor da serialize ARr
-    // console.log('serialize address: ', address);
+    // var address = $('#apart-address').val().replace(/\s/g, "%20"); //alt vers
     var apartUrl = "https://api.tomtom.com/search/2/geocode/" + address + ".json?limit=1&key=" + api_key;
     console.log(apartUrl);
     $.ajax({
         url: apartUrl,
         method: "GET",
         success: function (data) {
-            if (data.results) {
-                console.log("data", data.results[0]);
+            console.log('data', data);
+            if (data.results.length != 0) {
+                var position = data.results[0].position;
+                var lat = position.lat;
+                var lon = position.lon;
+                formData.append('lat', lat);
+                formData.append('lon', lon);
             }
-            // console.log("data: ", data);
-            var position = data.results[0].position;
-            var lat = position.lat;
-            var lon = position.lon;
-            formData.append('lat', lat);
-            formData.append('lon', lon);
-            // Display the key/value pairs
-            // for (var pair of formData.entries()) {
-            //     console.log(pair[0] + ', ' + pair[1]);
-            // }
+
             addNewApart(formData);
         },
         error: function (error) {
@@ -100,28 +106,35 @@ function addNewApart(formData) {
 function getApartMap() {
     var dataLat = $('.data-lat').attr("data-lat");
     var dataLon = $('.data-lon').attr("data-lon");
-    console.log('dataLat', dataLat, ' - dataLon', dataLon);
+    // console.log('dataLat', dataLat, ' - dataLon', dataLon);
+    if (dataLat && dataLon){
+        var map_obj = {
+            layer: 'basic',
+            style: 'main',
+            format: 'jpg',
+            center: parseFloat(dataLon).toFixed(6) + ', ' + parseFloat(dataLat).toFixed(6),
+            width: '512',
+            height: '512',
+            view: 'Unified',
+            key: api_key
+        };
+        var map_url = jQuery.param(map_obj);
 
-    var map_obj = {
-        layer: 'basic',
-        style: 'main',
-        format: 'jpg',
-        center: parseFloat(dataLon).toFixed(6) + ', ' + parseFloat(dataLat).toFixed(6),
-        width: '512',
-        height: '512',
-        view: 'Unified',
-        key: api_key
-    };
-    var map_url = jQuery.param(map_obj);
+        var api_map_url = 'https://api.tomtom.com/map/1/staticimage?' + map_url;
+        console.log(api_map_url);
+        $('.map-img').attr("src", api_map_url);
+    }
 
-    var api_map_url = 'https://api.tomtom.com/map/1/staticimage?' + map_url;
-    console.log(api_map_url);
-    $('.map-img').attr("src", api_map_url);
 }
 
 function init() {
 
-    $('#addApartForm').submit(getCoordByAddress);
+    if ($('.addApartForm').length) {
+
+       formApartValidation();
+    }
+
+    $('.addApartForm').submit(getCoordByAddress);
 
     if($('#apart-map').length) {
 

@@ -10911,3 +10911,7 @@ main {
   height: 100%;
 }
 
+.parsley-errors-list.filled {
+  color: #E3342F;
+}
+
