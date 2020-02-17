@@ -18,12 +18,12 @@ class UserController extends Controller
     }
 
 
-    // public function index()
-    // {
-    //     //return if logged
-    //     $apartments= Apartment::orderBy('id', 'DESC')->paginate(10);
-    //     return view('pages.index', compact('apartments'));
-    // }
+    /*  public function index()
+     {
+         //return if logged
+        $apartments= Apartment::orderBy('id', 'DESC')->paginate(10);
+        return view('pages.index', compact('apartments'));
+    } */
 
 
     public function search(Request $request)
@@ -44,10 +44,9 @@ class UserController extends Controller
 
     public function create()
     {
-
-        // return view('pages.user.create-apt', [
-        //     'configs' => Config::all()
-        // ]);
+        return view('pages.user.create-apt', [
+            'configs' => Config::all()
+         ]);
     }
 
 
@@ -124,9 +123,9 @@ class UserController extends Controller
         $apartment->update($data);
         $configs = Config::find(isset($data['configs_id']));
         $apartment->configs()->sync($configs);
-        
+
         return view('pages.user.show-apt', compact('apartment','configs'));
-        
+
     }
 
 
