@@ -15,6 +15,7 @@
         <div class="carousel-caption text-left" style="bottom:200px" >
             <h1>Vista sul Mare</h1>
             <p>Descrizione {{$apartment -> description}}</p>
+            {{-- @auth
             @if (Auth::user() -> id == $apartment -> user -> id) 
                 <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Modifica</a></p>
                 <form action=" {{route('index.destroy', $apartment->id)}} " method="POST">
@@ -25,6 +26,7 @@
             @else
                 <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Chiedi Informazioni</a></p>
             @endif
+            @endauth --}}
         </div>
         <div class="carousel-item active">
             <img class="first-slide" src="{{ $apartment -> image }}" alt="First slide">
@@ -84,8 +86,10 @@
 </div>
 
 {{-- mettere le statistiche --}}
+@auth
 @if (Auth::user() -> id == $apartment -> user -> id)
 @endif
+@endauth
 </main>
 @include('components.footer')
 @endsection
