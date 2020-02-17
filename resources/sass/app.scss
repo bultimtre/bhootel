@@ -6,3 +6,37 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+//styled scss
+@import 'main-container';
+
+//import tom tom maps css
+@import "@tomtom-international/web-sdk-maps";
+
+.apt {
+  margin: 10px;
+  padding: 5px;
+  background-color: rgb(199, 194, 194);
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  &:hover {
+  text-decoration: none;
+  }      
+
+  img {
+    height: 100%;
+  }
+}
+
+.parsley-errors-list.filled {
+  color: $error-field;
+}

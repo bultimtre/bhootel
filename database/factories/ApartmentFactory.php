@@ -18,7 +18,6 @@ $factory->define(Apartment::class, function (Faker $faker) {
         'square_mt' => rand(50, 120),
         'lat' => $faker -> latitude($min = -90, $max = 90),
         'lon' => $faker -> longitude($min = -180, $max = 180),
-        'image' => $faker -> imageUrl($width = 400, $height = 200, 'city')
-         
+        'image' => 'https://source.unsplash.com/1920x1080/?interior'.rand(2, 1000)
     ];
 });
