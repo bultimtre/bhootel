@@ -33,7 +33,7 @@ class RegisterController extends Controller
 
     //temp route
     // protected $redirectTo = '/user/aparts/create';
-    protected $redirectTo = '/';
+    protected $redirectTo = '/user/user-panel';
 
     /**
      * Create a new controller instance.
