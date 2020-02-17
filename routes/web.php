@@ -38,7 +38,7 @@ Route::get('/user/edit-apt/{id}', 'UserController@edit') -> name('user-apt.edit'
 
 Route::get('/user/destroy-apt/{id}', 'UserController@destroy') -> name('user-apt.destroy');
 
-Route::post('/user/index/{id}', 'UserController@update') -> name('index.update'); ///what if
+Route::post('/user/update-apt/{id}', 'UserController@update') -> name('user-apt.update'); ///what if
 
 Route::get('/user/user-panel', 'UserController@userPanel') -> name('user.user-panel');
 

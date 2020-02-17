@@ -28,6 +28,7 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
+        dd();
         $data = $request -> all();
         $result = strtolower($data['search_field']);
         $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
@@ -44,7 +45,7 @@ class UserController extends Controller
 
     public function create()
     {
-        dd('path');
+        dd('test create');
         return view('pages.user.create-apt', [
             'configs' => Config::all()
          ]);
@@ -53,6 +54,7 @@ class UserController extends Controller
 
     public function store(Request $request) {
 
+        dd('test store');
         // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -109,15 +111,15 @@ class UserController extends Controller
     }
 
 
-    public function edit($id)
+    /* public function edit($id)
     {
         $apartment =Apartment::find($id);
         $configs=Config::all();
         return view('pages.user.update-apt',compact('apartment','configs'));
-    }
+    } */
 
 
-    public function update(Request $request, $id)
+    /* public function update(Request $request, $id)
     {
         dd($request);
         $data = $request->all();
@@ -128,11 +130,12 @@ class UserController extends Controller
 
         return view('pages.show', compact('apartment','configs'));
 
-    }
+    } */
 
 
     public function destroy($id)
     {
+        dd('test destroy');
         $apartment = Apartment::findOrFail($id);
         $apartment->configs()->sync([]);
         $apartment->delete();
