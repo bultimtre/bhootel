@@ -36,11 +36,20 @@ class UserController extends Controller
     }
 
 
-    public function show($id)
+    // public function show($id)
+    // {
+    //     $apartment= Apartment::findOrFail($id);
+    //     return view('pages.show',compact('apartment'));
+    // }
+
+    //nuova show per view count
+        public function show(Request $request, $id)
     {
         $apartment= Apartment::findOrFail($id);
+        $apartment -> viewsCount($request, $id, $apartment);
         return view('pages.show',compact('apartment'));
     }
+
 
 
     public function create()

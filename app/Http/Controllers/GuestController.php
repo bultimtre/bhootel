@@ -29,10 +29,55 @@ class GuestController extends Controller
         $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%')) -> get();
         return view('pages.search',compact('apartments', 'result'));
     }
-    //'guest-apt.show'
-    public function show($id)
+
+
+    // public function show($id)
+    // {
+    //     $apartment= Apartment::findOrFail($id);
+    //     return view('pages.show',compact('apartment'));
+    // }
+
+    //nuova show per view count
+    public function show(Request $request, $id)
     {
         $apartment= Apartment::findOrFail($id);
+        $apartment -> viewsCount($request, $id, $apartment);
         return view('pages.show',compact('apartment'));
+    }    
+
+
+    public function create()
+    {
+        // $this -> middleware('Auth');
+
+        return view('pages.user.create-apt', [
+            'configs' => Config::all()
+        ]);
     }
+
+
+    public function store(Request $request)
+    {
+        //
+    }
+
+
+    public function edit(User $user)
+    {
+        //
+    }
+
+
+    public function update(Request $request, User $user)
+    {
+        //
+    }
+
+
+    public function destroy(User $user)
+    {
+        //
+    }
+
+
 }

@@ -76,10 +76,11 @@
 
 <div class="d-flex flex-wrap mt-3">
     <div class="col-12 p-5">
+        <h2>View Count: {{$apartment -> views}}</h2>
         <h3>Posizione dell'appartamento</h3>
         <p>{{$apartment -> address}}</p>
-        <img class="map-img" src="" alt="apart-map">
-        <div id="apart-map">
+        {{-- Apartment MAP --}}
+        <div id="apart-map" style="height:500px; width:500px;">
             <div class="data-lat" data-lat="{{ $apartment -> lat }}"></div>
             <div class="data-lon" data-lon="{{ $apartment -> lon }}"></div>
         </div>
@@ -91,6 +92,7 @@
 @if (Auth::user() -> id == $apartment -> user -> id)
 @endif
 @endauth
+
 </main>
 @include('components.footer')
 @endsection
