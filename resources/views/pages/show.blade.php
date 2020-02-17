@@ -77,8 +77,8 @@
     <div class="col-12 p-5">
         <h3>Posizione dell'appartamento</h3>
         <p>{{$apartment -> address}}</p>
-        <img class="map-img" src="" alt="apart-map">
-        <div id="apart-map">
+        {{-- Apartment MAP --}}
+        <div id="apart-map" style="height:500px; width:500px;">
             <div class="data-lat" data-lat="{{ $apartment -> lat }}"></div>
             <div class="data-lon" data-lon="{{ $apartment -> lon }}"></div>
         </div>
@@ -90,24 +90,6 @@
 @if (Auth::user() -> id == $apartment -> user -> id)
 @endif
 @endauth
-                  <style>
-                #map {
-                  height: 500px;
-                  width: 500px;
-                }
-              </style>
-        <div id='map'></div>
-        <script>
-            var speedyPizzaCoordinates = [-121.91595, 37.36729];
-            var map = tt.map({
-                container: 'map',
-                key: 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh',
-                style: 'tomtom://vector/1/basic-main',
-                center: speedyPizzaCoordinates,
-                zoom: 15
-            });
-        </script>
-
 
 </main>
 @include('components.footer')

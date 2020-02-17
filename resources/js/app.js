@@ -11,6 +11,8 @@ require('parsleyjs');
 //require('./validation.js');
 window.Vue = require('vue');
 
+//import tom tom maps
+import tt from '@tomtom-international/web-sdk-maps';
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -132,43 +134,27 @@ function formApartValidation() {
 
 
   function getApartMap() {
+    var coords;
     var dataLat = $('.data-lat').attr("data-lat");
     var dataLon = $('.data-lon').attr("data-lon");
     // console.log('dataLat', dataLat, ' - dataLon', dataLon);
     if (dataLat && dataLon){
-        var map_obj = {
-            layer: 'basic',
-            style: 'main',
-            format: 'jpg',
-            center: parseFloat(dataLon).toFixed(6) + ', ' + parseFloat(dataLat).toFixed(6),
-            width: '512',
-            height: '512',
-            view: 'Unified',
-            key: api_key
-        };
-        var map_url = jQuery.param(map_obj);
+        coords = [dataLon, dataLat];
+        var map = tt.map({
+            container: 'apart-map',
+            key: api_key,
+            style: 'tomtom://vector/1/basic-main',
+            center: coords,
+            zoom: 15
+        });
 
-        var api_map_url = 'https://api.tomtom.com/map/1/staticimage?' + map_url;
-        console.log(api_map_url);
-        $('.map-img').attr("src", api_map_url);
+        var marker = new tt.Marker().setLngLat(coords).addTo(map);
     }
 
 }
 
 function init() {
 
-
-    //map test
-    // var speedyPizzaCoordinates = [-121.91595, 37.36729];
-    // var map = tt.map({
-    //     container: 'map',
-    //     key: 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh',
-    //     style: 'tomtom://vector/1/basic-main',
-    //     center: speedyPizzaCoordinates,
-    //     zoom: 15
-    // });
-
-    //end map test
 
     if ($('.addApartForm').length) {
 
