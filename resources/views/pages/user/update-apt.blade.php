@@ -11,7 +11,7 @@
 
       </div>
       <div class="col-12">
-        <form action="{{ route('user-apt.update', $apartment->id) }}" class="addApartForm" method="post" enctype="multipart/form-data">
+        <form action="{{ route('user-apt.update', $apartment->id) }}" class="addApartmentForm" method="post" enctype="multipart/form-data">
             @csrf
             @method('POST')
           <div class="form-group">

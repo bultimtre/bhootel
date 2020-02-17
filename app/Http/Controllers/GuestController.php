@@ -14,16 +14,14 @@ class GuestController extends Controller
     {
         $this -> middleware('guest') -> except(['login','index']);
     }
-
-
+    //'indx'
     public function index()
     {
         $users = User::all();
         $apartments = Apartment::orderBy('id', 'DESC') -> paginate(10);
         return view('pages.index',compact('users','apartments'));
     }
-
-
+    //'search'
     public function search(Request $request)
     {
         $data = $request -> all();
@@ -31,25 +29,10 @@ class GuestController extends Controller
         $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%')) -> get();
         return view('pages.search',compact('apartments', 'result'));
     }
-
-
+    //'guest-apt.show'
     public function show($id)
     {
         $apartment= Apartment::findOrFail($id);
         return view('pages.show',compact('apartment'));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

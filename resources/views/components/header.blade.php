@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="{{route('index') }}">BHOOTEL</a>
+    <a class="navbar-brand" href="{{route('all.index') }}">BHOOTEL</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,7 +41,6 @@
 
         </ul>
         {{-- GUEST/UPR/UPRA --}}
-
         <form class="form-inline mt-2 mt-md-0" action="{{route(Auth::user()?'user.search':'guest.search')}}" method="post">
             @csrf
             @method('POST')
@@ -51,10 +50,6 @@
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> Cerca </button>
         </form>
         @endif
-        {{-- <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> --}}
-
     </div>
 </nav>
+
