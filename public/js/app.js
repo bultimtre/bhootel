@@ -51989,7 +51989,9 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // import parsleyjs for front-end validation
 
 
-__webpack_require__(/*! parsleyjs */ "./node_modules/parsleyjs/dist/parsley.js");
+__webpack_require__(/*! parsleyjs */ "./node_modules/parsleyjs/dist/parsley.js"); //import validation
+//require('./validation.js');
+
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
@@ -52066,7 +52068,7 @@ function getCoordByAddress(e) {
 
 function addNewApart(formData) {
   $.ajax({
-    url: "http://localhost:8000/user/index",
+    url: "http://localhost:8000/user/store",
     enctype: 'multipart/form-data',
     type: "POST",
     headers: {
@@ -52075,12 +52077,34 @@ function addNewApart(formData) {
     data: formData,
     success: function success(data) {
       console.log("data", data);
-      window.location.href = 'http://localhost:8000/user/index/'; //redirect finito create
+      window.location.href = 'http://localhost:8000'; //redirect finito create
     },
     cache: false,
     contentType: false,
     processData: false
   });
+}
+
+function formApartValidation() {
+  $('.addApartForm').parsley();
+  $('.addApartForm').parsley().on('field:error', function (ParsleyField) {
+    ParsleyField.$element.addClass('is-invalid');
+    console.log('fired error');
+  });
+  $('.addApartForm').parsley().on('field:success', function (ParsleyField) {
+    ParsleyField.$element.removeClass('is-invalid');
+  });
+  var $createApart = $('.apartment-submit');
+  $('.addApartForm').parsley().on('form:error', function () {
+    if ($createApart.hasClass('btn-primary')) {
+      $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
+    }
+  });
+  $('.addApartForm').parsley().on('field:success', function () {
+    if ($createApart.hasClass('btn-danger')) {
+      $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
+    }
+  }); //comm
 }
 
 function getApartMap() {
@@ -52103,28 +52127,6 @@ function getApartMap() {
     console.log(api_map_url);
     $('.map-img').attr("src", api_map_url);
   }
-}
-
-function formApartValidation() {
-  $('.addApartForm').parsley();
-  $('.addApartForm').parsley().on('field:error', function (ParsleyField) {
-    ParsleyField.$element.addClass('is-invalid');
-    console.log('fired error');
-  });
-  $('.addApartForm').parsley().on('field:success', function (ParsleyField) {
-    ParsleyField.$element.removeClass('is-invalid');
-  });
-  var $createApart = $('.apartment-submit');
-  $('.addApartForm').parsley().on('form:error', function () {
-    if ($createApart.hasClass('btn-primary')) {
-      $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
-    }
-  });
-  $('.addApartForm').parsley().on('field:success', function () {
-    if ($createApart.hasClass('btn-danger')) {
-      $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
-    }
-  });
 }
 
 function init() {
@@ -52276,8 +52278,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
