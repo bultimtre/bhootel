@@ -85,9 +85,11 @@ function getCoordByAddress(e) {
 }
 // send Apartment data with coord to UserApartmentsController@store
 function addNewApart(formData) {
-
+    var urlStore = "http://localhost:8000/user/store";
+    var urlUpdate = "http://localhost:8000/user/update-apt/";
+    var url = formData.has('id') ? urlUpdate : urlStore;
     $.ajax({
-        url: "http://localhost:8000/user/store",
+        url: url,
         enctype: 'multipart/form-data',
         type: "POST",
         headers: {

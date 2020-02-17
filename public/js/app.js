@@ -52085,8 +52085,11 @@ function getCoordByAddress(e) {
 
 
 function addNewApart(formData) {
+  var urlStore = "http://localhost:8000/user/store";
+  var urlUpdate = "http://localhost:8000/user/update-apt/";
+  var url = formData.has('id') ? urlUpdate : urlStore;
   $.ajax({
-    url: "http://localhost:8000/user/store",
+    url: url,
     enctype: 'multipart/form-data',
     type: "POST",
     headers: {
@@ -52292,8 +52295,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
