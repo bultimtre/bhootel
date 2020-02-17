@@ -28,6 +28,7 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
+        dd();
         $data = $request -> all();
         $result = strtolower($data['search_field']);
         $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
@@ -53,6 +54,7 @@ class UserController extends Controller
 
     public function create()
     {
+
         return view('pages.user.create-apt', [
             'configs' => Config::all()
          ]);
@@ -60,6 +62,7 @@ class UserController extends Controller
 
 
     public function store(Request $request) {
+
 
         // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
@@ -75,11 +78,11 @@ class UserController extends Controller
             'configs_id' => 'nullable|array|exists:configs,id',
             'show' => 'required|integer|min:0|max:1'
         ]);
-            
+
         if ($validateApartmentData) {
-            
+
             if (isset($validateApartmentData['imagefile'])) {
-                
+
 
                 $file = $request->file('imagefile');
                 $filename = $file -> getClientOriginalName();
@@ -90,7 +93,7 @@ class UserController extends Controller
             } else {
                 $validateApartmentData['image'] = 'images/user/default-apart.jpg';
             }
-            
+
             //creo Appartamento e lo associo allo user
             $user = Auth::user();
             $apartment = Apartment::make($validateApartmentData);
@@ -101,14 +104,14 @@ class UserController extends Controller
                 $configs = Config::find($validateApartmentData['configs_id']);
                 $apartment -> configs() -> attach($configs);
             }
-            
+
             return Response()->json([
                 "success" => true,
                 "description" => $validateApartmentData['description']
             ]);
 
         }
-        
+
 
         return Response()->json([
                 "success" => false,
@@ -127,13 +130,14 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        //dd($request);
         $data = $request->all();
         $apartment = Apartment::findOrFail($id);
         $apartment->update($data);
         $configs = Config::find(isset($data['configs_id']));
         $apartment->configs()->sync($configs);
 
-        return view('pages.user.show-apt', compact('apartment','configs'));
+        return view('pages.show', compact('apartment','configs'));
 
     }
 
@@ -144,7 +148,7 @@ class UserController extends Controller
         $apartment->configs()->sync([]);
         $apartment->delete();
 
-        return redirect()->route('index.index');// nuova modifica
+        return redirect()->route('all.index');// nuova modifica
     }
 
 

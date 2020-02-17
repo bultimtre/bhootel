@@ -11,7 +11,7 @@
 
       </div>
       <div class="col-12">
-        <form action="{{ route('index.update', $apartment->id) }}" class="addApartForm" method="post" enctype="multipart/form-data">
+        <form action="{{ route('user-apt.update', $apartment->id) }}" class="addApartmentForm" method="post" enctype="multipart/form-data">
             @csrf
             @method('POST')
           <div class="form-group">
@@ -33,26 +33,26 @@
           <div class="form-group">
               <label for="rooms">rooms</label>
               <input value="{{$apartment->rooms}}" id="apart-rooms" class="form-control" name="rooms" type="text" placeholder="Inserisci il numero di stanze"
-              required data-parsley-type="integer" data-parsley-range="[1, 200]" data-parsley-trigger="keyup" 
-              data-parsley-range-message="exceed the maximum limit" />              
+              required data-parsley-type="integer" data-parsley-range="[1, 200]" data-parsley-trigger="keyup"
+              data-parsley-range-message="exceed the maximum limit" />
           </div>
           <div class="form-group">
               <label for="beds">beds</label>
               <input value="{{$apartment->beds}}" id="apart-beds" class="form-control" name="beds" type="text" placeholder="Inserisci il numero di letti"
-              required data-parsley-type="integer" data-parsley-range="[1, 200]" data-parsley-trigger="keyup" 
+              required data-parsley-type="integer" data-parsley-range="[1, 200]" data-parsley-trigger="keyup"
               data-parsley-range-message="exceed the maximum limit" />
           </div>
           <div class="form-group">
               <label for="bath">bath</label>
               <input value="{{$apartment->bath}}" id="apart-bath" class="form-control" name="bath" type="text" placeholder="Inserisci il numero di bagni"
-              required data-parsley-type="integer" data-parsley-range="[1, 200]" data-parsley-trigger="keyup" 
-              data-parsley-range-message="exceed the maximum limit" />     
+              required data-parsley-type="integer" data-parsley-range="[1, 200]" data-parsley-trigger="keyup"
+              data-parsley-range-message="exceed the maximum limit" />
           </div>
           <div class="form-group">
               <label for="square_mt">square_mt</label>
               <input value="{{$apartment->square_mt}}" id="apart-square_mt" class="form-control" name="square_mt" type="text" placeholder="Inserisci i metri quadrati"
-              required data-parsley-type="integer" data-parsley-range="[1, 10000]" data-parsley-trigger="keyup" 
-              data-parsley-range-message="exceed the maximum limit" />      
+              required data-parsley-type="integer" data-parsley-range="[1, 10000]" data-parsley-trigger="keyup"
+              data-parsley-range-message="exceed the maximum limit" />
           </div>
 
           <div class="form-group">
