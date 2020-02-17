@@ -38,4 +38,7 @@ Route::post('/user/index/{id}', 'UserController@update') -> name('index.update')
 
 Route::get('/user/user-panel', 'UserController@userPanel') -> name('user.user-panel');
 
+// Clear Session for Testing view count
+Route::get('/clear', 'ClearSessionController@clearSession');
+
 
