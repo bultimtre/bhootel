@@ -52130,6 +52130,16 @@ function getApartMap() {
 }
 
 function init() {
+  //map test
+  // var speedyPizzaCoordinates = [-121.91595, 37.36729];
+  // var map = tt.map({
+  //     container: 'map',
+  //     key: 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh',
+  //     style: 'tomtom://vector/1/basic-main',
+  //     center: speedyPizzaCoordinates,
+  //     zoom: 15
+  // });
+  //end map test
   if ($('.addApartForm').length) {
     formApartValidation();
   }

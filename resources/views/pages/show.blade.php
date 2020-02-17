@@ -90,6 +90,25 @@
 @if (Auth::user() -> id == $apartment -> user -> id)
 @endif
 @endauth
+                  <style>
+                #map {
+                  height: 500px;
+                  width: 500px;
+                }
+              </style>
+        <div id='map'></div>
+        <script>
+            var speedyPizzaCoordinates = [-121.91595, 37.36729];
+            var map = tt.map({
+                container: 'map',
+                key: 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh',
+                style: 'tomtom://vector/1/basic-main',
+                center: speedyPizzaCoordinates,
+                zoom: 15
+            });
+        </script>
+
+
 </main>
 @include('components.footer')
 @endsection
