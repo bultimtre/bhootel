@@ -51990,9 +51990,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // import
 
 
 __webpack_require__(/*! parsleyjs */ "./node_modules/parsleyjs/dist/parsley.js"); //import validation
+//require('./validation.js');
 
-
-__webpack_require__(/*! ./validation.js */ "./resources/js/validation.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
@@ -52069,7 +52068,7 @@ function getCoordByAddress(e) {
 
 function addNewApart(formData) {
   $.ajax({
-    url: "http://localhost:8000/user/index",
+    url: "http://localhost:8000/user/store",
     enctype: 'multipart/form-data',
     type: "POST",
     headers: {
@@ -52078,12 +52077,34 @@ function addNewApart(formData) {
     data: formData,
     success: function success(data) {
       console.log("data", data);
-      window.location.href = 'http://localhost:8000/user/index/'; //redirect finito create
+      window.location.href = 'http://localhost:8000'; //redirect finito create
     },
     cache: false,
     contentType: false,
     processData: false
   });
+}
+
+function formApartValidation() {
+  $('.addApartForm').parsley();
+  $('.addApartForm').parsley().on('field:error', function (ParsleyField) {
+    ParsleyField.$element.addClass('is-invalid');
+    console.log('fired error');
+  });
+  $('.addApartForm').parsley().on('field:success', function (ParsleyField) {
+    ParsleyField.$element.removeClass('is-invalid');
+  });
+  var $createApart = $('.apartment-submit');
+  $('.addApartForm').parsley().on('form:error', function () {
+    if ($createApart.hasClass('btn-primary')) {
+      $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
+    }
+  });
+  $('.addApartForm').parsley().on('field:success', function () {
+    if ($createApart.hasClass('btn-danger')) {
+      $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
+    }
+  }); //comm
 }
 
 function getApartMap() {
@@ -52236,37 +52257,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/validation.js":
-/*!************************************!*\
-  !*** ./resources/js/validation.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function formApartValidation() {
-  $('.addApartForm').parsley();
-  $('.addApartForm').parsley().on('field:error', function (ParsleyField) {
-    ParsleyField.$element.addClass('is-invalid');
-    console.log('fired error');
-  });
-  $('.addApartForm').parsley().on('field:success', function (ParsleyField) {
-    ParsleyField.$element.removeClass('is-invalid');
-  });
-  var $createApart = $('.apartment-submit');
-  $('.addApartForm').parsley().on('form:error', function () {
-    if ($createApart.hasClass('btn-primary')) {
-      $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
-    }
-  });
-  $('.addApartForm').parsley().on('field:success', function () {
-    if ($createApart.hasClass('btn-danger')) {
-      $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
-    }
-  }); //comm
-}
 
 /***/ }),
 

@@ -8,7 +8,7 @@ require('./bootstrap');
 // import parsleyjs for front-end validation
 require('parsleyjs');
 //import validation
-require('./validation.js');
+//require('./validation.js');
 window.Vue = require('vue');
 
 /**
@@ -85,7 +85,7 @@ function getCoordByAddress(e) {
 function addNewApart(formData) {
 
     $.ajax({
-        url: "http://localhost:8000/user/index",
+        url: "http://localhost:8000/user/store",
         enctype: 'multipart/form-data',
         type: "POST",
         headers: {
@@ -95,7 +95,7 @@ function addNewApart(formData) {
         ,
         success: function (data) {
             console.log("data", data);
-            window.location.href = 'http://localhost:8000/user/index/'; //redirect finito create
+            window.location.href = 'http://localhost:8000'; //redirect finito create
         },
         cache: false,
         contentType: false,
@@ -103,7 +103,35 @@ function addNewApart(formData) {
     });
 }
 
-function getApartMap() {
+function formApartValidation() {
+    $('.addApartForm').parsley();
+
+    $('.addApartForm').parsley().on('field:error', function (ParsleyField) {
+      ParsleyField.$element.addClass('is-invalid');
+      console.log('fired error');
+    });
+    $('.addApartForm').parsley().on('field:success', function (ParsleyField) {
+      ParsleyField.$element.removeClass('is-invalid');
+    });
+    var $createApart = $('.apartment-submit');
+    $('.addApartForm').parsley().on('form:error', function () {
+
+      if ($createApart.hasClass('btn-primary')) {
+        $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
+      }
+    });
+
+    $('.addApartForm').parsley().on('field:success', function () {
+
+      if ($createApart.hasClass('btn-danger')) {
+        $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
+      }
+    }); //comm
+  }
+
+
+
+  function getApartMap() {
     var dataLat = $('.data-lat').attr("data-lat");
     var dataLon = $('.data-lon').attr("data-lon");
     // console.log('dataLat', dataLat, ' - dataLon', dataLon);

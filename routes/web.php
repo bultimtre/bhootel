@@ -28,6 +28,8 @@ Auth::routes();
 
 Route::post('/user/search', 'UserController@search') -> name('user.search');
 
+Route::post('/user/store', 'UserController@store') -> name('user.store');
+
 Route::get('/user/apartment/{id}', 'UserController@show') -> name('user-apt.show');
 
 Route::get('/user/create-apt', 'UserController@create') -> name('user-apt.create');
