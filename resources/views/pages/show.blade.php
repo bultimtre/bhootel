@@ -25,7 +25,7 @@
                     <input type="submit" value="Elimina" class="btn btn-lg btn-danger">
                 </form>
             @else
-                <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Chiedi Informazioni</a></p>
+                <p><a class="btn btn-lg btn-primary" href="{{route('guest-apt.show', $apartment->id)}}" role="button">Chiedi Informazioni</a></p>
             @endif
             @endauth
         </div>
