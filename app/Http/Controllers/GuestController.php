@@ -40,38 +40,16 @@ class GuestController extends Controller
     }
 
 
-    public function create()
-    {
-        // $this -> middleware('Auth');
-
-        return view('pages.user.create-apt', [
-            'configs' => Config::all()
-        ]);
-    }
 
 
-    public function store(Request $request)
-    {
-        //
-    }
 
 
-    public function edit(User $user)
-    {
-        //
-    }
 
 
-    public function update(Request $request, User $user)
-    {
-        //
-    }
 
 
-    public function destroy(User $user)
-    {
-        //
-    }
+
+
 
 
 }
