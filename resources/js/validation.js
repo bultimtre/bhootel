@@ -21,5 +21,5 @@ function formApartValidation() {
     if ($createApart.hasClass('btn-danger')) {
       $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
     }
-  });
+  }); //comm
 }
