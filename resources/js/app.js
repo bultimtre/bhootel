@@ -111,36 +111,36 @@ function formApartValidation() {
     $('.addApartForm').parsley();
 
     $('.addApartForm').parsley().on('field:error', function (ParsleyField) {
-      ParsleyField.$element.addClass('is-invalid');
-      console.log('fired error');
+        ParsleyField.$element.addClass('is-invalid');
+        console.log('fired error');
     });
     $('.addApartForm').parsley().on('field:success', function (ParsleyField) {
-      ParsleyField.$element.removeClass('is-invalid');
+        ParsleyField.$element.removeClass('is-invalid');
     });
     var $createApart = $('.apartment-submit');
     $('.addApartForm').parsley().on('form:error', function () {
 
-      if ($createApart.hasClass('btn-primary')) {
-        $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
-      }
+        if ($createApart.hasClass('btn-primary')) {
+            $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
+        }
     });
 
     $('.addApartForm').parsley().on('field:success', function () {
 
-      if ($createApart.hasClass('btn-danger')) {
-        $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
-      }
+        if ($createApart.hasClass('btn-danger')) {
+            $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
+        }
     }); //comm
-  }
+}
 
 
 
-  function getApartMap() {
+function getApartMap() {
     var coords;
     var dataLat = $('.data-lat').attr("data-lat");
     var dataLon = $('.data-lon').attr("data-lon");
     // console.log('dataLat', dataLat, ' - dataLon', dataLon);
-    if (dataLat && dataLon){
+    if (dataLat && dataLon) {
         coords = [dataLon, dataLat];
         var map = tt.map({
             container: 'apart-map',
@@ -160,12 +160,12 @@ function init() {
 
     if ($('.addApartForm').length) {
 
-       formApartValidation();
+        formApartValidation();
     }
 
     $('.addApartForm').submit(getCoordByAddress);
 
-    if($('#apart-map').length) {
+    if ($('#apart-map').length) {
 
         getApartMap();
     }
