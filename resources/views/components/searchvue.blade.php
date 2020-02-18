@@ -21,7 +21,7 @@
                 <div class="d-flex justify-content-end">
                     <span>@{{ apartment.id}}</span>
                 </div>
-                <a class="btn btn-primary" :href="route_show"> Più informazioni</a>
+                <a class="btn btn-primary" :href="`http://localhost:8000/apartment/${apartment.id}`"> Più informazioni</a>
             </div>
           </div>
       </div>
