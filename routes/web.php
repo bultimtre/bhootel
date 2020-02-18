@@ -16,13 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 
 //GUEST ROUTES
-    Route::post('/search', 'GuestController@search') -> name('guest.search');
+    //SOSTITUITA DA SEARCH ROUTES
+    // Route::post('/search', 'GuestController@search') -> name('guest.search');
 
     Route::get('/apartment/{id}', 'GuestController@show') -> name('guest-apt.show');
 
 
 //-----------------------------------------------------//
-
+//SEARCH ROUTES
+    Route::post('/search/show', 'SearchController@show') -> name('search.show');
+    Route::post('/search', 'SearchController@search') -> name('search.search');
+//-----------------------------------------------------//
 
 ///USERS UPR UPRA
 

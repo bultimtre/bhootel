@@ -32,9 +32,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// const app = new Vue({
-//     el: '#app',
-// });
+
 
 var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -156,6 +154,10 @@ function formApartValidation() {
 }
 
 function init() {
+
+    var appSearch = new Vue({
+        el: '#app-search',
+    });
 
     if ($('.addApartForm').length) {
 

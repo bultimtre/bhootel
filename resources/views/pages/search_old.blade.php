@@ -26,16 +26,6 @@
             <p class="lead">Nessun appartamento trovato con "{{ $result }}"</p>
         </div>
         @endif
-      <div>ricerca fatta: {{ $search_field }}</div>
-    @include('components.searchvue')
-    <div id="app-search">
-
-      <h3>CENTER OF WORLD</h3>
-
-      <searchvue />
-    </div>  
-
-
     </main>
 @include('components.footer')
 @endsection

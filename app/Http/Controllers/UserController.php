@@ -25,15 +25,15 @@ class UserController extends Controller
         return view('pages.index', compact('apartments'));
     } */
 
-
-    public function search(Request $request)
-    {
-        dd();
-        $data = $request -> all();
-        $result = strtolower($data['search_field']);
-        $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
-        return view('pages.search',compact('apartments', 'result'));
-    }
+    //DA CANCELLARE SOSTITUITA NEL SEARCH CONTROLLER
+    // public function search(Request $request)
+    // {
+    //     dd();
+    //     $data = $request -> all();
+    //     $result = strtolower($data['search_field']);
+    //     $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
+    //     return view('pages.search',compact('apartments', 'result'));
+    // }
 
 
     // public function show($id)

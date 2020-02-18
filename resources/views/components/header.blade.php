@@ -41,7 +41,8 @@
 
         </ul>
         {{-- GUEST/UPR/UPRA --}}
-        <form class="form-inline mt-2 mt-md-0" action="{{route(Auth::user()?'user.search':'guest.search')}}" method="post">
+        {{-- SOSTITUITA DA CANC <form class="form-inline mt-2 mt-md-0" action="{{route(Auth::user()?'user.search':'guest.search')}}" method="post"> --}}
+        <form class="form-inline mt-2 mt-md-0" action="{{route('search.show')}}" method="post">
             @csrf
             @method('POST')
             <label for="search_field"></label>
