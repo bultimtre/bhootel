@@ -10,6 +10,7 @@ class PaymentsController extends Controller
     public function make(Request $request)
 {
     //dd($request);
+    
     $payload = $request->input('payload', false);
     $nonce = $payload['nonce'];
     $apartments= Apartment::all();
