@@ -12,7 +12,7 @@ require('parsleyjs');
 window.Vue = require('vue');
 
 //import tom tom maps
-import tt from '@tomtom-international/web-sdk-maps';
+//import tt from '@tomtom-international/web-sdk-maps';
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
