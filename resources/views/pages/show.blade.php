@@ -52,16 +52,22 @@
 
 </div>
 
+
 <form action="">
   <p>Seleziona la tua sponsorizzazione:</p>
-  <input type="radio" id="" name="" value="2.99">
-  <label for="male">2.99</label><br>
-  <input type="radio" id="" name="" value="">
-  <label for=""></label><br>
-  <input type="radio" id="" name="" value="">
-  <label for=""></label>
+<div class="form-group">
+    @foreach ($apartment -> ads  as $ad)
+        
+            <input  type="radio" name="ads_id[]" value="{{ $ad->id }}">
+            <label for="{{ $ad->id }}">
+                {{ $ad->price }}
+            </label>
+            <br>
+       
+    @endforeach
+</div>
 
-  <input type="submit" value="Submit">
+ <input type="submit" value="Submit">
 </form>
 
 <div class="d-flex flex-wrap mt-3">
