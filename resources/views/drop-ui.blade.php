@@ -13,8 +13,10 @@
 <div class='container'>
 <div class='row'>
 <div class='col-md-6 col-md-offset-4'>
+ <p>L'ammontare della tua sponsorizzazione è {{$ad[0]/100}}</p> 
 <div id='dropin-container'></div>
 <button id='submit-button'>Request payment method</button>
+
 </div>
 </div>
 </div>
@@ -26,7 +28,7 @@ container: '#dropin-container'
 }, function (createErr, instance) {
 button.addEventListener('click', function () {
 instance.requestPaymentMethod(function (err, payload) {
-$.get('{{ route('payment.make') }}', {payload}, function (response) {
+$.get('{{route('payment.make', '$ad[0]')}}', {payload}, function (response) {
 if (response.success) {
 alert('Payment successfull!');
 } else {

@@ -53,21 +53,23 @@
 </div>
 
 
-<form action="">
+<form action="{{route('dropin.payment', $apartment->id)}}" method="post">
+    @csrf
   <p>Seleziona la tua sponsorizzazione:</p>
 <div class="form-group">
-    @foreach ($apartment -> ads  as $ad)
-        
-            <input  type="radio" name="ads_id[]" value="{{ $ad->id }}">
-            <label for="{{ $ad->id }}">
-                {{ $ad->price }}
+   
+    @foreach ($ads  as $ad)
+
+            <input  type="radio" name="ads[]" value="{{ $ad->id }}">
+            <label for="{{ $ad->price }}">
+                [{{ $ad->id }}]-{{ $ad->price/100 }}
             </label>
             <br>
        
     @endforeach
 </div>
 
- <input type="submit" value="Submit">
+ <button type="submit">vai</button>
 </form>
 
 <div class="d-flex flex-wrap mt-3">

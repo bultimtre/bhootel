@@ -45,9 +45,12 @@ class UserController extends Controller
     //nuova show per view count
         public function show(Request $request, $id)
     {
+
         $apartment= Apartment::findOrFail($id);
+        $ads = Ad::all();
         $apartment -> viewsCount($request, $id, $apartment);
-        return view('pages.show',compact('apartment'));
+
+        return view('pages.show',compact('apartment','ads'));
     }
 
 
@@ -204,5 +207,17 @@ class UserController extends Controller
         $apartments = $user -> apartments() -> get();
 
         return view('pages.user.user-panel', compact('apartments'));
+    }
+
+     public function pay(Request $request,$id)
+    {
+        $data = $request -> all();
+        //dd($data);
+        //dovrei passare tutto l'oggetto e poi estrarre l'id
+        $ad= Ad::where('id', '=', $id)->get();
+        dd($ad);
+        $ad= $data['ads_id'];
+        //dd($ad);
+        return view('drop-ui',compact('ad'));
     }
 }

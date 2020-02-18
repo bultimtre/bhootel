@@ -55,8 +55,9 @@ Route::get('/apartment/{id}', 'GuestController@show')-> name('apartment.show');
 
 
 //braintree
-Route::view('/dropin','drop-ui');
+Route::post('/dropin/{id}','UserController@pay')->name('dropin.payment');
+
 Route::view('/hosted','hosted');
 //Route::get('/payment/make', 'PaymentsController@make')->name('payment.make');
-Route::post('/payment/make', 'PaymentsController@make')->name('payment.make');
+Route::get('/payment/make/{id}', 'PaymentsController@make')->name('payment.make');
 

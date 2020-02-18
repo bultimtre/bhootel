@@ -9,8 +9,18 @@ class PaymentsController extends Controller
 {
     public function make(Request $request)
 {
-    //dd($request);
-    
+       $data = $request -> all();
+        dd($data);
+
+        $ad = Ad::findOrFail($id);
+        $aparment = Apartment::make($data);
+        $apartment -> ad() -> associate($ad);
+        $apartment -> save();
+        
+        $ad = Task::find($data['ads']);
+      
+        $apartment -> ads() -> attach($ads);
+
     $payload = $request->input('payload', false);
     $nonce = $payload['nonce'];
     $apartments= Apartment::all();
