@@ -6,6 +6,9 @@
     <input type="text" v-model="search_field"/>
     <div>search: @{{search}}</div>
     <div>search: @{{search2}}</div>
+    <div v-for='apartment in apartments'>
+      @{{ apartment.description}}
+    </div>
   </div>
 </script>
 
@@ -17,19 +20,29 @@
         search: '',
         search2: '',
         // search_field: '{{ $search_field }}'
-        search_field: '',
+        search_field: 'prova',
+        searchData: {
+
+        },
         apartments: []
       };
     },
-    mounted() {
-      this.search_field = '{{ $search_field }}'
-    },
+    // mounted() {
+    //   this.search_field = '{{ $search_field }}'
+    // },
     created() {
-
-    axios.post('http://localhost:8000/search/')
+    // var postData = '?search_field=' + this.search_field;
+    this.search_field = '{{ $search_field }}'
+    axios.post('http://localhost:8000/search', {
+          search_field: this.search_field
+          })
           .then(res => {
 
               console.log('res', res);
+              const data = res.data;
+              if (data.success == true) {
+                this.apartments = data.data;
+              }
 
               // const data = res.data;
 
