@@ -1,0 +1,1 @@
+Buongiorno , volevo chiedere informazioni sull'appartamento  numero {{$numadress}}.
