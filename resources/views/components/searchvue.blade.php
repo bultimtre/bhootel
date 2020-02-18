@@ -6,9 +6,30 @@
     <input type="text" v-model="search_field"/>
     <div>search: @{{search}}</div>
     <div>search: @{{search2}}</div>
-    <div v-for='apartment in apartments'>
-      @{{ apartment.description}}
+    <div class="d-flex flex-wrap justify-content-center">
+      <div v-for='apartment in apartments' >
+          <div class="card flex-row w-45" style="margin:20px">
+            <div class="wrapper">
+                <div class="card-body w-100" style="">
+                <img  class ="card-img-top w-100" :src="`http://localhost:8000/${apartment.image}`"/>
+                <p class="card-text">@{{ apartment.description}}</p>
+                <p class="card-text">address: @{{ apartment.address}}</p>
+                <p class="card-text">beds: @{{ apartment.beds}}</p>
+                <p class="card-text">rooms: @{{ apartment.rooms}}</p>
+                <p class="card-text">baths: @{{ apartment.baths}}</p>
+                <p class="card-text">square_mt: @{{ apartment.square_mt}}</p>
+                <div class="d-flex justify-content-end">
+                    <span>@{{ apartment.id}}</span>
+                </div>
+                <a class="btn btn-primary" :href="route_show"> Più informazioni</a>
+            </div>
+          </div>
+      </div>
+        
+      </div>
     </div>
+
+    
   </div>
 </script>
 
@@ -17,8 +38,10 @@
     template: "#searchvue",
     data() {
       return {
-        search: '',
-        search2: '',
+        search: '{{ $search_field }}',
+        // search2: "`http://localhost:8000/${apartment.image}`",
+        search2: "",
+        route_show: '',
         // search_field: '{{ $search_field }}'
         search_field: 'prova',
         searchData: {
