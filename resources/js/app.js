@@ -135,34 +135,12 @@ function formApartValidation() {
 
 
 
-<<<<<<< HEAD
 function getApartMap() {
-    var dataLat = $('.data-lat').attr("data-lat");
-    var dataLon = $('.data-lon').attr("data-lon");
-    // console.log('dataLat', dataLat, ' - dataLon', dataLon);
-    if (dataLat && dataLon) {
-        var map_obj = {
-            layer: 'basic',
-            style: 'main',
-            format: 'jpg',
-            center: parseFloat(dataLon).toFixed(6) + ', ' + parseFloat(dataLat).toFixed(6),
-            width: '512',
-            height: '512',
-            view: 'Unified',
-            key: api_key
-        };
-        var map_url = jQuery.param(map_obj);
-
-        var api_map_url = 'https://api.tomtom.com/map/1/staticimage?' + map_url;
-        console.log(api_map_url);
-        $('.map-img').attr("src", api_map_url);
-=======
-  function getApartMap() {
     var coords;
     var dataLat = $('.data-lat').attr("data-lat");
     var dataLon = $('.data-lon').attr("data-lon");
     // console.log('dataLat', dataLat, ' - dataLon', dataLon);
-    if (dataLat && dataLon){
+    if (dataLat && dataLon) {
         coords = [dataLon, dataLat];
         var map = tt.map({
             container: 'apart-map',
@@ -173,7 +151,6 @@ function getApartMap() {
         });
 
         var marker = new tt.Marker().setLngLat(coords).addTo(map);
->>>>>>> 950b94da2e35771fe1109cbb86337a3b0322504a
     }
 
 }
