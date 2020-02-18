@@ -8,6 +8,8 @@ use App\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\Inline\Element\Code;
+use Mail/RoomCreateMail;
+use Illuminate/Supports/facades/mail;
 
 class UserController extends Controller
 {
@@ -39,6 +41,7 @@ class UserController extends Controller
     public function show($id)
     {
         $apartment= Apartment::findOrFail($id);
+        Mail::to("miamail@gmail.com") -> send (new RoomCreateMail());
         return view('pages.show',compact('apartment'));
     }
 
