@@ -51,7 +51,6 @@ Route::get('/clear', 'ClearSessionController@clearSession');
 
 
 
-<<<<<<< HEAD
 Route::get('/apartment/{id}', 'GuestController@show')-> name('apartment.show');
 
 
@@ -61,5 +60,3 @@ Route::view('/hosted','hosted');
 //Route::get('/payment/make', 'PaymentsController@make')->name('payment.make');
 Route::post('/payment/make', 'PaymentsController@make')->name('payment.make');
 
-=======
->>>>>>> 950b94da2e35771fe1109cbb86337a3b0322504a

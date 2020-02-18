@@ -21,7 +21,7 @@
 <script>
 var button = document.querySelector('#submit-button');
 braintree.dropin.create({
-authorization: '{{ Braintree_ClientToken::generate() }}',
+authorization: 'sandbox_24rsfnxv_8w4hz737npfm33s6',
 container: '#dropin-container'
 }, function (createErr, instance) {
 button.addEventListener('click', function () {
