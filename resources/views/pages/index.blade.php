@@ -5,9 +5,13 @@
 
 <main>
 
-    
-    <div class="container-fluid bg-index">
-        @include('components.search')
+    <div class="container-fluid wrapper main">
+        <div class="container-fluid bg-index">
+        </div>
+        
+        <div class="container-fluid wrapper">
+            @include('components.search-bar')
+        </div>
     </div>
 
     <div class="d-flex flex-wrap justify-content-center" style="">
