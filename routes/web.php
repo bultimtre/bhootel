@@ -50,4 +50,8 @@ Route::get('/clear', 'ClearSessionController@clearSession');
 
 
 
+Route::resource('/test', 'TestController');
+
+
+
 

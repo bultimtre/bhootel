@@ -7,9 +7,10 @@
 require('./bootstrap');
 // import parsleyjs for front-end validation
 require('parsleyjs');
+require('./components');
 //import validation
 //require('./validation.js');
-window.Vue = require('vue');
+
 
 //import tom tom maps
 import tt from '@tomtom-international/web-sdk-maps';
@@ -24,17 +25,7 @@ import tt from '@tomtom-international/web-sdk-maps';
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-// const app = new Vue({
-//     el: '#app',
-// });
 
 var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -131,11 +122,12 @@ function formApartValidation() {
         $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
       }
     }); //comm
-  }
+}
 
 
 
-  function getApartMap() {
+
+function getApartMap() {
     var coords;
     var dataLat = $('.data-lat').attr("data-lat");
     var dataLon = $('.data-lon').attr("data-lon");
