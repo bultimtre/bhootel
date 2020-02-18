@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -29,7 +32,25 @@ class LoginController extends Controller
     // protected $redirectTo = RouteServiceProvider::HOME;
 
      //temp route
-    protected $redirectTo = '/user/user-panel/';
+    //protected $redirectTo = RouteServiceProvider::USER;
+
+    public function showLoginForm($status)
+    {
+        //dd($status);
+        return view('auth.login', compact('status'));
+    }
+
+    public function redirectTo(){
+
+        $status = Auth::guard()->getRequest()->status;
+        if($status == 'upr'){
+            return '/user/user-panel';
+        }elseif($status == 'apt'){
+            return 'user/create-apt';
+        }
+    }
+
+
 
     /**
      * Create a new controller instance.

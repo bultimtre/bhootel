@@ -7,9 +7,12 @@
 require('./bootstrap');
 // import parsleyjs for front-end validation
 require('parsleyjs');
-
+//import validation
+//require('./validation.js');
 window.Vue = require('vue');
 
+//import tom tom maps
+import tt from '@tomtom-international/web-sdk-maps';
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -82,9 +85,11 @@ function getCoordByAddress(e) {
 }
 // send Apartment data with coord to UserApartmentsController@store
 function addNewApart(formData) {
-
+    var urlStore = "http://localhost:8000/user/store";
+    var urlUpdate = "http://localhost:8000/user/update-apt/";
+    var url = formData.has('id') ? urlUpdate : urlStore;
     $.ajax({
-        url: "http://localhost:8000/user/index",
+        url: url,
         enctype: 'multipart/form-data',
         type: "POST",
         headers: {
@@ -94,7 +99,7 @@ function addNewApart(formData) {
         ,
         success: function (data) {
             console.log("data", data);
-            window.location.href = 'http://localhost:8000/user/index/'; //redirect finito create
+            window.location.href = 'http://localhost:8000'; //redirect finito create
         },
         cache: false,
         contentType: false,
@@ -102,62 +107,56 @@ function addNewApart(formData) {
     });
 }
 
-function getApartMap() {
-    var dataLat = $('.data-lat').attr("data-lat");
-    var dataLon = $('.data-lon').attr("data-lon");
-    // console.log('dataLat', dataLat, ' - dataLon', dataLon);
-    if (dataLat && dataLon){
-        var map_obj = {
-            layer: 'basic',
-            style: 'main',
-            format: 'jpg',
-            center: parseFloat(dataLon).toFixed(6) + ', ' + parseFloat(dataLat).toFixed(6),
-            width: '512',
-            height: '512',
-            view: 'Unified',
-            key: api_key
-        };
-        var map_url = jQuery.param(map_obj);
-
-        var api_map_url = 'https://api.tomtom.com/map/1/staticimage?' + map_url;
-        console.log(api_map_url);
-        $('.map-img').attr("src", api_map_url);
-    }
-
-}
-
 function formApartValidation() {
     $('.addApartForm').parsley();
 
     $('.addApartForm').parsley().on('field:error', function (ParsleyField) {
-        ParsleyField.$element.addClass('is-invalid');
-        console.log('fired error');
+      ParsleyField.$element.addClass('is-invalid');
+      console.log('fired error');
     });
     $('.addApartForm').parsley().on('field:success', function (ParsleyField) {
-        ParsleyField.$element.removeClass('is-invalid');
+      ParsleyField.$element.removeClass('is-invalid');
     });
     var $createApart = $('.apartment-submit');
     $('.addApartForm').parsley().on('form:error', function () {
 
-        if ($createApart.hasClass('btn-primary')) {
-            $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
-        }
+      if ($createApart.hasClass('btn-primary')) {
+        $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
+      }
     });
 
     $('.addApartForm').parsley().on('field:success', function () {
 
-        if ($createApart.hasClass('btn-danger')) {
-            $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
-        }
-    });
+      if ($createApart.hasClass('btn-danger')) {
+        $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
+      }
+    }); //comm
+  }
+
+
+
+  function getApartMap() {
+    var coords;
+    var dataLat = $('.data-lat').attr("data-lat");
+    var dataLon = $('.data-lon').attr("data-lon");
+    // console.log('dataLat', dataLat, ' - dataLon', dataLon);
+    if (dataLat && dataLon){
+        coords = [dataLon, dataLat];
+        var map = tt.map({
+            container: 'apart-map',
+            key: api_key,
+            style: 'tomtom://vector/1/basic-main',
+            center: coords,
+            zoom: 15
+        });
+
+        var marker = new tt.Marker().setLngLat(coords).addTo(map);
+    }
+
 }
 
 function init() {
 
-    //map test
-
-
-    //end map test
     if ($('.addApartForm').length) {
 
        formApartValidation();

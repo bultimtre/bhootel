@@ -11,14 +11,12 @@
 
       </div>
       <div class="col-12">
-        <form action="" class="addApartForm" method="post" enctype="multipart/form-data">
-
+        <form action="{{ route('user-apt.update', $apartment->id) }}" class="addApartForm" method="post" enctype="multipart/form-data">
+            @csrf
+            @method('POST')
           <div class="form-group">
             <label for="formControlFile1">Inserisci immagine</label>
             <input type="file" class="form-control-file" name="imagefile" id="formControlFile1">
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" value="{{$apartment->id}}" name="id" style="display:none">
           </div>
 
           <div class="form-group">

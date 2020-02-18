@@ -15,9 +15,11 @@
         <div class="carousel-caption text-left" style="bottom:200px" >
             <h1>Vista sul Mare</h1>
             <p>Descrizione {{$apartment -> description}}</p>
-            @if (Auth::user() -> id == $apartment -> user -> id) 
-                <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Modifica</a></p>
-                <form action=" {{route('index.destroy', $apartment->id)}} " method="POST">
+            @auth
+            @if (Auth::user() -> id == $apartment -> user -> id)
+                <p><a class="btn btn-lg btn-primary" href="{{route('user-apt.edit', $apartment->id)}}" role="button">Modifica</a></p>
+
+                <form action=" {{route('user-apt.destroy', $apartment->id)}} " method="GET">
                     @csrf
                     @method('DELETE')
                     <input type="submit" value="Elimina" class="btn btn-lg btn-danger">
@@ -25,6 +27,7 @@
             @else
                 <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Chiedi Informazioni</a></p>
             @endif
+            @endauth
         </div>
         <div class="carousel-item active">
             <img class="first-slide" src="{{ $apartment -> image }}" alt="First slide">
@@ -73,10 +76,11 @@
 
 <div class="d-flex flex-wrap mt-3">
     <div class="col-12 p-5">
+        <h2>View Count: {{$apartment -> views}}</h2>
         <h3>Posizione dell'appartamento</h3>
         <p>{{$apartment -> address}}</p>
-        <img class="map-img" src="" alt="apart-map">
-        <div id="apart-map">
+        {{-- Apartment MAP --}}
+        <div id="apart-map" style="height:500px; width:500px;">
             <div class="data-lat" data-lat="{{ $apartment -> lat }}"></div>
             <div class="data-lon" data-lon="{{ $apartment -> lon }}"></div>
         </div>
@@ -84,9 +88,11 @@
 </div>
 
 {{-- mettere le statistiche --}}
-<h2 class="view-count">Total Views: {{ $apartment -> views }}</h2>
+@auth
 @if (Auth::user() -> id == $apartment -> user -> id)
 @endif
+@endauth
+
 </main>
 @include('components.footer')
 @endsection

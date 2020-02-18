@@ -11,6 +11,9 @@
 //styled scss
 @import 'main-container';
 
+//import tom tom maps css
+@import "@tomtom-international/web-sdk-maps";
+
 .apt {
   margin: 10px;
   padding: 5px;

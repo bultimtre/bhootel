@@ -3,31 +3,51 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-///GUEST Con il loro controller GuestController
+//LOGIN ONLY
+    Route::get('/login/{status}', 'Auth\LoginController@showLoginForm') -> name('bhootel.login');
 
-Route::get('/', 'GuestController@index')-> name('guest.home');
-
-Route::post('/search', 'GuestController@search')-> name('guest.search');
-
-Route::get('/apartment/{id}', 'GuestController@show')-> name('guest-apt.show');
+//-----------------------------------------------------//
 
 
+//GUEST AND USER
+    Route::get('/', 'GuestController@index') -> name('all.index');
 
-///USERS UPR UPRA registrati con e senza appartmenti Con il loro controller UserController
+//-----------------------------------------------------//
+
+
+//GUEST ROUTES
+    Route::post('/search', 'GuestController@search') -> name('guest.search');
+
+    Route::get('/apartment/{id}', 'GuestController@show') -> name('guest-apt.show');
+
+
+//-----------------------------------------------------//
+
+
+///USERS UPR UPRA
 
 Auth::routes();
-/* aggiunt qui user home  */
-//Route::get('/user', 'UserApartmentController@index')-> name('user.home');
-//rotta crud User Apartments
-Route::resource('/user/index', 'UserController');
+
+
 
 Route::post('/user/search', 'UserController@search') -> name('user.search');
 
 Route::get('/user/apartment/{id}', 'UserController@show') -> name('user-apt.show');
 
-Route::post('/user/index/{id}', 'UserController@update') -> name('index.update');
+Route::get('/user/edit-apt/{id}', 'UserController@edit') -> name('user-apt.edit');
+// Route::post('/user/update-apt/{id}', 'UserController@update') -> name('user-apt.update'); ///what if
+Route::post('/user/update-apt/', 'UserController@update') -> name('user-apt.update'); ///what if
+
+Route::get('/user/create-apt', 'UserController@create') -> name('user-apt.create');
+Route::post('/user/store', 'UserController@store') -> name('user.store');
+
+Route::get('/user/destroy-apt/{id}', 'UserController@destroy') -> name('user-apt.destroy');
 
 Route::get('/user/user-panel', 'UserController@userPanel') -> name('user.user-panel');
 
-//testRoute only for session clear
-Route::get('/clear', 'TestSession@clearSession');
+// Clear Session for Testing view count
+Route::get('/clear', 'ClearSessionController@clearSession');
+
+
+
+
