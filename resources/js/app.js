@@ -11,6 +11,8 @@ require('parsleyjs');
 //require('./validation.js');
 window.Vue = require('vue');
 
+//import tom tom maps
+import tt from '@tomtom-international/web-sdk-maps';
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -83,9 +85,11 @@ function getCoordByAddress(e) {
 }
 // send Apartment data with coord to UserApartmentsController@store
 function addNewApart(formData) {
-
+    var urlStore = "http://localhost:8000/user/store";
+    var urlUpdate = "http://localhost:8000/user/update-apt/";
+    var url = formData.has('id') ? urlUpdate : urlStore;
     $.ajax({
-        url: "http://localhost:8000/user/store",
+        url: url,
         enctype: 'multipart/form-data',
         type: "POST",
         headers: {
@@ -131,6 +135,7 @@ function formApartValidation() {
 
 
 
+<<<<<<< HEAD
 function getApartMap() {
     var dataLat = $('.data-lat').attr("data-lat");
     var dataLon = $('.data-lon').attr("data-lon");
@@ -151,11 +156,30 @@ function getApartMap() {
         var api_map_url = 'https://api.tomtom.com/map/1/staticimage?' + map_url;
         console.log(api_map_url);
         $('.map-img').attr("src", api_map_url);
+=======
+  function getApartMap() {
+    var coords;
+    var dataLat = $('.data-lat').attr("data-lat");
+    var dataLon = $('.data-lon').attr("data-lon");
+    // console.log('dataLat', dataLat, ' - dataLon', dataLon);
+    if (dataLat && dataLon){
+        coords = [dataLon, dataLat];
+        var map = tt.map({
+            container: 'apart-map',
+            key: api_key,
+            style: 'tomtom://vector/1/basic-main',
+            center: coords,
+            zoom: 15
+        });
+
+        var marker = new tt.Marker().setLngLat(coords).addTo(map);
+>>>>>>> 950b94da2e35771fe1109cbb86337a3b0322504a
     }
 
 }
 
 function init() {
+
 
     if ($('.addApartForm').length) {
 

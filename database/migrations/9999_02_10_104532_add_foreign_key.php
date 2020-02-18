@@ -49,14 +49,12 @@ class AddForeignKey extends Migration
             $table->unsignedBigInteger('config_id');
             $table->foreign('config_id', 'apartment_config_configs')
                   ->references('id')
-                  ->on('configs')
-                  ->onDelete('cascade');
+                  ->on('configs');
 
             $table->unsignedBigInteger('apartment_id');
             $table->foreign('apartment_id', 'apartment_config_apartments')
                   ->references('id')
-                  ->on('apartments')
-                  ->onDelete('cascade');
+                  ->on('apartments');
 
         });
 

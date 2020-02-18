@@ -36,16 +36,25 @@ class UserController extends Controller
     }
 
 
-    public function show($id)
+    // public function show($id)
+    // {
+    //     $apartment= Apartment::findOrFail($id);
+    //     return view('pages.show',compact('apartment'));
+    // }
+
+    //nuova show per view count
+        public function show(Request $request, $id)
     {
         $apartment= Apartment::findOrFail($id);
+        $apartment -> viewsCount($request, $id, $apartment);
         return view('pages.show',compact('apartment'));
     }
 
 
+
     public function create()
     {
-        dd('test create');
+
         return view('pages.user.create-apt', [
             'configs' => Config::all()
          ]);
@@ -54,7 +63,7 @@ class UserController extends Controller
 
     public function store(Request $request) {
 
-        dd('test store');
+
         // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -111,36 +120,78 @@ class UserController extends Controller
     }
 
 
-    /* public function edit($id)
+    public function edit($id)
     {
         $apartment =Apartment::find($id);
         $configs=Config::all();
         return view('pages.user.update-apt',compact('apartment','configs'));
-    } */
+    }
 
 
-    /* public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        dd($request);
-        $data = $request->all();
-        $apartment = Apartment::findOrFail($id);
-        $apartment->update($data);
-        $configs = Config::find(isset($data['configs_id']));
-        $apartment->configs()->sync($configs);
+        // return Response()->json($request); //debug
+        $validateApartmentData = $request -> validate([
+            'id' => 'required|exists:apartments,id',
+            'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|max:850',
+            'address' => 'required|max:255',
+            'lat' => 'nullable|numeric|between:-90,90',
+            'lon' => 'nullable|numeric|between:-90,180',
+            'rooms' => 'required|integer|max:200',
+            'beds' => 'required|integer|max:200',
+            'bath' => 'required|integer|max:200',
+            'square_mt' => 'required|integer|max:10000',
+            'configs_id' => 'nullable|array|exists:configs,id',
+            'show' => 'required|integer|min:0|max:1'
+        ]);
 
-        return view('pages.show', compact('apartment','configs'));
+        $userId = Auth::id();
+        $apartment = Apartment::findOrFail($validateApartmentData['id']);
 
-    } */
+        if ($validateApartmentData
+            && ($userId == $apartment -> user -> id)) {
+            if (isset($validateApartmentData['imagefile'])) {
+                $file = $request->file('imagefile');
+                $filename = $file -> getClientOriginalName();
+                $file -> move('images/user/'. Auth::user()->name, $filename);
+                //save image path db da verificare
+                $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
+                $validateApartmentData['image'] = $imageFilePath;
+            } 
+          
+            $apartment->update($validateApartmentData);
+                    
+            if (isset($validateApartmentData['configs_id'])) {
+
+                $configs = Config::find($validateApartmentData['configs_id']);
+                $apartment->configs()->sync($configs);
+            } else {
+                $apartment->configs()->detach();
+            }
+            
+            return Response()->json([
+                "success" => true,
+                "description" => $validateApartmentData['description']
+            ]);
+        }
+
+
+        return Response()->json([
+                "success" => false,
+                "imagefile" => ''
+            ]);
+
+    }
 
 
     public function destroy($id)
     {
-        dd('test destroy');
         $apartment = Apartment::findOrFail($id);
         $apartment->configs()->sync([]);
         $apartment->delete();
 
-        return redirect()->route('index');// nuova modifica
+        return redirect()->route('all.index');// nuova modifica
     }
 
 
