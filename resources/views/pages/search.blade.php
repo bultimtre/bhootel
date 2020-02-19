@@ -29,7 +29,8 @@
 
         <div>User ID: {{ Auth::user() ?  Auth::user()-> id : ''}}</div> --}}
 
-
+    
+    <div id="data_search_field" data-search="{{ $search_field }}"></div>
     @include('components.searchvue')
     <div id="app-search">
 

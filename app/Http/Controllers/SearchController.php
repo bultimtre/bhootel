@@ -16,23 +16,13 @@ class SearchController extends Controller
     {
         $data = $request -> all();
         $search_field = $data['search_field'];
-        // $result = strtolower($data['search_field']);
-        // $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%')) -> get();
-        // return view('pages.search',compact('apartments', 'result', 'search_field'));
+
         return view('pages.search',compact('search_field'));
     }
     public function search(Request $request)
     {
         // return Response()->json($request); //debug
-        // return [
-        //     'success' => true,
-        //     'data' => $request['search_field']
-        // ]; //debug
-        // $data = $request -> all();
-        // $search_field = $data['search_field'];
-        // $result = strtolower($data['search_field']);
-        // $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%')) -> get();
-        // return view('pages.search',compact('apartments', 'result', 'search_field'));
+        
         $searchData = $request->all();
         $search_field = $searchData['search_field'];
         $lat = $searchData['lat'];
@@ -50,8 +40,7 @@ class SearchController extends Controller
                 'searchFor' => [
                     'search_field' => $search_field
                 ]
-                
-                // 'search' => $search_field
+
             ];
 
         }
@@ -80,6 +69,13 @@ class SearchController extends Controller
             }
 
             //add config
+            // $apartments -> configs() -> whereIn('id', [5,6]); //not work
+            // $configs = [4,5];
+            // $apartments->whereHas('configs', function ($query) use ($configs) {
+                
+            //     $query->whereIn('configs.id', $configs);
+            // });
+
             //add appartamento visibile o meno
             $send_data = $apartments->get();
 

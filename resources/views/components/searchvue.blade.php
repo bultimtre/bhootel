@@ -16,6 +16,7 @@
       <input type="text" v-on:keyup="getAparts()" v-model="rooms" id="vue-rooms"/>
       <label for="vue-beds">min Beds: </label>
       <input type="text" v-on:keyup="getAparts()" v-model="beds" id="vue-beds"/>
+      
     </form>
 
     <div class="d-flex flex-wrap justify-content-center">
@@ -77,7 +78,8 @@
       }
     },
     created() {
-      this.search_field = '{{ $search_field }}';
+      // this.search_field = '{{ $search_field }}';
+      this.search_field = $('#data_search_field').attr('data-search');
       this.getAparts();
     },
     methods: {
