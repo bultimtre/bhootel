@@ -160,10 +160,10 @@ class UserController extends Controller
                 //save image path db da verificare
                 $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
                 $validateApartmentData['image'] = $imageFilePath;
-            } 
-          
+            }
+
             $apartment->update($validateApartmentData);
-                    
+
             if (isset($validateApartmentData['configs_id'])) {
 
                 $configs = Config::find($validateApartmentData['configs_id']);
@@ -171,7 +171,7 @@ class UserController extends Controller
             } else {
                 $apartment->configs()->detach();
             }
-            
+
             return Response()->json([
                 "success" => true,
                 "description" => $validateApartmentData['description']
@@ -203,6 +203,7 @@ class UserController extends Controller
 
         return view('pages.user.user-panel', compact('apartments'));
     }
+<<<<<<< HEAD
 
     //  public function pay($id)
     // {
@@ -215,4 +216,7 @@ class UserController extends Controller
     //       dd($ads);
     //     return view('drop-ui',compact('ad'));
     // }
+=======
+    //commento provv
+>>>>>>> 86bcbd0cb9ee362b12b292885f97b19ba0a988d1
 }

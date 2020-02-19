@@ -26,5 +26,10 @@ mix.js('resources/js/app.js', 'public/js')
       open: false,
       notify: false
    });
+<<<<<<< HEAD
 >>>>>>> 950b94da2e35771fe1109cbb86337a3b0322504a
 pluto
+=======
+
+//commento provv
+>>>>>>> 86bcbd0cb9ee362b12b292885f97b19ba0a988d1
