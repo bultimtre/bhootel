@@ -12,24 +12,21 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-<<<<<<< HEAD
-<<<<<<< HEAD
-   .sass('resources/sass/app.scss', 'public/css');
 
-=======
-=======
-   .copy('resources/images', 'public/images')
->>>>>>> 4e3a7a73bcdc7bd5e0512a10460e14e21c82a5c4
-   .sass('resources/sass/app.scss', 'public/css')
-   .browserSync({
-      proxy: 'localhost:8000',
-      open: false,
-      notify: false
+      .sass('resources/sass/app.scss', 'public/css')
+
+
+      .copy('resources/images', 'public/images')
+
+      .sass('resources/sass/app.scss', 'public/css')
+
+      .browserSync({
+         proxy: 'localhost:8000',
+         open: false,
+         notify: false
+         
    });
-<<<<<<< HEAD
->>>>>>> 950b94da2e35771fe1109cbb86337a3b0322504a
-pluto
-=======
 
-//commento provv
->>>>>>> 86bcbd0cb9ee362b12b292885f97b19ba0a988d1
+
+
+
