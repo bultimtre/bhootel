@@ -3,7 +3,7 @@
 @section('search')
 @include('components.header')
     <main>
-        @if($apartments->count()>0)
+        {{-- @if($apartments->count()>0)
             <div class="d-flex flex-wrap justify-content-center" style="">
                 @foreach ($apartments as $apartment)
                     <div class="card flex-row w-25" style="margin:20px">
@@ -26,7 +26,8 @@
             <p class="lead">Nessun appartamento trovato con "{{ $result }}"</p>
         </div>
         @endif
-        <div>User ID: {{ Auth::user() ?  Auth::user()-> id : ''}}</div>
+
+        <div>User ID: {{ Auth::user() ?  Auth::user()-> id : ''}}</div> --}}
 
 
     @include('components.searchvue')

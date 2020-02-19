@@ -60,7 +60,7 @@
         beds: 1,
         lat: '',
         lon: '',
-        range: '',
+        range: 20,
         // search2: "`http://localhost:8000/${apartment.image}`",
         route_show: '',
         searchData: {
