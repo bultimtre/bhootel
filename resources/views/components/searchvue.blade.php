@@ -1,19 +1,14 @@
 <script type="text/x-template" id="searchvue">
   <div class="searchvue">
-    {{-- <h2 v-if="!showResults()">@{{ res_num }} Results found for: @{{ prev_search }} </h2> --}}
-    <h3 style="display:inline">@{{ res_num }} Risultati trovati </h3><h3 style="display:inline" v-text="searchString"></h3>
-    {{-- <input v-model="searchString" /> --}}
+    <h3 style="display:inline">@{{ res_num }} </h3><h3 style="display:inline" v-text="searchString"></h3>
     <form>
       <label for="vue-search_field">Ricerca per indirizzo: </label>
       <input type="text" v-on:keyup="getAparts()" v-model="search_field" id="vue-search_field"/>
       <fieldset id="coords-disable">
         <label for="vue-lat">Ricerca per coordinate - lat: </label>
         <input type="text" v-on:keyup="getAparts()" v-model="lat" id="vue-lat" placeholder="latitude"/>
-      
-        {{-- <input type="text" v-model="lat" id="vue-lat"/> --}}
         <label for="vue-lon">Lon: </label>
         <input type="text" v-on:keyup="getAparts()" v-model="lon" id="vue-lon" placeholder="longitudine"/>
-        {{-- <input type="text" v-model="lon" id="vue-lon"/> --}}
         <label for="vue-range">Range km: </label>
         <input type="text" v-on:keyup="getAparts()" v-model="range" id="vue-range" placeholder="raggio"/>
       </fieldset>
@@ -22,7 +17,6 @@
       <label for="vue-beds">min Beds: </label>
       <input type="text" v-on:keyup="getAparts()" v-model="beds" id="vue-beds"/>
     </form>
-    {{-- <button v-on:click="getAparts()">SEARCH</button> --}}
 
     <div class="d-flex flex-wrap justify-content-center">
 
@@ -58,16 +52,13 @@
     template: "#searchvue",
     data() {
       return {
-        // search: '{{ $search_field }}',
         auth_user: '{{ Auth::user() ?  Auth::user()-> id : ''}}',
-        prev_search: '',
         search_field: '',
         rooms: 1,
         beds: 1,
         lat: '',
         lon: '',
         range: 20,
-        // search2: "`http://localhost:8000/${apartment.image}`",
         route_show: '',
         searchDone: {},
         searchString: '',
@@ -85,15 +76,8 @@
         }
       }
     },
-    mounted() {
-      // this.search_field = '{{ $search_field }}'
-    },
     created() {
       this.search_field = '{{ $search_field }}';
-      // var postData = '?search_field=' + this.search_field;
-      // this.search_field = '{{ $search_field }}';
-      console.log('search field ', this.search_field);
-      this.prev_search = '{{ $search_field }}';
       this.getAparts();
     },
     methods: {
@@ -117,8 +101,11 @@
                 console.log('success false');
                 this.updateResults('');
               }
-              // this.search_field = ''; //clear search field dopo ricerca solo lat lon
-              this.res_num = this.apartments.length;
+              if(this.apartments.length > 0) {
+                this.res_num = this.apartments.length + ' Risultati trovati';
+              } else {
+                this.res_num = 'Nessun Risultato trovato';
+              }
               console.log('res num', this.res_num);
 
           })
@@ -139,11 +126,6 @@
         return this.auth_user ? 
             window.location.protocol + "//" + window.location.host + "/" +"/user/apartment/" + id 
             : window.location.protocol + "//" + window.location.host + "/" +"/apartment/" + id;
-      },
-      showResults() {
-        // if(this.lat && this.lon) {
-        //   this.prev_search = 'lat ' + this.lat + ' - lon ' + this.lon + ' - range '+this.range;
-        // }
       },
       updateResults(data) {
         console.log('update results', data);
