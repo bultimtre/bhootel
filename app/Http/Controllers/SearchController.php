@@ -47,7 +47,10 @@ class SearchController extends Controller
             return [
                 'success' => true,
                 'data' => $apartments,
-                // 'lat' => $lat,
+                'searchFor' => [
+                    'search_field' => $search_field
+                ]
+                
                 // 'search' => $search_field
             ];
 
@@ -84,8 +87,12 @@ class SearchController extends Controller
                 'success' => true,
                 // 'data' => $apartments,
                 'data' => $send_data,
-                'lat' => $lat,
-                'lon' => $lon
+                'searchFor' => [
+                    'lat' => $lat,
+                    'lon' => $lon,
+                    'range' => $range
+                ]
+                
                 // 'search' => $search_field
             ];
 
