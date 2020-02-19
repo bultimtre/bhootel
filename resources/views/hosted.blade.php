@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <title>Checkout</title>
     <style>
+      
             body {
                 margin: 24px 0;
+                background-color:rgb(216, 238, 200) ;
             }
             .spacer {
                 margin-bottom: 24px;
@@ -20,12 +22,13 @@
         </style>
   </head>
   <body>
+  <p>{{(Request::get('ads'))}}</p>
+ 
       <div class="container">
             <div class="col-md-6 offset-md-3">
                 <h1>Payment Form</h1>
                 <div class="spacer"></div>
-                {{$result ?? ''}}
-
+              
                 @if (session()->has('success_message'))
                     <div class="alert alert-success">
                         {{ session()->get('success_message') }}
@@ -41,7 +44,7 @@
                         </ul>
                     </div>
                 @endif 
-                <form action="{{route('payment.make')}}" method="POST" id="my-sample-form">
+                <form action="{{route('payment.make',[$apartment ->id,Request::get('ads')])}}" method="POST" id="my-sample-form">
                         @csrf
                         <div class="form-group">
                             <label for="email">Email Address</label>
@@ -105,7 +108,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="amount">Amount</label>
-                                    <input type="text" class="form-control" id="amount" name="amount" value="11">
+                                    <input type="text" class="form-control" id="amount" name="amount" value="{{$price/100}}">
                                 </div>
                             </div>
                         </div>
@@ -146,9 +149,11 @@
                         <input id="nonce" name="payment_method_nonce" type="hidden" />
                         <button type="submit" class="btn btn-success">Submit Payment</button>
                     </form>
-
+                    </div>
+        </div>
     <script src="https://js.braintreegateway.com/web/3.57.0/js/client.min.js"></script>
     <script src="https://js.braintreegateway.com/web/3.57.0/js/hosted-fields.min.js"></script>
+    
     <script>
       var form = document.querySelector('#my-sample-form');
       var submit = document.querySelector('input[type="submit"]');
@@ -208,16 +213,18 @@
                 console.error(tokenizeErr);
                 return;
               }
-
+            
               // If this was a real integration, this is where you would
               // send the nonce to your server.
                  document.querySelector('#nonce').value = payload.nonce;
                 form.submit();
-             // console.log('Got a nonce: ' + payload.nonce);
+              //console.log('Got a nonce: ' + payload.nonce);
+            
             });
           }, false);
         },);
       });
     </script>
+    
   </body>
 </html>

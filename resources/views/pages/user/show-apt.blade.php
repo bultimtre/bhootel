@@ -1,9 +1,6 @@
 @extends('layouts.base')
 @section('apt-show')
 @include('components.header')
-@php
-    $result='false';
-@endphp
 <main>
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -18,19 +15,16 @@
         <div class="carousel-caption text-left" style="bottom:200px" >
             <h1>Vista sul Mare</h1>
             <p>Descrizione {{$apartment -> description}}</p>
-            @auth
-            @if (Auth::user() -> id == $apartment -> user -> id)
-                <p><a class="btn btn-lg btn-primary" href="{{route('user-apt.edit', $apartment->id)}}" role="button">Modifica</a></p>
-
-                <form action=" {{route('user-apt.destroy', $apartment->id)}} " method="GET">
+            @if (Auth::user() -> id == $apartment -> user -> id) 
+                <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Modifica</a></p>
+                <form action=" {{route('index.destroy', $apartment->id)}} " method="POST">
                     @csrf
                     @method('DELETE')
                     <input type="submit" value="Elimina" class="btn btn-lg btn-danger">
                 </form>
             @else
-                <p><a class="btn btn-lg btn-primary" href="{{route('guest-apt.show', $apartment->id)}}" role="button">Chiedi Informazioni</a></p>
+                <p><a class="btn btn-lg btn-primary" href="{{route('index.edit', $apartment->id)}}" role="button">Chiedi Informazioni</a></p>
             @endif
-            @endauth
         </div>
         <div class="carousel-item active">
             <img class="first-slide" src="{{ $apartment -> image }}" alt="First slide">
@@ -55,41 +49,6 @@
 
 </div>
 
-@auth
-    
-
-<form action="{{route('payment.pay', $apartment->id)}}" method="get">
-    @csrf
- 
-   @if ( $result )
-    
-    @if (Auth::user() -> id == $apartment -> user -> id)
-
-    <p>Seleziona la tua sponsorizzazione:</p>
-       <div class="form-group">
-   
-    @foreach ($ads  as $ad)
-
-            <input  type="radio" name="ads" value="{{ $ad->id}}">
-            <label for="{{ $ad->price }}">
-                [{{ $ad->id }}]-{{ $ad->price/100}}
-            </label>
-            <br>
-       
-    @endforeach
-</div>
-       <button type="submit">vai</button>
-   @endif
-
-   @else 
-   <p>hai già pagato</p>
-  
-@endif
-
-
- 
-</form>
-@endauth
 <div class="d-flex flex-wrap mt-3">
     <div class="col-4 p-5">
         <h3>Configurazione</h3>
@@ -111,26 +70,16 @@
 
 </div>
 <hr>
-
-<div class="d-flex flex-wrap mt-3">
+{{-- <div class="d-flex flex-wrap mt-3">
     <div class="col-12 p-5">
-        <h2>View Count: {{$apartment -> views}}</h2>
         <h3>Posizione dell'appartamento</h3>
         <p>{{$apartment -> address}}</p>
-        {{-- Apartment MAP --}}
-        <div id="apart-map" style="height:500px; width:500px;">
-            <div class="data-lat" data-lat="{{ $apartment -> lat }}"></div>
-            <div class="data-lon" data-lon="{{ $apartment -> lon }}"></div>
-        </div>
+        <p>MAPPA QUI?</p>
     </div>
-</div>
+</div> --}}
 
-{{-- mettere le statistiche --}}
-@auth
-@if (Auth::user() -> id == $apartment -> user -> id)
-@endif
-@endauth
 
 </main>
+{{-- mettere le statistiche --}}
 @include('components.footer')
 @endsection

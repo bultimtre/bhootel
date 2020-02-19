@@ -209,15 +209,15 @@ class UserController extends Controller
         return view('pages.user.user-panel', compact('apartments'));
     }
 
-     public function pay(Request $request,$id)
-    {
-        $data = $request -> all();
-        //dd($data);
-        //dovrei passare tutto l'oggetto e poi estrarre l'id
-        $ad= Ad::where('id', '=', $id)->get();
-        dd($ad);
-        $ad= $data['ads_id'];
-        //dd($ad);
-        return view('drop-ui',compact('ad'));
-    }
+    //  public function pay($id)
+    // {
+    //     //devo estrarre il prezzo dell'ad e mandarlo alla pag del pagamento
+    //     $apartment = Apartment::find($id);
+    //     //mi devo collegare all'ad
+    //     dd($apartment);
+    //    $ads = Ad::find($apartment['ads_id']);
+    //             $apartment->configs()->sync($ads);
+    //       dd($ads);
+    //     return view('drop-ui',compact('ad'));
+    // }
 }
