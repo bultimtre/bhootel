@@ -119,13 +119,16 @@
           });
       },
       setImage(img) {
-        // return img.includes('images/user/') ? "http://localhost:8000/"+img : img; 
-        return img.includes('images/user/') ? `http://localhost:8000/${img}` : img; 
+        return img.includes('images/user/') ? 
+            window.location.protocol + "//" + window.location.host + "/"+img 
+            : img; 
+        // return img.includes('images/user/') ? `http://localhost:8000/${img}` : img; 
       },
       showApart(id) {
-        // return "{{route('user-apt.show'," + id + ")}}"
-        return this.auth_user ? "http://localhost:8000/user/apartment/" + id : "http://localhost:8000/apartment/" + id;
-        // return "http://localhost:8000/apartment/" + id;
+        // return this.auth_user ? "http://localhost:8000/user/apartment/" + id : "http://localhost:8000/apartment/" + id;
+        return this.auth_user ? 
+            window.location.protocol + "//" + window.location.host + "/" +"/user/apartment/" + id 
+            : window.location.protocol + "//" + window.location.host + "/" +"/apartment/" + id;
       }
     }
   });
