@@ -1,6 +1,6 @@
 <div class="container">
 
-    <nav class="navbar navbar-expand-md fixed-top">
+    <nav class="navbar navbar-expand-md fixed-top {{!Route::is('all.index') ? 'dark' : ''}}">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -47,9 +47,9 @@
 
             </ul>
             @endif
-            @if (!Route::is('all.index'))
+            {{-- @if (!Route::is('all.index'))
                 @include('components.search-bar')
-            @endif
+            @endif --}}
         </div>
     </nav>
 
