@@ -32,7 +32,8 @@ class SearchController extends Controller
         // $result = strtolower($data['search_field']);
         // $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%')) -> get();
         // return view('pages.search',compact('apartments', 'result', 'search_field'));
-        $search_field = $request['search_field'];
+        $seachData = $request->all();
+        $search_field = $seachData['search_field'];
         $result = strtolower($search_field);
         $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%')) -> get();
         return [
