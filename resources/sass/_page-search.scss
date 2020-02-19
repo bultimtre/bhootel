@@ -1,0 +1,33 @@
+.main-search {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.top-select {
+  margin-top: 130px;
+  height: 150px;
+  background-color: grey;
+}
+
+.left-select {
+  background-color: #f2f2f2;
+}
+
+.list-group-item {
+  background: none;
+  border: none;
+}
+
+.button-show {
+  background-color: $bh-default;
+  border: none;
+  color: #000;
+
+  &:hover {
+    background-color: $bh-dark;
+  }
+}
+
+.ad {
+  border: solid 3px $bh-details;
+}

@@ -28,7 +28,6 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        dd();
         $data = $request -> all();
         $result = strtolower($data['search_field']);
         $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
