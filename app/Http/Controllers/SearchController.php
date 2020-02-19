@@ -32,13 +32,48 @@ class SearchController extends Controller
         // $result = strtolower($data['search_field']);
         // $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%')) -> get();
         // return view('pages.search',compact('apartments', 'result', 'search_field'));
-        $seachData = $request->all();
-        $search_field = $seachData['search_field'];
-        $result = strtolower($search_field);
-        $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%')) -> get();
-        return [
-            'success' => true,
-            'data' => $apartments
-        ];
+        $searchData = $request->all();
+        $search_field = $searchData['search_field'];
+        $lat = $searchData['lat'];
+        $lon = $searchData['lon'];
+
+
+        if($search_field) {
+            $result = strtolower($search_field);
+            $apartments = Apartment::where('address', 'LIKE', strtolower('%'.$result.'%')) -> get();
+            return [
+                'success' => true,
+                'data' => $apartments,
+                // 'lat' => $lat,
+                // 'search' => $search_field
+            ];
+
+        }
+        //  else {
+        //     return [
+        //         'success' => false
+        //     ];
+        // }
+        $range = 20;
+        if($lat && $lon) {
+            $apartments = Apartment::whereRaw('
+                ST_Distance_Sphere(
+                    point(lon, lat),
+                    point(?, ?)
+                ) < 20000
+            ',[
+                $lon,
+                $lat
+            ])->get(); 
+
+            return [
+                'success' => true,
+                'data' => $apartments,
+                'lat' => $lat,
+                'lon' => $lon
+                // 'search' => $search_field
+            ];
+
+        }
     }
 }

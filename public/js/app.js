@@ -52128,9 +52128,11 @@ function getApartMap() {
 }
 
 function init() {
-  var appSearch = new Vue({
-    el: '#app-search'
-  });
+  if ($('#app-search').length) {
+    var appSearch = new Vue({
+      el: '#app-search'
+    });
+  }
 
   if ($('.addApartForm').length) {
     formApartValidation();

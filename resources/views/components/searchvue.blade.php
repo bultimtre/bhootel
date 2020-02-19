@@ -1,17 +1,22 @@
 <script type="text/x-template" id="searchvue">
   <div class="searchvue">
-    <label for="vue-search_field">Address: </label>
-    <input type="text" v-on:keyup="getAparts()" v-model="search_field" id="vue-search_field"/>
+    <h2>Results for: @{{ prev_search }}</h2>
+    {{-- <label for="vue-search_field">Address: </label>
+    <input type="text" v-on:keyup="getAparts()" v-model="search_field" id="vue-search_field"/> --}}
+    <label for="vue-lat">Lat: </label>
+    {{-- <input type="text" v-on:keyup="getAparts()" v-model="lat" id="vue-lat"/> --}}
+    <input type="text" v-model="lat" id="vue-lat"/>
+    <label for="vue-lon">Lon: </label>
+    {{-- <input type="text" v-on:keyup="getAparts()" v-model="lon" id="vue-lon"/> --}}
+    <input type="text" v-model="lon" id="vue-lon"/>
+    <label for="vue-range">Range km: </label>
+    <input type="text" v-on:keyup="getAparts()" v-model="range" id="vue-range"/>
     <label for="vue-rooms">min Rooms: </label>
     <input type="text" v-on:keyup="getAparts()" v-model="rooms" id="vue-rooms"/>
     <label for="vue-beds">min Beds: </label>
     <input type="text" v-on:keyup="getAparts()" v-model="beds" id="vue-beds"/>
-    <label for="vue-lat">Lat: </label>
-    <input type="text" v-on:keyup="getAparts()" v-model="lat" id="vue-lat"/>
-    <label for="vue-lon">Lon: </label>
-    <input type="text" v-on:keyup="getAparts()" v-model="lon" id="vue-lon"/>
-    <label for="vue-range">Range km: </label>
-    <input type="text" v-on:keyup="getAparts()" v-model="range" id="vue-range"/>
+    
+    <button v-on:click="getAparts()">SEARCH</button>
 
     <div class="d-flex flex-wrap justify-content-center">
 
@@ -48,11 +53,13 @@
     data() {
       return {
         // search: '{{ $search_field }}',
+        auth_user: '{{ Auth::user() ?  Auth::user()-> id : ''}}',
+        prev_search: '',
         apart_link: '',
         rooms: 1,
         beds: 1,
-        lat: '',
-        lon: '',
+        lat: '00.00',
+        lon: '00.00',
         range: '',
         // search2: "`http://localhost:8000/${apartment.image}`",
         route_show: '',
@@ -67,7 +74,8 @@
     // },
     created() {
       // var postData = '?search_field=' + this.search_field;
-      this.search_field = '{{ $search_field }}'
+      this.search_field = '{{ $search_field }}';
+      this.prev_search = '{{ $search_field }}';
       this.getAparts();
     },
     methods: {
@@ -86,8 +94,10 @@
               const data = res.data;
               if (data.success == true) {
                 this.apartments = data.data;
+              } else {
+                console.log('success false');
               }
-
+              this.search_field = '';
               // const data = res.data;
 
               // if (data.success !== true) {
@@ -114,7 +124,8 @@
       },
       showApart(id) {
         // return "{{route('user-apt.show'," + id + ")}}"
-        return "http://localhost:8000/apartment/" + id;
+        return this.auth_user ? "http://localhost:8000/user/apartment/" + id : "http://localhost:8000/apartment/" + id;
+        // return "http://localhost:8000/apartment/" + id;
       }
     }
   });
