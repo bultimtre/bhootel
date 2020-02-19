@@ -17,7 +17,7 @@ class UserController extends Controller
         $this -> middleware('auth');
     }
 
-
+//non ho fatto nnt
     /*  public function index()
      {
          //return if logged
@@ -195,10 +195,6 @@ class UserController extends Controller
 
         return redirect()->route('all.index');// nuova modifica
     }
-
-
-
-
 
     public function userPanel()
     {

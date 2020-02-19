@@ -27,3 +27,4 @@ mix.js('resources/js/app.js', 'public/js')
       notify: false
    });
 >>>>>>> 950b94da2e35771fe1109cbb86337a3b0322504a
+pluto
