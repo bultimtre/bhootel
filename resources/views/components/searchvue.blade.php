@@ -1,21 +1,25 @@
 <script type="text/x-template" id="searchvue">
   <div class="searchvue">
-    <h2>Results for: @{{ prev_search }}</h2>
-    {{-- <label for="vue-search_field">Address: </label>
-    <input type="text" v-on:keyup="getAparts()" v-model="search_field" id="vue-search_field"/> --}}
-    <label for="vue-lat">Lat: </label>
-    <input type="text" v-on:keyup="getAparts()" v-model="lat" id="vue-lat"/>
-    {{-- <input type="text" v-model="lat" id="vue-lat"/> --}}
-    <label for="vue-lon">Lon: </label>
-    <input type="text" v-on:keyup="getAparts()" v-model="lon" id="vue-lon"/>
-    {{-- <input type="text" v-model="lon" id="vue-lon"/> --}}
-    <label for="vue-range">Range km: </label>
-    <input type="text" v-on:keyup="getAparts()" v-model="range" id="vue-range"/>
-    <label for="vue-rooms">min Rooms: </label>
-    <input type="text" v-on:keyup="getAparts()" v-model="rooms" id="vue-rooms"/>
-    <label for="vue-beds">min Beds: </label>
-    <input type="text" v-on:keyup="getAparts()" v-model="beds" id="vue-beds"/>
-    
+    <h2 v-if="!showResults()">@{{ res_num }} Results found for: @{{ prev_search }} </h2>
+    <form>
+      <label for="vue-search_field">Address: </label>
+      <input type="text" v-on:keyup="getAparts()" v-model="search_field" id="vue-search_field"/>
+      <fieldset id="coords-disable">
+        <label for="vue-lat">Lat: </label>
+        <input type="text" v-on:keyup="getAparts()" v-model="lat" id="vue-lat" />
+      
+        {{-- <input type="text" v-model="lat" id="vue-lat"/> --}}
+        <label for="vue-lon">Lon: </label>
+        <input type="text" v-on:keyup="getAparts()" v-model="lon" id="vue-lon"/>
+        {{-- <input type="text" v-model="lon" id="vue-lon"/> --}}
+        <label for="vue-range">Range km: </label>
+        <input type="text" v-on:keyup="getAparts()" v-model="range" id="vue-range"/>
+      </fieldset>
+      <label for="vue-rooms">min Rooms: </label>
+      <input type="text" v-on:keyup="getAparts()" v-model="rooms" id="vue-rooms"/>
+      <label for="vue-beds">min Beds: </label>
+      <input type="text" v-on:keyup="getAparts()" v-model="beds" id="vue-beds"/>
+    </form>
     {{-- <button v-on:click="getAparts()">SEARCH</button> --}}
 
     <div class="d-flex flex-wrap justify-content-center">
@@ -29,7 +33,7 @@
             <p class="card-text">address: @{{ apartment.address}}</p>
             <p class="card-text">beds: @{{ apartment.beds}}</p>
             <p class="card-text">rooms: @{{ apartment.rooms}}</p>
-            <p class="card-text">baths: @{{ apartment.baths}}</p>
+            <p class="card-text">baths: @{{ apartment.bath}}</p>
             <p class="card-text">square_mt: @{{ apartment.square_mt}}</p>
             <div class="d-flex justify-content-end">
                 <span>@{{ apartment.id}}</span>
@@ -55,6 +59,7 @@
         // search: '{{ $search_field }}',
         auth_user: '{{ Auth::user() ?  Auth::user()-> id : ''}}',
         prev_search: '',
+        search_field: '',
         apart_link: '',
         rooms: 1,
         beds: 1,
@@ -66,15 +71,27 @@
         searchData: {
 
         },
-        apartments: []
+        apartments: [],
+        res_num: '',
+        searchTyped: ''
       };
+    }
+    ,
+    watch: {
+      search_field: function() {
+        if (this.search_field.length > 0) {
+          $('#coords-disable').prop("disabled", true);
+        } else {
+          $('#coords-disable').removeAttr("disabled");
+        }
+      }
     },
-    // mounted() {
-    //   this.search_field = '{{ $search_field }}'
-    // },
+    mounted() {
+      this.search_field = '{{ $search_field }}'
+    },
     created() {
       // var postData = '?search_field=' + this.search_field;
-      this.search_field = '{{ $search_field }}';
+      // this.search_field = '{{ $search_field }}';
       this.prev_search = '{{ $search_field }}';
       this.getAparts();
     },
@@ -97,7 +114,8 @@
               } else {
                 console.log('success false');
               }
-              this.search_field = ''; //clear search field dopo ricerca solo lat lon
+              // this.search_field = ''; //clear search field dopo ricerca solo lat lon
+              this.res_num = this.apartments.length;
               // const data = res.data;
 
               // if (data.success !== true) {
@@ -129,6 +147,11 @@
         return this.auth_user ? 
             window.location.protocol + "//" + window.location.host + "/" +"/user/apartment/" + id 
             : window.location.protocol + "//" + window.location.host + "/" +"/apartment/" + id;
+      },
+      showResults() {
+        if(this.lat && this.lon) {
+          this.prev_search = 'lat ' + this.lat + ' - lon ' + this.lon + ' - range '+this.range;
+        }
       }
     }
   });

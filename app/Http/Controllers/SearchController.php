@@ -76,7 +76,8 @@ class SearchController extends Controller
                 $apartments -> where('rooms' , '>=', $rooms);
             }
 
-
+            //add config
+            //add appartamento visibile o meno
             $send_data = $apartments->get();
 
             return [
