@@ -62,7 +62,7 @@
     @csrf
  
    @if ( $result )
-    
+    <p>ssssss</p>
     @if (Auth::user() -> id == $apartment -> user -> id)
 
     <p>Seleziona la tua sponsorizzazione:</p>
