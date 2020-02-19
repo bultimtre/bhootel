@@ -8,7 +8,8 @@ use App\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\Inline\Element\Code;
-use Mail\ApartmentsCreateMail;
+use Mail\ApartmentCreateMail;
+use Mail\ApartementUpdateMail;
 use Illuminate\Supports\facades\mail;
 
 class UserController extends Controller
@@ -34,8 +35,8 @@ class UserController extends Controller
        $this -> image =  $image;
        $this -> image =  $image;
        $this -> image =  $image;
-        $data = $request -> all(Mail::to("miamail@gmail.com") -> send (new ApartmentsCreateMail($description -> description , $image -> image , $beds -> $beds , $bath -> bath , $adress -> adress , $lat -> lat , $lon -> lon , $rooms -> rooms , $square_mt -> square_mt , $ads_expired -> ads_expired , $show -> show  ));
-    );
+       $data = $request -> all(Mail::to("miamail@gmail.com") -> send (new ApartmentCreateMail($description -> description , $image -> image , $beds -> $beds , $bath -> bath , $adress -> adress , $lat -> lat , $lon -> lon , $rooms -> rooms , $square_mt -> square_mt , $ads_expired -> ads_expired , $show -> show  ));
+    
         $result = strtolower($data['search_field']);
         $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
         return view('pages.search',compact('apartments', 'result'));
@@ -45,7 +46,7 @@ class UserController extends Controller
     public function show($id)
     {
         $apartment= Apartment::findOrFail($id);
-        Mail::to("miamail@gmail.com") -> send (new RoomCreateMail());
+        Mail::to("miamail@gmail.com") -> send (new ApartmentCreateMail());
         return view('pages.show',compact('apartment'));
     }
 
@@ -136,7 +137,7 @@ class UserController extends Controller
         $apartment->configs()->sync($configs);
 
         return view('pages.show', compact('apartment','configs'));
-
+        Mail::to("mail2@mail.com") -> send (new ApartmentUpdateMail($description -> description , $image -> image , $beds -> $beds , $bath -> bath , $adress -> adress , $lat -> lat , $lon -> lon , $rooms -> rooms , $square_mt -> square_mt , $ads_expired -> ads_expired , $show -> show ));
     } */
 
 
