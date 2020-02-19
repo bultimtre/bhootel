@@ -1,51 +1,38 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
+//utils
+@import 'utils.scss';
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-
-//styled scss
-@import 'main-container';
-
-//import tom tom maps css
-//@import "@tomtom-international/web-sdk-maps";
+//fonts
+@import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700&display=swap');
 
 // nostri import
+@import 'navbar.scss';
 @import 'bg-index.scss';
-@import 'search.scss';
+@import 'search-bar.scss';
+
+// list box search
+@import 'list-box-search.scss';
+
+// pagina searh
+@import 'page-search.scss';
+
+
+
+html, body {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+}
+
+
+//
 
 
 
 
-
-
-
-// .apt {
-//   margin: 10px;
-//   padding: 5px;
-//   background-color: rgb(199, 194, 194);
-//   height: 180px;
-//   display: flex;
-//   justify-content: space-between;
-
-//   .info {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-evenly;
-//   }
-
-//   &:hover {
-//   text-decoration: none;
-//   }      
-
-//   img {
-//     height: 100%;
-//   }
-// }
 
 .parsley-errors-list.filled {
   color: $error-field;
