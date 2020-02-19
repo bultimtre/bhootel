@@ -8,7 +8,7 @@
     <div class="container-fluid wrapper main">
         <div class="container-fluid bg-index">
         </div>
-        
+        <div class="bg-index-gradient"></div>
         <div class="container-fluid wrapper">
             @include('components.search-bar')
         </div>

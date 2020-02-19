@@ -1,21 +1,16 @@
+//utils
+@import 'utils.scss';
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-//styled scss
-@import 'main-container';
-
-//fontawesome
-// @import "./fontawesome/scss/fontawesome.scss";
-// @import "./fontawesome/scss/solid.scss";
-// @import "./fontawesome/scss/brands.scss";
-
 //fonts
-@import url('https://fonts.googleapis.com/css?family=Raleway:200,400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700&display=swap');
 
 // nostri import
+@import 'navbar.scss';
 @import 'bg-index.scss';
 @import 'search-bar.scss';
 
@@ -30,8 +25,7 @@ html, body {
 }
 
 a {
-  font-size: 1.2rem;
-  color: $bh-default;
+
 }
 
 

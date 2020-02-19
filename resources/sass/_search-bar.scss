@@ -7,19 +7,29 @@
   .form-control {
     font-size: 1.2rem;
     text-align: center;
+    border-bottom:5px solid $bh-default
   }
-
-  .button .btn-success.search {
-    font-size: 1.6rem;
-    padding: 6px 50px;
-    border-radius: 999px;
-    border: 1px solid $bh-default;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: $bh-default;
-    
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.6);
+    div.button{
+        position: relative;
+        height: 150px;
+        .btn-success.search {
+            font-size: 1.6rem;
+            padding: 6px 50px;
+            border-radius: 999px;
+            border: 1px solid $bh-default;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: $bh-default;
+            border-bottom:5px solid $bh-default;
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.6);
+            }
+            &:active{
+                border-bottom:1px solid $bh-default;
+            }
+            &:focus{
+                outline: none;
+                box-shadow: unset;
+            }
+          }
     }
-  }
-
 }

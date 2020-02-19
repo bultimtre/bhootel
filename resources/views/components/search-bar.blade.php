@@ -9,9 +9,10 @@
       @method('POST')
       <label for="search_field"></label>
       <input class="form-control mr-sm-2 p-4" name='search_field' type="text">
+      <div class="button text-center">
+        <button class="btn btn-success my-2 my-sm-0 search abs-50-50" type="submit"> Cerca </button>
+      </div>
   </form>
 
-  <div class="button text-center pt-5">
-    <button class="btn btn-success my-2 my-sm-0 search" type="submit"> Cerca </button>
-  </div>
+
 </div>
