@@ -4,11 +4,11 @@
     {{-- <label for="vue-search_field">Address: </label>
     <input type="text" v-on:keyup="getAparts()" v-model="search_field" id="vue-search_field"/> --}}
     <label for="vue-lat">Lat: </label>
-    {{-- <input type="text" v-on:keyup="getAparts()" v-model="lat" id="vue-lat"/> --}}
-    <input type="text" v-model="lat" id="vue-lat"/>
+    <input type="text" v-on:keyup="getAparts()" v-model="lat" id="vue-lat"/>
+    {{-- <input type="text" v-model="lat" id="vue-lat"/> --}}
     <label for="vue-lon">Lon: </label>
-    {{-- <input type="text" v-on:keyup="getAparts()" v-model="lon" id="vue-lon"/> --}}
-    <input type="text" v-model="lon" id="vue-lon"/>
+    <input type="text" v-on:keyup="getAparts()" v-model="lon" id="vue-lon"/>
+    {{-- <input type="text" v-model="lon" id="vue-lon"/> --}}
     <label for="vue-range">Range km: </label>
     <input type="text" v-on:keyup="getAparts()" v-model="range" id="vue-range"/>
     <label for="vue-rooms">min Rooms: </label>
@@ -16,7 +16,7 @@
     <label for="vue-beds">min Beds: </label>
     <input type="text" v-on:keyup="getAparts()" v-model="beds" id="vue-beds"/>
     
-    <button v-on:click="getAparts()">SEARCH</button>
+    {{-- <button v-on:click="getAparts()">SEARCH</button> --}}
 
     <div class="d-flex flex-wrap justify-content-center">
 
@@ -58,8 +58,8 @@
         apart_link: '',
         rooms: 1,
         beds: 1,
-        lat: '00.00',
-        lon: '00.00',
+        lat: '',
+        lon: '',
         range: '',
         // search2: "`http://localhost:8000/${apartment.image}`",
         route_show: '',
@@ -97,7 +97,7 @@
               } else {
                 console.log('success false');
               }
-              this.search_field = '';
+              this.search_field = ''; //clear search field dopo ricerca solo lat lon
               // const data = res.data;
 
               // if (data.success !== true) {

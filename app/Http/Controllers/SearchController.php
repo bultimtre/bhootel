@@ -36,7 +36,9 @@ class SearchController extends Controller
         $search_field = $searchData['search_field'];
         $lat = $searchData['lat'];
         $lon = $searchData['lon'];
-
+        $rooms = $searchData['rooms'];
+        $beds = $searchData['beds'];
+        $range = $searchData['range'] * 1000;
 
         if($search_field) {
             $result = strtolower($search_field);
@@ -54,21 +56,32 @@ class SearchController extends Controller
         //         'success' => false
         //     ];
         // }
-        $range = 20;
+        // $range = 20000;
         if($lat && $lon) {
             $apartments = Apartment::whereRaw('
                 ST_Distance_Sphere(
                     point(lon, lat),
                     point(?, ?)
-                ) < 20000
+                ) < '.$range.'
             ',[
                 $lon,
                 $lat
-            ])->get(); 
+            ]); 
+
+            if($beds) {
+                $apartments -> where('beds' , '>=', $beds);
+            }
+            if($rooms) {
+                $apartments -> where('rooms' , '>=', $rooms);
+            }
+
+
+            $send_data = $apartments->get();
 
             return [
                 'success' => true,
-                'data' => $apartments,
+                // 'data' => $apartments,
+                'data' => $send_data,
                 'lat' => $lat,
                 'lon' => $lon
                 // 'search' => $search_field
