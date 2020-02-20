@@ -62,7 +62,7 @@ class ApartmentCreateMail extends Mailable
         $rooms = $this -> rooms;
         $square_mt = $this -> square_mt;
         $ads_expired = $this ->ads_expired;
-        %show = $this -> show;
+        $show = $this -> show;
 
         return $this->view('mail.mailcreateapartmentmail' , compact("description" , "image" , "beds" , "bath" , "adress" , "lat" , "lon" , "rooms" , "square_mt" , "ads_expired" , "show"));
     }

@@ -32,7 +32,7 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        dd();
+        
        $this -> image =  $image;
        $this -> image =  $image;
        $this -> image =  $image;
@@ -54,7 +54,7 @@ class UserController extends Controller
 
     public function create()
     {
-        dd('test create');
+        
         return view('pages.user.create-apt', [
             'configs' => Config::all()
          ]);
@@ -63,7 +63,7 @@ class UserController extends Controller
 
     public function store(Request $request) {
 
-        dd('test store');
+        
          Mail::to("miamail@gmail.com") -> send (new ApartmentCreateMail($description -> description , $image -> image , $beds -> $beds , $bath -> bath , $adress -> adress , $lat -> lat , $lon -> lon , $rooms -> rooms , $square_mt -> square_mt , $ads_expired -> ads_expired , $show -> show ));
          return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
@@ -145,7 +145,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        dd('test destroy');
+        
         $apartment = Apartment::findOrFail($id);
         $apartment->configs()->sync([]);
         $apartment->delete();
