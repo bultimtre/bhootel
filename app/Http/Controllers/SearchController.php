@@ -42,76 +42,52 @@ class SearchController extends Controller
 
         if($search_field) {
             $result = strtolower($search_field);
-            $apartments = Apartment::where('address', 'LIKE', strtolower('%'.$result.'%')) -> get();
-            return [
-                'success' => true,
-                'data' => $apartments,
-                'searchFor' => [
-                    'search_field' => $search_field
-                ]
+            $apartments = Apartment::where('address', 'LIKE', strtolower('%'.$result.'%'));
 
-            ];
-
-        }
-        //  else {
-        //     return [
-        //         'success' => false
-        //     ];
-        // }
-        // $range = 20000;
-        if($lat && $lon) {
+        } else if ($lat && $lon) {
             $apartments = Apartment::whereRaw('
                 ST_Distance_Sphere(
                     point(lon, lat),
                     point(?, ?)
                 ) < '.$range.'
-            ',[
+            ', [
                 $lon,
                 $lat
-            ]); 
+            ]);
+        }
 
-            if($beds) {
-                $apartments -> where('beds' , '>=', $beds);
-            }
-            if($rooms) {
-                $apartments -> where('rooms' , '>=', $rooms);
-            }
+        if($beds) {
+            $apartments -> where('beds' , '>=', $beds);
+        }
+        if($rooms) {
+            $apartments -> where('rooms' , '>=', $rooms);
+        }
 
-            if($configs) {
-                $apartments->whereHas('configs', function ($query) use ($configs) {
-                    $query->whereIn('configs.id', $configs);
+        if($configs) {
+            $apartments->whereHas('configs', function ($query) use ($configs) {
+                $query->whereIn('configs.id', $configs);
 
-                });
-                // $apartments->whereHas('configs', function ($query) use ($configs) {
-                //     $query->selectRaw('count(distinct id)')->whereIn('configs.id', $configs);
-                //     // $query->select(\DB::raw('count(distinct id)'))->whereIn('id', $configs);
-                // }, '=', count($configs));
-
-            }
-
-                // $apartments -> with('configs')
-                // ->whereHas('configs', function ($query) use ($configs) {
-                //     $query->selectRaw('count(distinct id)')->whereIn('configs.id', $configs);
-                // }, '=', count($configs))->get();
-
-
-
-            //add appartamento visibile o meno
-            $send_data = $apartments->get();
-
-            return [
-                'success' => true,
-                // 'data' => $apartments,
-                'data' => $send_data,
-                'searchFor' => [
-                    'lat' => $lat,
-                    'lon' => $lon,
-                    'range' => $range
-                ]
-                
-                // 'search' => $search_field
-            ];
+            });
 
         }
+
+        // appartamento visibile o meno
+        $apartments->where('show', '=', 1);
+
+        $send_data = $apartments->get();
+
+        return [
+            'success' => true,
+            'data' => $send_data,
+            'searchFor' => [
+                'search_field' => $search_field,
+                'lat' => $lat,
+                'lon' => $lon,
+                'range' => $range
+            ]
+        
+        ];
+
+        
     }
 }
