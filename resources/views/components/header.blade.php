@@ -5,11 +5,13 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse" >
-            @if(!Route::is('bhootel.login') && !Route::is('register'))
             <ul class="navbar-nav mr-auto flex-grow-1 justify-content-between pr-5">
                 <li>
-                    <a class="navbar-brand" href="{{route('all.index') }}"><img src="images/BhootelLogo.png" alt=""></a>
+                    <a class="navbar-brand" href="{{route('all.index') }}">
+                        <img src="{{ url('/') }}/images/BhootelLogo.png" alt="">
+                    </a>
                 </li>
+            @if(!Route::is('bhootel.login') && !Route::is('register'))
                 {{-- GUEST login + register--}}
                 @if(Auth::guest())
                     <li class="nav-item">

@@ -6,11 +6,21 @@
 .top-select {
   margin-top: 130px;
   height: 150px;
-  background-color: grey;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
 .left-select {
   background-color: #f2f2f2;
+}
+
+.card-img {
+  height: auto;
+  width: 270px;
+}
+
+.card-text.short {
+  display: none;
 }
 
 .list-group-item {
@@ -31,3 +41,20 @@
 .ad {
   border: solid 3px $bh-details;
 }
+
+@media (max-width:991px) {
+  .card-img {
+    height: auto;
+    width: unset;
+  }
+}
+
+// @media (max-width:968px) {
+//   .card-text.long {
+//     display: none;
+//   }
+  
+//   .card-text.short {
+//     display: block;
+//   }
+// }
