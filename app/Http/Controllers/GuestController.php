@@ -22,24 +22,7 @@ class GuestController extends Controller
         $apartments = Apartment::orderBy('id', 'DESC') -> paginate(10);
         return view('pages.index',compact('users','apartments'));
     }
-    //'search'
-    //DA CANCELLARE SOSTITUITA NEL SEARCH CONTROLLER
-    // public function search(Request $request)
-    // {
-    //     $data = $request -> all();
-    //     $result = strtolower($data['search_field']);
-    //     $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%')) -> get();
-    //     return view('pages.search',compact('apartments', 'result'));
-    // }
 
-
-    // public function show($id)
-    // {
-    //     $apartment= Apartment::findOrFail($id);
-    //     return view('pages.show',compact('apartment'));
-    // }
-
-    //nuova show per view count
     public function show(Request $request, $id)
     {
             // return 'OOOO';

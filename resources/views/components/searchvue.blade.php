@@ -148,7 +148,7 @@
           })
           .then(res => {
 
-              // console.log('res', res);
+              console.log('res', res);
               const data = res.data;
               if (data.success == true) {
                 this.apartments = data.data;
