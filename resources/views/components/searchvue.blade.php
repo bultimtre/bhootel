@@ -17,10 +17,13 @@
       <label for="vue-beds">min Beds: </label>
       <input type="text" v-on:keyup="getAparts()" v-model="beds" id="vue-beds"/>
 
-      <div v-for='config in configs'>
-        <input type="checkbox" :value='config.id' v-model="checkedConfigs" class="config-checkbox">
-        <label for="config-checkbox" >@{{ config.service}}</label>
+      <div class="form-group">
+        <div v-for='config in configs' class="form-check form-check-inline">
+          <input type="checkbox" :value='config.id' v-model="checkedConfigs" class="form-check-input config-checkbox" @change="getAparts()">
+          <label for="config-checkbox" >@{{ config.service}}</label>
+        </div>
       </div>
+
       
     </form>
 
@@ -59,6 +62,7 @@
     data() {
       return {
         auth_user: '{{ Auth::user() ?  Auth::user()-> id : ''}}',
+        baseUrl: window.location.protocol + "//" + window.location.host + "/",
         search_field: '',
         rooms: 1,
         beds: 1,
@@ -92,7 +96,7 @@
     },
     methods: {
       getAllConfigs() {
-        axios.get('http://localhost:8000/search/configs').then(resp => {
+        axios.get(this.baseUrl+'search/configs').then(resp => {
                 console.log('configs ', resp);
                 if(resp.status == 200) {
                   this.configs = resp.data;
@@ -104,13 +108,14 @@
               });
       },
       getAparts() {
-        axios.post('http://localhost:8000/search', {
+        axios.post(this.baseUrl + 'search', {
           search_field: this.search_field,
           rooms: this.rooms,
           beds: this.beds,
           lat: this.lat,
           lon: this.lon,
           range: this.range,
+          configs: this.checkedConfigs
           })
           .then(res => {
 
@@ -139,15 +144,15 @@
       },
       setImage(img) {
         return img.includes('images/user/') ? 
-            window.location.protocol + "//" + window.location.host + "/"+img 
+            this.baseUrl + img 
             : img; 
         // return img.includes('images/user/') ? `http://localhost:8000/${img}` : img; 
       },
       showApart(id) {
         // return this.auth_user ? "http://localhost:8000/user/apartment/" + id : "http://localhost:8000/apartment/" + id;
         return this.auth_user ? 
-            window.location.protocol + "//" + window.location.host + "/" +"/user/apartment/" + id 
-            : window.location.protocol + "//" + window.location.host + "/" +"/apartment/" + id;
+            this.baseUrl +"/user/apartment/" + id 
+            : this.baseUrl +"/apartment/" + id;
       },
       updateResults(data) {
         console.log('update results', data);

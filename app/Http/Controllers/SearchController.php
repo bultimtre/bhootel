@@ -8,6 +8,8 @@ use App\Apartment;
 use App\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Str;
 
 class SearchController extends Controller
@@ -28,7 +30,7 @@ class SearchController extends Controller
     public function search(Request $request)
     {
         // return Response()->json($request); //debug
-        
+
         $searchData = $request->all();
         $search_field = $searchData['search_field'];
         $lat = $searchData['lat'];
@@ -36,6 +38,7 @@ class SearchController extends Controller
         $rooms = $searchData['rooms'];
         $beds = $searchData['beds'];
         $range = $searchData['range'] * 1000;
+        $configs = $searchData['configs'];
 
         if($search_field) {
             $result = strtolower($search_field);
@@ -74,13 +77,24 @@ class SearchController extends Controller
                 $apartments -> where('rooms' , '>=', $rooms);
             }
 
-            //add config
-            // $apartments -> configs() -> whereIn('id', [5,6]); //not work
-            // $configs = [4,5];
-            // $apartments->whereHas('configs', function ($query) use ($configs) {
-                
-            //     $query->whereIn('configs.id', $configs);
-            // });
+            if($configs) {
+                $apartments->whereHas('configs', function ($query) use ($configs) {
+                    $query->whereIn('configs.id', $configs);
+
+                });
+                // $apartments->whereHas('configs', function ($query) use ($configs) {
+                //     $query->selectRaw('count(distinct id)')->whereIn('configs.id', $configs);
+                //     // $query->select(\DB::raw('count(distinct id)'))->whereIn('id', $configs);
+                // }, '=', count($configs));
+
+            }
+
+                // $apartments -> with('configs')
+                // ->whereHas('configs', function ($query) use ($configs) {
+                //     $query->selectRaw('count(distinct id)')->whereIn('configs.id', $configs);
+                // }, '=', count($configs))->get();
+
+
 
             //add appartamento visibile o meno
             $send_data = $apartments->get();
