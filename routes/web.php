@@ -55,3 +55,4 @@ Route::view('/hosted','hosted');
 Route::get('/payment/make/{id}', 'PaymentsController@pay')->name('payment.pay');
 Route::post('/payment/make/{id}{adId}', 'PaymentsController@make')->name('payment.make');
 
+Route::get('/prova','provaController@Array');

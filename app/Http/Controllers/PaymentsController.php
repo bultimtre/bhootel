@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Braintree_Transaction;
 use App\Apartment;
 use App\Ad;
+use Carbon\Carbon;
 class PaymentsController extends Controller
 {
      public function pay(Request $request,$id)
@@ -23,9 +24,20 @@ class PaymentsController extends Controller
 
     public function make(Request $request,$id,$adId)
 {
-   
-        $apartment = Apartment::find($id);
-        $apartment -> ads() -> attach($adId);
+    // $query = Ad::select('')
+    //             ->where('id','=',$adId)
+    //             ->whereRaw('updated_at + interval 2 day >= ?', [now()])
+    //             //->whereRaw('updated_at', '>=', 'DATE_ADD(NOW(), INTERVAL -7 DAY)')
+    //             ->get()->dd();
+    $data=Ad::select('created_at')
+    ->where('id','=',$adId)
+    ->get();
+ // dd($data[0]['created_at']);
+    $expire= new Carbon($data[0]['created_at']->addHours(24)); 
+  //  dd($expire);
+    $diff= $data -> diff($expire,false); 
+    dd($diff);
+     
      
        $ads = Ad::all();
 
@@ -48,16 +60,16 @@ class PaymentsController extends Controller
                               'options' => [
                                  'submitForSettlement' => True
                                  ]]);
-
+                                 
       if($result ->success){
-        $result = 'true';
-      // return redirect('/user/apartment/'.$id)->with('result');
+        $successo = 'true';
+     
+        
+       return redirect('/user/apartment/'.$id)->with(['successo' => $successo]);
+       
       }
       
-//dd($result);
-    //return response()->json($result.success);
-    //return view('pages.show');
-   return redirect('/user/apartment/'.$id);
+
 }
 
 }

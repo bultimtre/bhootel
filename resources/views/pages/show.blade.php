@@ -1,8 +1,9 @@
 @extends('layouts.base')
 @section('apt-show')
 @include('components.header')
+
 @php
-    $result='false';
+    $myobj=[];
 @endphp
 <main>
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -61,9 +62,10 @@
 <form action="{{route('payment.pay', $apartment->id)}}" method="get">
     @csrf
  
-   @if ( $result )
-    <p>ssssss</p>
-    @if (Auth::user() -> id == $apartment -> user -> id)
+
+@if (!session()->get( 'successo' ))
+        <div class="alert alert-success">
+           @if (Auth::user() -> id == $apartment -> user -> id)
 
     <p>Seleziona la tua sponsorizzazione:</p>
        <div class="form-group">
@@ -77,19 +79,23 @@
             <br>
        
     @endforeach
+    {{-- @foreach ($myObj ?? '' as $item)
+        {{$item->color}}
+    @endforeach --}}
 </div>
        <button type="submit">vai</button>
    @endif
+        </div>
+        @else 
+       <p>hai già pagato</p>
+    @endif
 
-   @else 
-   <p>hai già pagato</p>
-  
-@endif
-
-
- 
 </form>
 @endauth
+
+
+
+
 <div class="d-flex flex-wrap mt-3">
     <div class="col-4 p-5">
         <h3>Configurazione</h3>
