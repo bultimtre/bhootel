@@ -19,6 +19,12 @@ class SearchController extends Controller
 
         return view('pages.search',compact('search_field'));
     }
+    public function getAllConfigs() {
+        $configs = Config::all();
+        return Response()->json($configs);
+
+    }
+
     public function search(Request $request)
     {
         // return Response()->json($request); //debug

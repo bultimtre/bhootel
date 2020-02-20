@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 //SEARCH ROUTES
     Route::post('/search/show', 'SearchController@show') -> name('search.show');
     Route::post('/search', 'SearchController@search') -> name('search.search');
+    Route::get('/search/configs', 'SearchController@getAllConfigs') ->name('search.config');
 //-----------------------------------------------------//
 
 ///USERS UPR UPRA

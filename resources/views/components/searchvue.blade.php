@@ -16,6 +16,11 @@
       <input type="text" v-on:keyup="getAparts()" v-model="rooms" id="vue-rooms"/>
       <label for="vue-beds">min Beds: </label>
       <input type="text" v-on:keyup="getAparts()" v-model="beds" id="vue-beds"/>
+
+      <div v-for='config in configs'>
+        <input type="checkbox" :value='config.id' v-model="checkedConfigs" class="config-checkbox">
+        <label for="config-checkbox" >@{{ config.service}}</label>
+      </div>
       
     </form>
 
@@ -64,6 +69,8 @@
         searchDone: {},
         searchString: '',
         apartments: [],
+        configs: [],
+        checkedConfigs: [],
         res_num: '',
       };
     }
@@ -81,8 +88,21 @@
       // this.search_field = '{{ $search_field }}';
       this.search_field = $('#data_search_field').attr('data-search');
       this.getAparts();
+      this.getAllConfigs();
     },
     methods: {
+      getAllConfigs() {
+        axios.get('http://localhost:8000/search/configs').then(resp => {
+                console.log('configs ', resp);
+                if(resp.status == 200) {
+                  this.configs = resp.data;
+                }
+            })
+            .catch(err => {
+              this.error = "Error downloading configs";
+              console.log('err', err)
+              });
+      },
       getAparts() {
         axios.post('http://localhost:8000/search', {
           search_field: this.search_field,
