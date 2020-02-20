@@ -28,14 +28,16 @@ class PaymentsController extends Controller
     ->select('created_at')
     ->get();
      $date = $data[0]['created_at'];
-    // dd($date);
+     //dd($date);
  // dd($data[0]['created_at']);
     $expire= new Carbon($data[0]['created_at']->addHours(24)); 
     //dd($expire);
-    $diff= $date-> diffInRealHours($expire,false); 
-    dd($diff);
-     
-     
+    
+    //dd($diff);
+    $today = Carbon::now();
+     //dd($mutable);
+     $diff= $today-> diffInRealHours($expire,false); 
+     dd($diff);
        $ads = Ad::all();
 
        $gateway = new Braintree_Gateway([

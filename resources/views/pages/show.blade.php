@@ -2,9 +2,6 @@
 @section('apt-show')
 @include('components.header')
 
-@php
-    $myobj=[];
-@endphp
 <main>
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -87,7 +84,9 @@
    @endif
         </div>
         @else 
-       <p>hai già pagato</p>
+      
+        <p>hai già pagato </p>
+       
     @endif
 
 </form>
