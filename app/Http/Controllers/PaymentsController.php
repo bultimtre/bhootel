@@ -36,7 +36,7 @@ class PaymentsController extends Controller
     //dd($diff);
     $today = Carbon::now();
      //dd($mutable);
-     $diff= $today-> diffInRealHours($expire,false); 
+     $diff= $expire-> diffInRealHours($today,false); 
      dd($diff);
        $ads = Ad::all();
 
