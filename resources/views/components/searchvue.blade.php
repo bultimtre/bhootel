@@ -80,7 +80,7 @@
     template: "#searchvue",
     data() {
       return {
-        auth_user: '{{ Auth::user() ?  Auth::user()-> id : ''}}',
+        auth_user: '',
         baseUrl: window.location.protocol + "//" + window.location.host + "/",
         search_field: '',
         rooms: 1,
@@ -108,8 +108,8 @@
       }
     },
     created() {
-      // this.search_field = '{{ $search_field }}';
       this.search_field = $('#data_search_field').attr('data-search');
+      this.auth_user = $('#data_search_field').attr('data-user');
       this.getAparts();
       this.getAllConfigs();
     },
