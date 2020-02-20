@@ -2,7 +2,7 @@
   <div class="searchvue">
     <h3 style="display:inline">@{{ res_num }} </h3><h3 style="display:inline" v-text="searchString"></h3>
     <form>
-      <label for="vue-search_field">Ricerca per indirizzo: </label>
+      <label for="vue-search_field">Cerca appartamento: </label>
       <input type="text" v-on:keyup="evData()" v-model="search_field" id="vue-search_field"/>
       <fieldset id="coords-disable">
         <label for="vue-lat">Ricerca per coordinate - lat: </label>
