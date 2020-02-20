@@ -1,21 +1,40 @@
 <script type="text/x-template" id="searchvue">
-  <div class="searchvue">
+  <div class="searchvue container">
     <h3 style="display:inline">@{{ res_num }} </h3><h3 style="display:inline" v-text="searchString"></h3>
-    <form>
-      <label for="vue-search_field">Cerca appartamento: </label>
-      <input type="text" v-on:keyup="evData()" v-model="search_field" id="vue-search_field"/>
+    <form class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="vue-search_field">Cerca appartamento: </label>
+        <input type="text" class="form-control" v-on:keyup="evData()" v-model="search_field" id="vue-search_field"/>
+      </div>
+
       <fieldset id="coords-disable">
-        <label for="vue-lat">Ricerca per coordinate - lat: </label>
-        <input type="text" v-on:keyup="evData()" v-model="lat" id="vue-lat" placeholder="latitude"/>
-        <label for="vue-lon">Lon: </label>
-        <input type="text" v-on:keyup="evData()" v-model="lon" id="vue-lon" placeholder="longitudine"/>
-        <label for="vue-range">Range km: </label>
-        <input type="text" v-on:keyup="evData()" v-model="range" id="vue-range" placeholder="raggio"/>
+        <h5>Ricerca alternativa per coordinate</h5>
+        <div class="form-group has-feedback row">
+          <div class="col-sm-4">
+            <label for="vue-lat">latitudine: </label>
+            <input type="text" class="form-control" v-on:keyup="evData()" v-model="lat" id="vue-lat" placeholder="latitude"/>
+          </div>
+          <div class="col-sm-4">
+            <label for="vue-lon">longitudine: </label>
+            <input type="text" class="form-control" v-on:keyup="evData()" v-model="lon" id="vue-lon" placeholder="longitudine"/>
+          </div>
+          <div class="col-sm-4">
+            <label for="vue-range">distanza (km): </label>
+            <input type="text" class="form-control" v-on:keyup="evData()" v-model="range" id="vue-range" placeholder="raggio"/>
+          </div>
+        </div>
       </fieldset>
-      <label for="vue-rooms">min Rooms: </label>
-      <input type="text" v-on:keyup="evData()" v-model="rooms" id="vue-rooms"/>
-      <label for="vue-beds">min Beds: </label>
-      <input type="text" v-on:keyup="evData()" v-model="beds" id="vue-beds"/>
+
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <label for="vue-rooms">stanze minime: </label>
+          <input type="text" class="form-control" v-on:keyup="evData()" v-model="rooms" id="vue-rooms"/>
+        </div>
+        <div class="col-sm-6">
+          <label for="vue-beds">numero minimo letti: </label>
+          <input type="text" class="form-control" v-on:keyup="evData()" v-model="beds" id="vue-beds"/>
+        </div>
+      </div>
 
       <div class="form-group">
         <div v-for='config in configs' class="form-check form-check-inline">
@@ -172,8 +191,8 @@
       updateResults(data) {
         console.log('update results', data);
         if(data) {
-          this.searchString = (data.search_field) ? `per ${data.search_field}` 
-            : `per lat: ${data.lat} - lon: ${data.lon} - range: ${data.range / 1000}km`;
+          this.searchString = (data.search_field) ? `per: ${data.search_field}` 
+            : `per: lat: ${data.lat} - lon: ${data.lon} - range: ${data.range / 1000}km`;
         } else {
           this.searchString = '';
         }
