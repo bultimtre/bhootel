@@ -30,7 +30,7 @@ class CreateApartmentsTable extends Migration
             $table->tinyInteger('show')->defaut('1')->nullable();
             $table->integer('views')->default('0')->nullable();
             $table->integer('price')->default('2000');
-            $table->timestamps(); ///push test
+            $table->timestamps(); 
 
         });
     }

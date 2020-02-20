@@ -47,13 +47,14 @@
                 @endif
                 {{-- ADD APT GUEST/UPR/UPRA --}}
 
-            </ul>
-            @endif
-            {{-- @if (!Route::is('all.index'))
-                @include('components.search-bar')
-            @endif --}}
-        </div>
-    </nav>
-
+        </ul>
+        {{-- GUEST/UPR/UPRA --}}
+        {{-- SOSTITUITA DA CANC <form class="form-inline mt-2 mt-md-0" action="{{route(Auth::user()?'user.search':'guest.search')}}" method="post"> --}}
+        <form class="form-inline mt-2 mt-md-0" action="{{route('search.show')}}" method="post">
+            @csrf
+            @method('POST')
+            <label for="search_field"></label>
+            <input class="form-control mr-sm-2" name='search_field' type="text">
+        </form>
 </div>
 

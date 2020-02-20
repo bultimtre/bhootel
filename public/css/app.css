@@ -10888,6 +10888,7 @@ main {
   margin-top: 80px;
 }
 
+<<<<<<< HEAD
 .bg-index {
   position: relative;
   background: url(/images/header.jpg?4efe9422856dc667257b40e7e5fcd268) no-repeat;
@@ -10901,6 +10902,29 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+=======
+.apt {
+  margin: 10px;
+  padding: 5px;
+  background-color: #c7c2c2;
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.apt .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.apt:hover {
+  text-decoration: none;
+}
+
+.apt img {
+  height: 100%;
+>>>>>>> eb9a513e3581793948e0c22d9b31c17f70cf9eb1
 }
 
 .parsley-errors-list.filled {

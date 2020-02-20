@@ -73,6 +73,8 @@
     </div>
 </div>
 
+<h2 class="view-count">Total Views: {{ $apartment -> views }}</h2>
+
 </main>
 
 @include('components.footer')

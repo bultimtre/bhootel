@@ -3,7 +3,7 @@
 @section('search')
 @include('components.header')
     <main>
-
+{{-- 
         <div class="wrapper main-search" style="box-shadow: 0 0 30px 1px rgba(0, 0, 0, 0.2)">
             <div class="top-select d-flex justify-content-around align-items-center w-100">
 
@@ -88,13 +88,21 @@
                 </div>
                 @endif
             </div>
-        </div>
+        </div> --}}
 
         {{-- <div class="w-100 d-flex justify-content-center py-5">
             <div>
                 {{$apartments->links()}}
             </div>
         </div> --}}
+    
+    <div id="data_search_field" data-search="{{ $search_field }}" data-user="{{ Auth::user() ?  Auth::user()-> id : ''}}"></div>
+    @include('components.searchvue')
+    <div id="app-search">
+
+      <searchvue />
+    </div>  
+
 
     </main>
 @include('components.footer')
