@@ -34,8 +34,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 
-
-Route::post('/user/search', 'UserController@search') -> name('user.search');
+//SOSTITUITA DA SEARCH ROUTES
+// Route::post('/user/search', 'UserController@search') -> name('user.search');
 
 Route::get('/user/apartment/{id}', 'UserController@show') -> name('user-apt.show');
 

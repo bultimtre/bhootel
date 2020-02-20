@@ -48,10 +48,9 @@
 
     <div class="d-flex flex-wrap justify-content-center">
 
-      <div v-for='apartment in apartments' class="card flex-row w-25" style="margin:20px">
+      <div v-for='apartment in apartments' class="card flex-row" style="margin:20px">
         <div class="wrapper">
             <div class="card-body w-100" style="">
-            {{-- <img  class ="card-img-top w-100" :src="apartment.image"/> --}}
             <img  class ="card-img-top w-100" :src="setImage(apartment.image)"/>
             <p class="card-text">@{{ apartment.description}}</p>
             <p class="card-text">address: @{{ apartment.address}}</p>
@@ -62,7 +61,6 @@
             <div class="d-flex justify-content-end">
                 <span>@{{ apartment.id}}</span>
             </div>
-            {{-- <a class="btn btn-primary" :href="`http://localhost:8000/apartment/${apartment.id}`"> Più informazioni</a> --}}
             <a class="btn btn-primary" :href="showApart(apartment.id)"> Più informazioni</a>
         </div>
       </div>
@@ -116,7 +114,7 @@
     methods: {
       getAllConfigs() {
         axios.get(this.baseUrl+'search/configs').then(resp => {
-                console.log('configs ', resp);
+                // console.log('configs ', resp);
                 if(resp.status == 200) {
                   this.configs = resp.data;
                 }
@@ -150,7 +148,7 @@
           })
           .then(res => {
 
-              console.log('res', res);
+              // console.log('res', res);
               const data = res.data;
               if (data.success == true) {
                 this.apartments = data.data;
@@ -167,7 +165,7 @@
               }  else {
                 this.res_num = 'Nessun Risultato trovato';
               }
-              console.log('ajax res num', this.res_num);
+              console.log('ajax call: ', this.res_num);
 
           })
           .catch(err => {
@@ -180,19 +178,17 @@
         return img.includes('images/user/') ? 
             this.baseUrl + img 
             : img; 
-        // return img.includes('images/user/') ? `http://localhost:8000/${img}` : img; 
       },
       showApart(id) {
-        // return this.auth_user ? "http://localhost:8000/user/apartment/" + id : "http://localhost:8000/apartment/" + id;
         return this.auth_user ? 
             this.baseUrl +"/user/apartment/" + id 
             : this.baseUrl +"/apartment/" + id;
       },
       updateResults(data) {
-        console.log('update results', data);
+        // console.log('update results', data);
         if(data) {
           this.searchString = (data.search_field) ? `per: ${data.search_field}` 
-            : `per: lat: ${data.lat} - lon: ${data.lon} - range: ${data.range / 1000}km`;
+            : `per: lat ${data.lat} - lon ${data.lon} - raggio ${data.range / 1000}km`;
         } else {
           this.searchString = '';
         }
