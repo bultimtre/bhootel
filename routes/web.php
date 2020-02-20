@@ -48,6 +48,8 @@ Route::get('/user/user-panel', 'UserController@userPanel') -> name('user.user-pa
 // Clear Session for Testing view count
 Route::get('/clear', 'ClearSessionController@clearSession');
 
+//Routes for extract Relevant Aprtaments with ads
+Route::get('/notable','IndexController@notableApt')->name('notable'); //andrebbe prottetta come rotta
 
 
 

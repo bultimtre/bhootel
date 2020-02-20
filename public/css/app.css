@@ -1,4 +1,11 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700&display=swap);@charset "UTF-8";
+
+.abs-50-50 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
@@ -10884,16 +10891,86 @@ a.text-dark:focus {
   }
 }
 
-main {
-  margin-top: 80px;
+nav.navbar a {
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: #00ffda;
 }
 
-.bg-index {
+nav.navbar .navbar-brand {
+  padding-left: 20px;
+}
+
+nav.navbar .navbar-brand img {
+  width: 150px;
+}
+
+nav.navbar.dark {
+  background-color: #252f32;
+}
+
+.wrapper.main {
   position: relative;
-  background: url(/images/header.jpg?4efe9422856dc667257b40e7e5fcd268) no-repeat;
+  height: 90vh;
+}
+
+.wrapper.main .bg-index {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url(/images/header.jpg?4efe9422856dc667257b40e7e5fcd268);
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 600px;
+  height: 100%;
+}
+
+.wrapper.main .bg-index-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#1e5799+0,000000+51,7db9e8+100 */
+  background: #1e5799;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(30, 87, 153, 0.2) 0%, #000000 35%, #000000 80%, rgba(125, 186, 232, 0.256) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  opacity: 0.65;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#1e5799", endColorstr="#7db9e8",GradientType=0 );
+  /* IE6-9 */
+}
+
+.wrapper.main .bg-index ~ .container-fluid.wrapper,
+.wrapper.main .bg-index ~ .wrapper.container-sm,
+.wrapper.main .bg-index ~ .wrapper.container-md,
+.wrapper.main .bg-index ~ .wrapper.container-lg,
+.wrapper.main .bg-index ~ .wrapper.container-xl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper.main .bg-index ~ .container-fluid.wrapper h1,
+.wrapper.main .bg-index ~ .wrapper.container-sm h1,
+.wrapper.main .bg-index ~ .wrapper.container-md h1,
+.wrapper.main .bg-index ~ .wrapper.container-lg h1,
+.wrapper.main .bg-index ~ .wrapper.container-xl h1 {
+  font-weight: 600;
+  font-size: 4rem;
+}
+
+.wrapper.main .bg-index ~ .container-fluid.wrapper p,
+.wrapper.main .bg-index ~ .wrapper.container-sm p,
+.wrapper.main .bg-index ~ .wrapper.container-md p,
+.wrapper.main .bg-index ~ .wrapper.container-lg p,
+.wrapper.main .bg-index ~ .wrapper.container-xl p {
+  font-size: 1.1rem;
+  letter-spacing: 1px;
 }
 
 .container.search {
@@ -10901,6 +10978,103 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.container.search .form-control {
+  font-size: 1.2rem;
+  text-align: center;
+  border-bottom: 5px solid #00ffda;
+}
+
+.container.search div.button {
+  position: relative;
+  height: 150px;
+}
+
+.container.search div.button .btn-success.search {
+  font-size: 1.6rem;
+  padding: 6px 50px;
+  border-radius: 999px;
+  border: 1px solid #00ffda;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #00ffda;
+  border-bottom: 5px solid #00ffda;
+}
+
+.container.search div.button .btn-success.search:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.container.search div.button .btn-success.search:active {
+  border-bottom: 1px solid #00ffda;
+}
+
+.container.search div.button .btn-success.search:focus {
+  outline: none;
+  box-shadow: unset;
+}
+
+.apt {
+  margin: 10px;
+  padding: 5px;
+  background-color: #c7c2c2;
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.apt .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.apt:hover {
+  text-decoration: none;
+}
+
+.apt img {
+  height: 100%;
+}
+
+.main-search {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.top-select {
+  margin-top: 130px;
+  height: 150px;
+  background-color: grey;
+}
+
+.left-select {
+  background-color: #f2f2f2;
+}
+
+.list-group-item {
+  background: none;
+  border: none;
+}
+
+.button-show {
+  background-color: #00ffda;
+  border: none;
+  color: #000;
+}
+
+.button-show:hover {
+  background-color: #252f32;
+}
+
+.ad {
+  border: solid 3px #ff00c2;
+}
+
+html,
+body {
+  font-family: "Raleway", sans-serif;
+  font-weight: 500;
 }
 
 .parsley-errors-list.filled {
