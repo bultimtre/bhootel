@@ -37,7 +37,7 @@
                             <div class="wrapper d-lg-flex w-100">
                                 <div class="card-img d-lg-flex m-0 p-0"">
                                 {{-- <div class="card-img d-md-flex col-12 col-md-4 m-0 p-0" style="background-image:url('{{$apartment -> image}}'); background-repeat:no-repeat; background-position:left; background-size:cover"> --}}
-                                    <img class ="card-img-top image-fluid" style="height:100%" src='{{ url('/') }}/{{$apartment -> image}}'/>
+                                 {{--   <img class ="card-img-top image-fluid" style="height:100%" src='{{ url('/') }}/{{$apartment -> image}}'/>
                                 </div>
                                 <div class="card-body w-100 d-flex flex-grow-1 " style="background-color:#f2f2f2">
                                     <div class="desc d-lg-flex flex-column h-100 pr-2">

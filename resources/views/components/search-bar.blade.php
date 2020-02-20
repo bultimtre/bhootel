@@ -4,7 +4,7 @@
     <p class="text-white mt-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quisquam dolores asperiores dolorem eveniet repellat placeat suscipit? Eveniet, aperiam quod. Consectetur nulla aliquam magnam a error laborum eum? Soluta, in?</p>
   </div>
 
-  <form class="form mt-2 mt-md-0" action="{{route(Auth::user()?'user.search':'guest.search')}}" method="post">
+  <form class="form mt-2 mt-md-0" action="{{route('search.show')}}" method="post">
       @csrf
       @method('POST')
       <label for="search_field"></label>
