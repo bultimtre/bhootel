@@ -1,15 +1,15 @@
 <script type="text/x-template" id="searchvue">
   <div class="searchvue container">
     <h3 style="display:inline">@{{ res_num }} </h3><h3 style="display:inline" v-text="searchString"></h3>
-    <form class="form-horizontal" role="form">
+    <form role="form">
       <div class="form-group">
         <label for="vue-search_field">Cerca appartamento: </label>
-        <input type="text" class="form-control" v-on:keyup="evData()" v-model="search_field" id="vue-search_field"/>
+        <input type="text" class="form-control inputsrc" v-on:keyup="evData()" v-model="search_field" id="vue-search_field"/>
       </div>
 
       <fieldset id="coords-disable">
         <h5>Ricerca alternativa per coordinate</h5>
-        <div class="form-group has-feedback row">
+        <div class="row">
           <div class="col-sm-4">
             <label for="vue-lat">latitudine: </label>
             <input type="text" class="form-control" v-on:keyup="evData()" v-model="lat" id="vue-lat" placeholder="latitude"/>
@@ -25,7 +25,7 @@
         </div>
       </fieldset>
 
-      <div class="form-group row">
+      <div class="row">
         <div class="col-sm-6">
           <label for="vue-rooms">stanze minime: </label>
           <input type="text" class="form-control" v-on:keyup="evData()" v-model="rooms" id="vue-rooms"/>
