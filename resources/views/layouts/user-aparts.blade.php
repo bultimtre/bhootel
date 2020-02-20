@@ -18,7 +18,11 @@
       <div class="row">
         <div class="col-6">
           @auth
-            <h2>{{ Auth::user() -> email }}</h2>  
+            <h2>{{ Auth::user() -> email }}</h2> 
+            <a href="{{route(apartment.create , $apartment->id)}}">Invia</a>
+            <br>
+            <br>
+            <a href="{{route(apartment.edit , $apartment->id)}}">Modifica</a>
           @else 
             <h2>GUEST</h2>
           @endauth         

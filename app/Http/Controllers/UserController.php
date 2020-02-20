@@ -7,10 +7,11 @@ use App\Config;
 use App\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Supports\facades\mail;
 use League\CommonMark\Inline\Element\Code;
 use Mail\ApartmentCreateMail;
 use Mail\ApartementUpdateMail;
-use Illuminate\Supports\facades\mail;
+
 
 class UserController extends Controller
 {
@@ -35,7 +36,7 @@ class UserController extends Controller
        $this -> image =  $image;
        $this -> image =  $image;
        $this -> image =  $image;
-       $data = $request -> all(Mail::to("miamail@gmail.com") -> send (new ApartmentCreateMail($description -> description , $image -> image , $beds -> $beds , $bath -> bath , $adress -> adress , $lat -> lat , $lon -> lon , $rooms -> rooms , $square_mt -> square_mt , $ads_expired -> ads_expired , $show -> show  ));
+      
     
         $result = strtolower($data['search_field']);
         $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
@@ -46,7 +47,7 @@ class UserController extends Controller
     public function show($id)
     {
         $apartment= Apartment::findOrFail($id);
-        Mail::to("miamail@gmail.com") -> send (new ApartmentCreateMail());
+       
         return view('pages.show',compact('apartment'));
     }
 
@@ -63,7 +64,8 @@ class UserController extends Controller
     public function store(Request $request) {
 
         dd('test store');
-        // return Response()->json($request); //debug
+         Mail::to("miamail@gmail.com") -> send (new ApartmentCreateMail($description -> description , $image -> image , $beds -> $beds , $bath -> bath , $adress -> adress , $lat -> lat , $lon -> lon , $rooms -> rooms , $square_mt -> square_mt , $ads_expired -> ads_expired , $show -> show ));
+         return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|max:850',
@@ -119,12 +121,12 @@ class UserController extends Controller
     }
 
 
-    /* public function edit($id)
+     public function edit($id)
     {
         $apartment =Apartment::find($id);
         $configs=Config::all();
         return view('pages.user.update-apt',compact('apartment','configs'));
-    } */
+    } 
 
 
     /* public function update(Request $request, $id)

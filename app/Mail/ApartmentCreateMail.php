@@ -50,8 +50,20 @@ class ApartmentCreateMail extends Mailable
      *
      * @return $this
      */
-    public function build()
-    {
-        return $this->view('mail.mailcreateroommail' , compact("description" , "image" , "beds" , "bath" , "adress" , "lat" , "lon" , "rooms" , "square_mt" , "ads_expired" , "show"));
+    public function build(){   
+        
+        $description = $this -> description;
+        $image = $this -> image;
+        $beds = $this -> beds;
+        $bath = $this -> bath;
+        $address = $this -> address;
+        $lat = $this -> lat;
+        $lon = $this -> lon;
+        $rooms = $this -> rooms;
+        $square_mt = $this -> square_mt;
+        $ads_expired = $this ->ads_expired;
+        %show = $this -> show;
+
+        return $this->view('mail.mailcreateapartmentmail' , compact("description" , "image" , "beds" , "bath" , "adress" , "lat" , "lon" , "rooms" , "square_mt" , "ads_expired" , "show"));
     }
 }
