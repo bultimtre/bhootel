@@ -48,6 +48,10 @@ Route::get('/user/user-panel', 'UserController@userPanel') -> name('user.user-pa
 // Clear Session for Testing view count
 Route::get('/clear', 'ClearSessionController@clearSession');
 
+//test mail
+Route::post('/testmail/{id}' , 'GuestController@msgApartment') -> name('mail.create');
+
+
 
 
 

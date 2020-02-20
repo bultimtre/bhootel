@@ -17,32 +17,22 @@
     <div class="container">
       <div class="row">
         <div class="col-6">
-          @auth
-            <h2>{{ Auth::user() -> email }}</h2> 
-            <a href="{{route(apartment.create , $apartment->id)}}">Invia</a>
-            <br>
-            <br>
-            <a href="{{route(apartment.edit , $apartment->id)}}">Modifica</a>
-          @else 
-            <h2>GUEST</h2>
-          @endauth         
-        </div>
-        <div class="col-6">
-          @auth
-            <form action="{{ route('logout') }}" method="post">
-              @csrf
-              @method('POST')
-              <button type="submit" class="btn btn-light">Logout</button>
-              
+             <form action="{{route('mail.create' , $apartment->id)}}" id="mailform" method="post">
+             @csrf
+             @method("POST")
+             
+            <button type="submit">invia</button>
+
+            
             </form>
-          @else
-            <a href="{{ route('login') }}" type="submit" class="btn btn-light">Login</a>         
-          @endauth          
+
+            <textarea form= "mailform" name="message" id="msg" cols="30" rows="10">Pippo e paperino</textarea>
+           
         </div>
       </div>
     </div>
 
-    @yield('content')
+    
 
 
 

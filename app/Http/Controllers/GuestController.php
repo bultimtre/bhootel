@@ -79,5 +79,13 @@ class GuestController extends Controller
         //
     }
 
+    
+
+    public function msgApartment(Request $request , $id)
+    {
+        
+       dd($id);
+        
+    }
 
 }

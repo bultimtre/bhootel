@@ -207,5 +207,9 @@ class UserController extends Controller
 
         return view('pages.user.user-panel', compact('apartments'));
     }
-    //commento provv
+    //Creazione Mail
+
+    
+
 }
+    
