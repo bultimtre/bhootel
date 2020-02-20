@@ -41,8 +41,13 @@ class SearchController extends Controller
         $configs = $searchData['configs'];
 
         if($search_field) {
+
             $result = strtolower($search_field);
-            $apartments = Apartment::where('address', 'LIKE', strtolower('%'.$result.'%'));
+            // $apartments = Apartment::where('address', 'LIKE', strtolower('%'.$result.'%'));
+            $apartments = Apartment::where(function ($query) use ($result) {
+                $query->where('address', 'LIKE', strtolower('%'.$result.'%'))
+                    ->orWhere('description', 'LIKE', strtolower('%'.$result.'%'));
+            });
 
         } else if ($lat && $lon) {
             $apartments = Apartment::whereRaw('
@@ -54,6 +59,14 @@ class SearchController extends Controller
                 $lon,
                 $lat
             ]);
+        } else {
+            return [
+                'success' => true,
+                'data' => [],
+                'response' => 'missing parameters'
+            
+            ];
+
         }
 
         if($beds) {

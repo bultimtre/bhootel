@@ -107,12 +107,17 @@
               console.log('err', err)
               });
       },
-      evData() {
+      evData() { // da controllare, alt sost tutti eventi v-on e @change con getAparts()
         if((this.search_field.length >=1) || 
-            (this.lat >=1 && this.lon >= 1 && this.range >=1)
+            ((this.lat >=-90 && this.lat <=90) && (this.lon >=-180 && this.lon <=180) && (this.range > 0))
           ) {
           this.getAparts();
+        } else {
+          this.res_num = 'Inserire i parametri corretti';
+          this.apartments = [];
+          this.searchString = '';
         }
+
       },
       getAparts() {
         axios.post(this.baseUrl + 'search', {
@@ -143,7 +148,7 @@
               }  else {
                 this.res_num = 'Nessun Risultato trovato';
               }
-              console.log('res num', this.res_num);
+              console.log('ajax res num', this.res_num);
 
           })
           .catch(err => {
