@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Apartment;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\View;
 
 
 class IndexController extends Controller
+
+
 {
-    public function notableApt(){
+
+
+    protected static function notableApt(){
         $apartments=Apartment::all();
         $aptsWithAd =[];
 
@@ -30,7 +35,7 @@ class IndexController extends Controller
             $adHours = $aptWithAd['hours'];
             if($diff<$adHours){
                 array_push($aptsNotable,
-                [
+                (object)[
                     'start'=>$aptWithAd['date'],
                     'price_ad'=>$aptWithAd['price_ad'],
                     'hours'=>$adHours,
@@ -41,8 +46,9 @@ class IndexController extends Controller
         }
 
         $apts = Apartment::all();
-        $result= ['result'=> $aptsNotable];
-        //$aptsNotable = htmlspecialchars($aptsNotable, ENT_DISALLOWED, "UTF-8");;
+        $result= ['result'=> (object) ($aptsNotable)];
+        //dd($result);
+        //$aptsNotable = htmlspecialchars($aptsNotable, ENT_DISALLOWED, "UTF-8");;*/
         $resultColl = collect($result['result'])->map(function ($result) {
             return (object) $result;
         });
@@ -55,9 +61,9 @@ class IndexController extends Controller
         /* return [
             'aptsAd'=> $aptsNotable,
             'apartaments'=>$apts
-        ] */;
+        ] */
         //return $apts;
-        return view('components.list-notable', compact('resultColl','apts') );
-
+        //return view('components.list-notable', compact('resultColl','apts') );
+        //return $resultColl;
     }
 }

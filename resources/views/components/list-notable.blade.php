@@ -9,7 +9,11 @@
 <body>
 
 
-    <p>{{$apts}}</p>
+    @foreach ($item as $key => $value)
+        <p>{{$value}}</p>
+    @endforeach
+
+@endforeach
 
 {{-- @foreach($apts as $apt)
 <p>{{$apt}}</p>
