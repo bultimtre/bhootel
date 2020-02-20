@@ -32,29 +32,31 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
-        
-       $this -> image =  $image;
-       $this -> image =  $image;
-       $this -> image =  $image;
-      
-    
+        $data = $request -> all();
         $result = strtolower($data['search_field']);
         $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
         return view('pages.search',compact('apartments', 'result'));
     }
 
 
-    public function show($id)
+    // public function show($id)
+    // {
+    //     $apartment= Apartment::findOrFail($id);
+    //     return view('pages.show',compact('apartment'));
+    // }
+
+    //nuova show per view count
+        public function show(Request $request, $id)
     {
         $apartment= Apartment::findOrFail($id);
-       
+        $apartment -> viewsCount($request, $id, $apartment);
         return view('pages.show',compact('apartment'));
     }
 
 
+
     public function create()
     {
-        
         return view('pages.user.create-apt', [
             'configs' => Config::all()
          ]);
@@ -63,9 +65,8 @@ class UserController extends Controller
 
     public function store(Request $request) {
 
-        
-         Mail::to("miamail@gmail.com") -> send (new ApartmentCreateMail($description -> description , $image -> image , $beds -> $beds , $bath -> bath , $adress -> adress , $lat -> lat , $lon -> lon , $rooms -> rooms , $square_mt -> square_mt , $ads_expired -> ads_expired , $show -> show ));
-         return Response()->json($request); //debug
+
+        // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'required|max:850',
@@ -121,36 +122,78 @@ class UserController extends Controller
     }
 
 
-     public function edit($id)
+    public function edit($id)
     {
         $apartment =Apartment::find($id);
         $configs=Config::all();
         return view('pages.user.update-apt',compact('apartment','configs'));
-    } 
+    }
 
 
-    /* public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        dd($request);
-        $data = $request->all();
-        $apartment = Apartment::findOrFail($id);
-        $apartment->update($data);
-        $configs = Config::find(isset($data['configs_id']));
-        $apartment->configs()->sync($configs);
+        // return Response()->json($request); //debug
+        $validateApartmentData = $request -> validate([
+            'id' => 'required|exists:apartments,id',
+            'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'description' => 'required|max:850',
+            'address' => 'required|max:255',
+            'lat' => 'nullable|numeric|between:-90,90',
+            'lon' => 'nullable|numeric|between:-90,180',
+            'rooms' => 'required|integer|max:200',
+            'beds' => 'required|integer|max:200',
+            'bath' => 'required|integer|max:200',
+            'square_mt' => 'required|integer|max:10000',
+            'configs_id' => 'nullable|array|exists:configs,id',
+            'show' => 'required|integer|min:0|max:1'
+        ]);
 
-        return view('pages.show', compact('apartment','configs'));
-        Mail::to("mail2@mail.com") -> send (new ApartmentUpdateMail($description -> description , $image -> image , $beds -> $beds , $bath -> bath , $adress -> adress , $lat -> lat , $lon -> lon , $rooms -> rooms , $square_mt -> square_mt , $ads_expired -> ads_expired , $show -> show ));
-    } */
+        $userId = Auth::id();
+        $apartment = Apartment::findOrFail($validateApartmentData['id']);
+
+        if ($validateApartmentData
+            && ($userId == $apartment -> user -> id)) {
+            if (isset($validateApartmentData['imagefile'])) {
+                $file = $request->file('imagefile');
+                $filename = $file -> getClientOriginalName();
+                $file -> move('images/user/'. Auth::user()->name, $filename);
+                //save image path db da verificare
+                $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
+                $validateApartmentData['image'] = $imageFilePath;
+            }
+
+            $apartment->update($validateApartmentData);
+
+            if (isset($validateApartmentData['configs_id'])) {
+
+                $configs = Config::find($validateApartmentData['configs_id']);
+                $apartment->configs()->sync($configs);
+            } else {
+                $apartment->configs()->detach();
+            }
+
+            return Response()->json([
+                "success" => true,
+                "description" => $validateApartmentData['description']
+            ]);
+        }
+
+
+        return Response()->json([
+                "success" => false,
+                "imagefile" => ''
+            ]);
+
+    }
 
 
     public function destroy($id)
     {
-        
         $apartment = Apartment::findOrFail($id);
         $apartment->configs()->sync([]);
         $apartment->delete();
 
-        return redirect()->route('index');// nuova modifica
+        return redirect()->route('all.index');// nuova modifica
     }
 
 
@@ -164,4 +207,5 @@ class UserController extends Controller
 
         return view('pages.user.user-panel', compact('apartments'));
     }
+    //commento provv
 }

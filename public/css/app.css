@@ -10888,27 +10888,19 @@ main {
   margin-top: 80px;
 }
 
-.apt {
-  margin: 10px;
-  padding: 5px;
-  background-color: #c7c2c2;
-  height: 180px;
-  display: flex;
-  justify-content: space-between;
+.bg-index {
+  position: relative;
+  background: url(/images/header.jpg?4efe9422856dc667257b40e7e5fcd268) no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 600px;
 }
 
-.apt .info {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
-.apt:hover {
-  text-decoration: none;
-}
-
-.apt img {
-  height: 100%;
+.container.search {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .parsley-errors-list.filled {

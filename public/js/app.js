@@ -51993,7 +51993,9 @@ __webpack_require__(/*! parsleyjs */ "./node_modules/parsleyjs/dist/parsley.js")
 //require('./validation.js');
 
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); //import tom tom maps
+//import tt from '@tomtom-international/web-sdk-maps';
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -52067,8 +52069,11 @@ function getCoordByAddress(e) {
 
 
 function addNewApart(formData) {
+  var urlStore = "http://localhost:8000/user/store";
+  var urlUpdate = "http://localhost:8000/user/update-apt/";
+  var url = formData.has('id') ? urlUpdate : urlStore;
   $.ajax({
-    url: "http://localhost:8000/user/store",
+    url: url,
     enctype: 'multipart/form-data',
     type: "POST",
     headers: {
@@ -52108,24 +52113,20 @@ function formApartValidation() {
 }
 
 function getApartMap() {
+  var coords;
   var dataLat = $('.data-lat').attr("data-lat");
   var dataLon = $('.data-lon').attr("data-lon"); // console.log('dataLat', dataLat, ' - dataLon', dataLon);
 
   if (dataLat && dataLon) {
-    var map_obj = {
-      layer: 'basic',
-      style: 'main',
-      format: 'jpg',
-      center: parseFloat(dataLon).toFixed(6) + ', ' + parseFloat(dataLat).toFixed(6),
-      width: '512',
-      height: '512',
-      view: 'Unified',
-      key: api_key
-    };
-    var map_url = jQuery.param(map_obj);
-    var api_map_url = 'https://api.tomtom.com/map/1/staticimage?' + map_url;
-    console.log(api_map_url);
-    $('.map-img').attr("src", api_map_url);
+    coords = [dataLon, dataLat];
+    var map = tt.map({
+      container: 'apart-map',
+      key: api_key,
+      style: 'tomtom://vector/1/basic-main',
+      center: coords,
+      zoom: 15
+    });
+    var marker = new tt.Marker().setLngLat(coords).addTo(map);
   }
 }
 
@@ -52278,8 +52279,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

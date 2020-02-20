@@ -4,6 +4,16 @@
 @include('components.header')
 
 <main>
+
+    <div class="container-fluid wrapper main">
+        <div class="container-fluid bg-index">
+        </div>
+        <div class="bg-index-gradient"></div>
+        <div class="container-fluid wrapper">
+            @include('components.search-bar')
+        </div>
+    </div>
+
     <div class="d-flex flex-wrap justify-content-center" style="">
         @foreach ($apartments as $apartment)
             <div class="card flex-row w-25" style="margin:20px">
@@ -25,6 +35,7 @@
             {{$apartments->links()}}
         </div>
     </div>
+
 </main>
 
 @include('components.footer')
