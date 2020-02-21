@@ -1,24 +1,30 @@
-//utils
-@import 'utils.scss';
-// Variables
-@import 'variables';
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
 //fonts
 @import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700&display=swap');
 
+//utils
+@import 'utils.scss';
+// Variables
+@import 'variables';
+//container-main
+@import 'container-main.scss';
+
+//components
+@import 'components/input_number.scss';
+
+
 // nostri import
 @import 'navbar.scss';
 @import 'bg-index.scss';
-@import 'search-bar.scss';
 
-// list box search
-@import 'list-box-search.scss';
 
-// pagina searh
-@import 'page-search.scss';
+//search page
+@import 'search/search-bar.scss';
+@import 'search/searchvue.scss';
+@import 'search/list-box-search.scss';
+@import 'search/page-search.scss';
 
 
 
@@ -26,13 +32,6 @@ html, body {
   font-family: 'Raleway', sans-serif;
   font-weight: 500;
 }
-
-
-//
-
-
-
-
 
 .parsley-errors-list.filled {
   color: $error-field;

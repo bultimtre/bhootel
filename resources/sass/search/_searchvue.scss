@@ -1,0 +1,64 @@
+.main-search{
+    #app-search{
+        max-width: 1200px;
+        box-shadow: 0 0 30px 1px rgba(0, 0, 0, 0.2);
+        .searchvue{
+            .top-search {
+              //margin-top: 130px;
+              //height: 150px;
+              //background-color: #fff;
+              //border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+              border:1px solid red;we
+              form{
+                border:1px solid red;
+              }
+            }
+        }
+    }
+}
+
+
+/* .main-search {
+    max-width: 1200px;
+    margin: auto;
+  } */
+
+
+  .left-select {
+    background-color: #f2f2f2;
+  }
+
+  .card-img {
+    height: auto;
+    width: 270px;
+  }
+
+  .card-text.short {
+    display: none;
+  }
+
+  .list-group-item {
+    background: none;
+    border: none;
+  }
+
+  .button-show {
+    background-color: $bh-default;
+    border: none;
+    color: #000;
+
+    &:hover {
+      background-color: $bh-dark;
+    }
+  }
+
+  .ad {
+    border: solid 3px $bh-details;
+  }
+
+  @media (max-width:991px) {
+    .card-img {
+      height: auto;
+      width: unset;
+    }
+  }

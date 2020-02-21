@@ -1,5 +1,4 @@
 <div class="container">
-
     <nav class="navbar navbar-expand-md fixed-top {{!Route::is('all.index') ? 'dark' : ''}}">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -46,19 +45,8 @@
                     </li>
                 @endif
                 {{-- ADD APT GUEST/UPR/UPRA --}}
-
-        </ul>
-       {{-- GUEST/UPR/UPRA --}}
-        {{-- SOSTITUITA DA CANC <form class="form-inline mt-2 mt-md-0" action="{{route(Auth::user()?'user.search':'guest.search')}}" method="post"> --}}
-        <form class="form-inline mt-2 mt-md-0" action="{{route('search.show')}}" method="post">
-            @csrf
-            @method('POST')
-            <label for="search_field"></label>
-            <input class="form-control mr-sm-2" name='search_field' type="text">
-
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> Cerca </button>
-        </form>
-        @endif
-    </div>
-</nav>
- </div>
+            </ul>
+            @endif
+        </div>
+    </nav>
+</div>
