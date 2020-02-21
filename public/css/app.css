@@ -10902,39 +10902,92 @@ main.main-search.nav-fix {
   border: 1px solid red;
 }
 
-.div-num-input .input-label-style {
-  font-size: 0.82rem;
-  color: #ff00c2;
-  font-weight: 600;
-}
-
-.div-num-input .input-num-style {
-  border: 1px solid #d2d2d2;
-  position: relative;
-  width: 91px;
-  height: 30px;
-  border-radius: 5px;
-}
-
-.div-num-input .input-num-style input[type=number]::-webkit-inner-spin-button,
-.div-num-input .input-num-style input[type=number]::-webkit-outer-spin-button {
-  opacity: 1;
-  margin: 0;
-  font-size: 400px;
-  border: none;
-}
-
-.div-num-input .input-num-style input[type=number] {
+.input-num-style {
   width: 100px;
-  text-align: center;
-  padding-right: 0;
-  border: none;
-  outline: none;
-  background: transparent;
+  height: 50px;
 }
 
-.div-num-input .input-num-style input[type=number]:focus {
-  outline: none;
+.input-num-style input[type=number]::-webkit-inner-spin-button,
+.input-num-style input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-num-style input[type=number] {
+  -moz-appearance: textfield;
+  width: 50px;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-style: none;
+  border-color: none;
+  -o-border-image: none;
+     border-image: none;
+  font-size: 1.2rem;
+  border: 1px solid #d2d2d2;
+  box-shadow: none;
+}
+
+.input-num-style .num-arrow {
+  width: 50%;
+  border: 1px solid #d2d2d2;
+  box-sizing: border-box;
+}
+
+.input-num-style .num-arrow span {
+  height: 25px;
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.input-num-style .num-arrow span#num-up,
+.input-num-style .num-arrow span#num-down {
+  border-top: 1px solid #d2d2d2;
+}
+
+.input-num-style .num-arrow span#num-up:before,
+.input-num-style .num-arrow span#num-down:before {
+  position: absolute;
+  display: block;
+  content: "";
+  height: 15px;
+  width: 25px;
+  border-radius: 3px;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
+  transform: translate(-50%, -50%);
+  background-color: #ff00c2;
+  -webkit-clip-path: polygon(0% 0%, 50% 80%, 100% 0%);
+          clip-path: polygon(0% 0%, 50% 80%, 100% 0%);
+}
+
+.input-num-style .num-arrow span#num-up:hover,
+.input-num-style .num-arrow span#num-down:hover {
+  background-color: #ababab;
+  cursor: pointer;
+}
+
+.input-num-style .num-arrow span#num-up:active,
+.input-num-style .num-arrow span#num-up:link,
+.input-num-style .num-arrow span#num-down:active,
+.input-num-style .num-arrow span#num-down:link {
+  background-color: #797979;
+}
+
+.input-num-style .num-arrow span#num-up:active:before,
+.input-num-style .num-arrow span#num-up:link:before,
+.input-num-style .num-arrow span#num-down:active:before,
+.input-num-style .num-arrow span#num-down:link:before {
+  transform: translate(-50%, -50%) scale(0.8);
+  background-color: #ababab;
+}
+
+.input-num-style .num-arrow span#num-up#num-up,
+.input-num-style .num-arrow span#num-down#num-up {
+  transform: scaleY(-1);
 }
 
 nav.navbar a {
@@ -11063,10 +11116,6 @@ nav.navbar.dark {
 .main-search #app-search {
   max-width: 1200px;
   box-shadow: 0 0 30px 1px rgba(0, 0, 0, 0.2);
-}
-
-.main-search #app-search .searchvue .top-search {
-  border: 1px solid red;
 }
 
 .main-search #app-search .searchvue .top-search form {

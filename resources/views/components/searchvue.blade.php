@@ -24,12 +24,32 @@
                         </div>
                     </fieldset>
 
-                    <div class="pt-2"><hr></div>
-                    <div class="row m-0 div-option-search">
+                </form>
+            </div>
+
+
+            <div class="container-fluid d-md-flex m-0 p-0" style="min-height:800px">
+
+                <div class="left-select col-12 col-md-3 col-xl-3">
+                    <div class="quick-search">
+                        <h3 style="display:inline">@{{ res_num }} </h3><h3 style="display:inline" v-text="searchString"></h3>
+                        <div class="form-group">
+                            <label for="vue-search_field">Cerca appartamento: </label>
+                            <input type="text" class="form-control inputsrc" v-on:keyup="evData()" v-model="search_field" id="vue-search_field"/>
+                        </div>
+
+                    </div>
+
+                    <div class="row m-0 div-option-search" style="border:1px solid red">
+
                         <div class="d-flex flex-column align-items-start p-0 div-num-input">
                             <label class="input-label-style m-0 py-2" for="vue-rooms">Numero di stanze:</label>
-                            <div class="input-num-style">
-                                <input class="input-num abs-0-0" v-on:keyup="evData()" v-model="rooms" id="vue-rooms" type="number" step="1" min="1" max="50">
+                            <div class="d-flex input-num-style">
+                                <input class="input-num" v-on:keyup="evData()" v-model="rooms" id="vue-rooms" type="number" step="1" min="1" max="50">
+                                <div class='num-arrow'>
+                                    <span id='num-up' v-on:click="upNum()"></span>
+                                    <span id='num-down' v-on:click="downNum()"></span>
+                                </div>
                             </div>
                         </div>
 
@@ -41,62 +61,55 @@
                         </div>
                     </div>
 
+
+
                     <div class="form-group">
                         <div v-for='config in configs' class="form-check form-check-inline">
                         <input type="checkbox" :value='config.id' v-model="checkedConfigs" class="form-check-input config-checkbox" @change="evData()">
                         <label for="config-checkbox" >@{{ config.service}}</label>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div id="other container">
-                <h3 style="display:inline">@{{ res_num }} </h3><h3 style="display:inline" v-text="searchString"></h3>
-                <div class="form-group">
-                    <label for="vue-search_field">Cerca appartamento: </label>
-                    <input type="text" class="form-control inputsrc" v-on:keyup="evData()" v-model="search_field" id="vue-search_field"/>
+
                 </div>
+                <div v-for='apartment in apartments' class="d-md-flex flex-column col-md-9 col-xl-9 mt-4">
 
-                <div v-for='apartment in apartments' class="card flex-row" style="margin:20px">
-                    <div class="wrapper">
-                        <img  class ="card-img-top w-100" :src="setImage(apartment.image)"/>
-                        <p class="card-text">@{{ apartment.description}}</p>
-                        <p class="card-text">address: @{{ apartment.address}}</p>
-                        <p class="card-text">beds: @{{ apartment.beds}}</p>
-                        <p class="card-text">rooms: @{{ apartment.rooms}}</p>
-                        <p class="card-text">baths: @{{ apartment.bath}}</p>
-                        <p class="card-text">square_mt: @{{ apartment.square_mt}}</p>
-                        <div class="d-flex justify-content-end">
-                            <span>@{{ apartment.id}}</span>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary" :href="showApart(apartment.id)"> Più informazioni</a>
-                </div>
-            </div>
-
-
-            <div class="container-fluid d-md-flex m-0 p-0" style="min-height:800px">
-
-                <div class="left-select col-12 col-md-3 col-xl-3"></div>
-
-
-            <div v-for='apartment in apartments' class="d-md-flex flex-column col-md-9 col-xl-9 mt-4">
-
-                <div class="card flex-row" style="margin:20px">
-                    <div class="wrapper d-lg-flex w-100">
-                        <div class="card-img d-lg-flex m-0 p-0">
-                            <img class ="card-img-top image-fluid" style="height:100%"/>
-                        </div>
-                        <div class="card-body w-100 d-flex flex-grow-1 " style="background-color:#f2f2f2">
-                            <div class="desc d-lg-flex flex-column h-100 pr-2">
-                                <p class="card-text text-uppercase font-weight-bold">@{{apartment.title}}</p>
-
+                    <div class="card flex-row" style="margin:20px">
+                        <div class="wrapper d-lg-flex w-100">
+                            <div class="card-img d-lg-flex m-0 p-0">
+                                <img class ="card-img-top image-fluid" style="height:100%" src='setImage(apartment.image)'/>
                             </div>
-                            <div class="d-flex flex-column justify-content-between align-items-center border-left mx-auto pl-3">
+
+                            <div class="card-body w-100 d-flex flex-grow-1 " style="background-color:#f2f2f2; ">
+
+
+                                <div class="desc d-lg-flex flex-column h-100 pr-2">
+                                    <p class="card-text text-uppercase font-weight-bold">@{{apartment.title}}</p>
+                                    <p class="card-text long short">@{{apartment.description}}</p>
+                                    <ul v-for='config in apartment.configs'class="list-group list-group-horizontal justify-content-start">
+                                        <p>ciao @{{config}}</p>
+                                    </ul>
+                                </div>
+                                <div class="d-flex flex-column justify-content-between align-items-center border-left mx-auto pl-3">
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div v-for='apartment in apartments' class="card flex-row" style="margin:20px">
+                        <div class="wrapper">
+                            <img  class ="card-img-top w-100" :src="setImage(apartment.image)"/>
+                            <p class="card-text">@{{ apartment.description}}</p>
+                            <p class="card-text">address: @{{ apartment.address}}</p>
+                            <p class="card-text">beds: @{{ apartment.beds}}</p>
+                            <p class="card-text">rooms: @{{ apartment.rooms}}</p>
+                            <p class="card-text">baths: @{{ apartment.bath}}</p>
+                            <p class="card-text">square_mt: @{{ apartment.square_mt}}</p>
+                            <div class="d-flex justify-content-end">
+                                <span>@{{ apartment.id}}</span>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary" :href="showApart(apartment.id)"> Più informazioni</a>
+                    </div>
                 </div>
-
             </div>
 
 
@@ -184,6 +197,7 @@
           .then(res => {
 
               console.log('res', res);
+
               const data = res.data;
               if (data.success == true) {
                 this.apartments = data.data;
@@ -228,6 +242,13 @@
           this.searchString = '';
         }
 
+      },
+      upNum(){
+        this.rooms++;
+      },
+      downNum(){
+            this.rooms==1?1:this.rooms--;
+            this.evData();
       }
     }
   });
@@ -247,6 +268,7 @@
                     {{-- <div class="card-img d-md-flex col-12 col-md-4 m-0 p-0" style="background-image:url('{{$apartment -> image}}'); background-repeat:no-repeat; background-position:left; background-size:cover"> --}}
                      {{--   <img class ="card-img-top image-fluid" style="height:100%" src='{{ url('/') }}/{{$apartment -> image}}'/>
                     </div>
+
                     <div class="card-body w-100 d-flex flex-grow-1 " style="background-color:#f2f2f2">
                         <div class="desc d-lg-flex flex-column h-100 pr-2">
                             <p class="card-text text-uppercase font-weight-bold">{{$apartment -> title}}</p>

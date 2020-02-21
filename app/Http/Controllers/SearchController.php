@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 
 use App\User;
-use App\Apartment;
 use App\Config;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-
+use App\Apartment;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
@@ -24,7 +25,16 @@ class SearchController extends Controller
     public function getAllConfigs() {
         $configs = Config::all();
         return Response()->json($configs);
-
+    }
+    public function getAptConfig() {
+        $apartments=Apartment::all();
+        $aptAd = [];
+        foreach ($apartments as $apartment) {
+            foreach ($apartment->configs as $config) {
+                array_push($aptAd,$config->service);
+            }
+        }
+        return Response()->json($aptAd);
     }
 
     public function search(Request $request)
@@ -64,7 +74,7 @@ class SearchController extends Controller
                 'success' => true,
                 'data' => [],
                 'response' => 'missing parameters'
-            
+
             ];
 
         }
@@ -98,9 +108,9 @@ class SearchController extends Controller
                 'lon' => $lon,
                 'range' => $range
             ]
-        
+
         ];
 
-        
+
     }
 }

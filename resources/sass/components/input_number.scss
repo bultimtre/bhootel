@@ -1,36 +1,74 @@
-.div-num-input{
+.input-num-style{
+    width:100px;
+    height:50px;
 
-    .input-label-style{
-        font-size:0.82rem;
-        color:$bh-details;
-        font-weight:600;
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button
+    {
+        -webkit-appearance: none;
+        margin: 0;
     }
-    .input-num-style{
-        border:1px solid $bh-light;
-        position:relative;
-        width:91px;
-        height:30px;
-        border-radius: 5px;
 
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button
-        {
-            opacity:1;
-            margin:0;
-            font-size: 400px;
-            border: none;
-        }
+    input[type=number]
+    {
+        -moz-appearance: textfield;
+        width:50px;
+        text-align: center;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-style: none;
+        border-color: none;
+        border-image: none;
+        font-size:1.2rem;
+        border: 1px solid $bh-light;
+        box-shadow: none;
 
-        input[type=number]{
-            width:100px;
-            text-align: center;
-            padding-right: 0;
-            border:none;
-            outline: none;
-            background: transparent;
-        }
-        input[type=number]:focus{
-            outline: none;
+    }
+    .num-arrow{
+        width:50%;
+        border: 1px solid $bh-light;
+        box-sizing: border-box;
+
+        span{
+            height:25px;
+            display:block;
+            position: relative;
+            box-sizing: border-box;
+            overflow: hidden;
+            &#num-up,
+            &#num-down{
+                border-top:1px solid $bh-light;
+                &:before{
+                    position: absolute;
+                    display: block;
+                    content: '';
+                    height:15px;
+                    width:25px;
+                    border-radius: 3px;
+                    left:50%;
+                    top:50%;
+                    transform-origin: center center;
+                    transform: translate(-50%,-50%);
+                    background-color: $bh-details;
+                    clip-path: polygon(0% 0%, 50% 80%, 100% 0%);
+
+                }
+                &:hover{
+                background-color: $bh-light-v2;
+                cursor: pointer;
+                }
+                &:active,
+                &:link{
+                    background-color: $bh-light-v3;
+                    &:before{
+                        transform: translate(-50%,-50%) scale(0.8);
+                        background-color: $bh-light-v2;
+                    }
+                }
+            &#num-up{
+                transform: scaleY(-1);
+            }
+            }
         }
     }
 }
