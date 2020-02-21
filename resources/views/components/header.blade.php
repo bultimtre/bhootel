@@ -57,3 +57,17 @@
 
 </div>
 
+
+
+
+<script>
+    // script scroll navbar
+    $(window).scroll(function(){
+        var scroll = $(window).scrollTop();
+        if(scroll < 200){
+            $('.fixed-top').css('background', 'transparent');
+        } else{
+            $('.fixed-top').css('background', 'rgb(37, 47, 50)');
+        }
+    });
+</script>

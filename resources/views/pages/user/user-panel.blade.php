@@ -5,10 +5,10 @@
   
   <div class="container-fluid d-md-flex m-0 p-0" style="min-height:800px">
                 
-    <div class="left-select col-12 col-md-3 col-xl-3">
+    <div class="left-select col-12 col-md-3 col-xl-2">
     </div>
-    <div class="d-md-flex flex-column col-md-9 col-xl-9 mt-4">
-      <div style="overflow-y:scroll; overflow-x:hidden; height: 400px">
+    <div class="d-md-flex flex-column col-md-9 col-xl-10 mt-4 p-0">
+      <div class="table-cont mb-5" style="overflow-y:scroll; overflow-x:hidden; height: 500px">
         <table class="table mt-5">
           <thead>
             <tr>
@@ -17,11 +17,12 @@
               <th scope="col">THUMB</th>
               <th scope="col">DESCRIPTION</th>
               <th scope="col">SERVICES</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
             @foreach ($apartments as $apartment)
-              <tr>
+              <tr class="first-row">
                 <td scope="row">
                   <a href="{{route('user-apt.show', $apartment -> id)}}">
                     {{$apartment->id}}
@@ -61,23 +62,34 @@
                             <li class="list-group-item py-0 pr-2"><i class="fas fa-eye"></i></li>
                                 @break
                             @default
-                                
                         @endswitch
                     @endforeach
                     </ul>
                 </td>
+                <tr>
+                  <td colspan="3">
+                    <span>Promuovi questo appartamento</span>
+                    <button style="background-color:#ff00c2; border:none" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#promo{{$apartment->id}}" aria-expanded="false" aria-controls="collapseExample">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </td>
+                  <td colspan="2">
+                    <button type="button" style="background-color:#ff00c2; border:none" class="btn btn-primary show-hide mb-3" data-toggle="button" aria-pressed="false" autocomplete="off">
+                      Nascondi dagli annunci
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <td colspan="5" class="collapse" id="promo{{$apartment->id}}">
+                      <span>
+                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde fuga mollitia ratione ut, deleniti consequuntur vel minus cumque molestiae perferendis, assumenda commodi accusantium iusto, totam veritatis sed quas. Ea, incidunt.
+                      </sp>
+                    </td>
+                  </th>
+                </tr>
               </tr>
               <tr>
-                <td colspan="5">
-                  <button>view</button>
-                  <button>ad</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  PROMOZIONI
-                </td>
-              </tr>
             @endforeach
           </tbody>
         </table>
@@ -94,4 +106,16 @@
   </div>
 
 </main>
+
+
+
+<script>
+  // script pulsanti user-panel
+  $(".show-hide").click(function(){
+    $(this).text($(this).text() == 'Mostra negli annunci' ? 'Nascondi dagli annunci' : 'Mostra negli annunci');
+    $(this).css('opacity') === '1' ? $(this).css({'opacity':'0.3'}) : $(this).css({'opacity':'1'});
+  });
+
+</script>
+@include('components.footer')
 @endsection
