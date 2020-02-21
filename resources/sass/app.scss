@@ -1,8 +1,40 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
+//utils
+@import 'utils.scss';
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+//fonts
+@import url('https://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700&display=swap');
+
+// nostri import
+@import 'navbar.scss';
+@import 'bg-index.scss';
+@import 'search-bar.scss';
+@import 'footer.scss';
+
+// list box search
+@import 'list-box-search.scss';
+
+// pagina searh
+@import 'page-search.scss';
+
+
+
+html, body {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+}
+
+
+//
+
+
+
+
+
+.parsley-errors-list.filled {
+  color: $error-field;
+}

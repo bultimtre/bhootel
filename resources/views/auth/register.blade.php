@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.base')
 
-@section('content')
+@section('register')
+@include('components.header')
+<main>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -66,6 +68,8 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+                                or
+                                <a href="{{route('bhootel.login','upr')}}">{{__('login')}}</a>
                             </div>
                         </div>
                     </form>
@@ -74,4 +78,6 @@
         </div>
     </div>
 </div>
+</main>
+@include('components.footer')
 @endsection
