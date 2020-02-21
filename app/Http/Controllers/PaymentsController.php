@@ -37,7 +37,7 @@ class PaymentsController extends Controller
     $today = Carbon::now();
      //dd($mutable);
      $diff= $expire-> diffInRealHours($today,false); 
-     dd($diff);
+     //dd($diff);
        $ads = Ad::all();
 
        $gateway = new Braintree_Gateway([

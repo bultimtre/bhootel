@@ -3,30 +3,76 @@
   <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <style>
       
             body {
-                margin: 24px 0;
-                background-color:rgb(216, 238, 200) ;
-            }
+                margin: 0;
+                background-color: #1248a5;
+                 }
+            .box 
+            {       
+              margin: auto;
+              width: 70%;
+              padding: 2px;
+              background: rgba(0,0,0,.5);
+              box-sizing: border-box;
+              box-shadow: 0 15px 25px rgba(2,2,2,.3);
+              border-radius: 10px;
+                }
+                .box h2 {
+                       
+                        color: #fff;
+                        text-align: center;
+                    }
+                    
+                .box  input {
+                      width: 100%;
+                      padding: 5px 0;
+                      font-size: 1.2em;
+                      color: #fff;
+                      margin-bottom: 5px;
+                      border: none;
+                      border-bottom: 1px solid #fff;
+                      outline: none;
+                      background:transparent;
+                  }
+
+                   .box label
+                   {
+                      padding: 2px 5px;
+                      font-size: 1.2em;
+                      color: #fff;
+                   
+                      transition: .5s; 
+                    }
+
+                    .box input:focus ~ label,
+                    .boxx input:valid ~ label {
+                        top: -20px;
+                        left: 0;
+                        color: #03a9f4;
+                        font-size: 10px;
+                    }
             .spacer {
                 margin-bottom: 24px;
             }
-            #card-number, #cvv, #expiration-date {
+            .box #card-number, #cvv, #expiration-date {
                 background: white;
-                height: 20px;
+                height: 35px;
                 border: 1px solid #CED4DA;
-                padding: .375rem .75rem;
-                border-radius: .25rem;
+                padding: 5px 5px;
+                border-radius: 10px;
             }
         </style>
   </head>
   <body>
   <p>{{(Request::get('ads'))}}</p>
- 
+ <div class="box">
       <div class="container">
             <div class="col-md-6 offset-md-3">
-                <h1>Payment Form</h1>
+                <h2>Payment Form</h2>
                 <div class="spacer"></div>
               
                 @if (session()->has('success_message'))
@@ -48,7 +94,8 @@
                         @csrf
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" class="form-control" id="email">
+                            <input type="email" class="inputBox" id="email">
+                            
                         </div>
 
                         <div class="form-group">
@@ -151,6 +198,7 @@
                     </form>
                     </div>
         </div>
+        </div>
     <script src="https://js.braintreegateway.com/web/3.57.0/js/client.min.js"></script>
     <script src="https://js.braintreegateway.com/web/3.57.0/js/hosted-fields.min.js"></script>
     
@@ -194,7 +242,7 @@
             },
             expirationDate: {
               selector: '#expiration-date',
-              placeholder: '10/2019'
+              placeholder: '12/2020'
             }
           }
         }, function (hostedFieldsErr, hostedFieldsInstance) {

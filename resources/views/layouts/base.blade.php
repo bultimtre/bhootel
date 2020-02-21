@@ -11,6 +11,7 @@
 		<script src="{{ asset('js/app.js') }}"></script>
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	</head>
+	
 	<body>
 		@yield('guest_index')
 		@yield('search')

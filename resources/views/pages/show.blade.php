@@ -76,24 +76,22 @@
             <br>
        
     @endforeach
-    {{-- @foreach ($myObj ?? '' as $item)
-        {{$item->color}}
-    @endforeach --}}
+   
 </div>
        <button type="submit">vai</button>
    @endif
         </div>
         @else 
+        <div class="ad-result">
+            <p>Hai una sponsorizzazione attiva  </p>
+        </div>
       
-        <p>hai già pagato </p>
+        
        
     @endif
 
 </form>
 @endauth
-
-
-
 
 <div class="d-flex flex-wrap mt-3">
     <div class="col-4 p-5">
