@@ -15,7 +15,7 @@ class CreateStatsTable extends Migration
     {
         Schema::create('stats', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('stats');
+            // $table->tinyInteger('stats');
             $table->timestamps();
         });
     }

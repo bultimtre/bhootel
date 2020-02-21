@@ -52012,9 +52012,6 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-// const app = new Vue({
-//     el: '#app',
-// });
 
 var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'); //Refers to form http://localhost:8000/user/aparts/create
@@ -52131,6 +52128,12 @@ function getApartMap() {
 }
 
 function init() {
+  if ($('#app-search').length) {
+    var appSearch = new Vue({
+      el: '#app-search'
+    });
+  }
+
   if ($('.addApartForm').length) {
     formApartValidation();
   }
@@ -52279,8 +52282,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
