@@ -49,10 +49,10 @@ Route::get('/user/user-panel', 'UserController@userPanel') -> name('user.user-pa
 Route::get('/clear', 'ClearSessionController@clearSession');
 
 //braintree
-Route::post('/dropin/{id}','PaymentsController@pay')->name('dropin.payment');
+//Route::post('/dropin/{id}','PaymentsController@pay')->name('dropin.payment');
 
 Route::view('/hosted','hosted');
 Route::get('/payment/make/{id}', 'PaymentsController@pay')->name('payment.pay');
 Route::post('/payment/make/{id}{adId}', 'PaymentsController@make')->name('payment.make');
 
-Route::get('/prova','provaController@Array');
+Route::get('/payment/sponsor/{id}', 'PaymentsController@sponsor')->name('sponsor.show');

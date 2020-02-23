@@ -60,7 +60,7 @@
     @csrf
  
 
-@if (!session()->get( 'successo' ))
+@if (!session()->get( 'successo'))
         <div class="alert alert-success">
            @if (Auth::user() -> id == $apartment -> user -> id)
 
@@ -78,12 +78,14 @@
     @endforeach
    
 </div>
-       <button type="submit">vai</button>
+       <button type="submit">Sponsorizza</button>
+       
    @endif
         </div>
         @else 
         <div class="ad-result">
-            <p>Hai una sponsorizzazione attiva  </p>
+            <p>Hai una sponsorizzazione attiva <span> <a href=""> vedi info </a></span> </p>
+            
         </div>
       
         

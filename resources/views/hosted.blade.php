@@ -75,21 +75,6 @@
                 <h2>Payment Form</h2>
                 <div class="spacer"></div>
               
-                @if (session()->has('success_message'))
-                    <div class="alert alert-success">
-                        {{ session()->get('success_message') }}
-                    </div>
-                @endif
-
-                @if(count($errors) > 0)
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif 
                 <form action="{{route('payment.make',[$apartment ->id,Request::get('ads')])}}" method="POST" id="my-sample-form">
                         @csrf
                         <div class="form-group">
