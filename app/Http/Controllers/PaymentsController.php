@@ -25,14 +25,18 @@ class PaymentsController extends Controller
     public function make(Request $request,$id,$adId)
 {
 
-  $apartment = Apartment::find($id);
- // dd($apartment);
-    // $data=Ad::where('id','=',$adId)
-    // ->select('created_at')
-    // ->get();
-    //  $date = $data[0]['created_at'];
-    
-    // $expire= new Carbon($data[0]['created_at']->addHours(24)); 
+  //$data = $request -> all();
+
+ //CONNETTERE APARTMENT E AD NELLA TABELLA PIVOT , ATTACH ? SYNCH? 
+
+  $apartment = Apartment::findOrFail($id);
+  $ad = Ad::findOrFail($adId);
+ // dd($ad);
+//uso attach o sync per dirgli di tenermi l'elemento selezionato
+  $apartment -> ads() -> attach($ad);
+  //dd($apartment);
+  
+ //collegamento
    
     $today = Carbon::now();
      $new_expire= new Carbon($today->addHours(24)); 
@@ -68,11 +72,11 @@ class PaymentsController extends Controller
             'amount' => $amount,
             'paymentMethodNonce' => $paymentMethodNonce, 
             'options' => [
-                'submitForSettlement' => True
+            'submitForSettlement' => True
                 ]]);
                                
       if($result ->success){
-        $successo = 'true';
+        //$successo = 'true';
         return view('pages.info-sponsor',compact('apartment','amount','time','today','new_expire'));
        // return view('pages.show',compact('apId'));
      //return redirect('/user/apartment/'.$id)->with(['successo' => $successo]);
@@ -83,8 +87,11 @@ class PaymentsController extends Controller
     {
       $apId = $id;
       $successo = 'true';
-        return redirect('/user/apartment/'.$id)->with(['successo' => $successo]);
+      
+      return redirect('/user/apartment/'.$id)->with(['successo' => $successo]);
        
     }
+
+    
 
 }
