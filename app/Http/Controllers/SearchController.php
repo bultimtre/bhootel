@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this -> middleware('cors');
+    // }
     public function show(Request $request)
     {
         $data = $request -> all();
