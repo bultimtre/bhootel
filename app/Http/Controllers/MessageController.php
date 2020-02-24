@@ -41,6 +41,19 @@ class MessageController extends Controller
 
         return redirect() -> back();
     }
+
+
+    public function stat(Request $request) {
+
+        $request['year'] = 2020;
+
+        // dd($request -> all());
+
+        $msgs = Message::all();
+        
+        return response() -> json($msgs);
+
+    }
 }
 
 
