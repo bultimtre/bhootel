@@ -17,7 +17,7 @@ class UserController extends Controller
         $this -> middleware('auth');
     }
 
-        public function show(Request $request, $id)
+    public function show(Request $request, $id)
     {
         $apartment= Apartment::findOrFail($id);
         $apartment -> viewsCount($request, $id, $apartment);
