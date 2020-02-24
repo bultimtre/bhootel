@@ -4,6 +4,16 @@
 @include('components.header')
 
 <main>
+
+    <div class="container-fluid wrapper main">
+        <div class="container-fluid bg-index">
+        </div>
+        <div class="bg-index-gradient"></div>
+        <div class="container-fluid wrapper">
+            @include('components.search-bar')
+        </div>
+    </div>
+
     <div class="d-flex flex-wrap justify-content-center" style="">
         @foreach ($apartments as $apartment)
             <div class="card flex-row w-25" style="margin:20px">
@@ -20,11 +30,12 @@
         @endforeach
     </div>
 
-    <div class="w-100 d-flex justify-content-center py-5">
+    {{-- <div class="w-100 d-flex justify-content-center py-5">
         <div>
             {{$apartments->links()}}
         </div>
-    </div>
+    </div> --}}
+
 </main>
 
 @include('components.footer')

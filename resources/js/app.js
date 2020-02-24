@@ -32,9 +32,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// const app = new Vue({
-//     el: '#app',
-// });
+
 
 var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -111,36 +109,36 @@ function formApartValidation() {
     $('.addApartForm').parsley();
 
     $('.addApartForm').parsley().on('field:error', function (ParsleyField) {
-      ParsleyField.$element.addClass('is-invalid');
-      console.log('fired error');
+        ParsleyField.$element.addClass('is-invalid');
+        console.log('fired error');
     });
     $('.addApartForm').parsley().on('field:success', function (ParsleyField) {
-      ParsleyField.$element.removeClass('is-invalid');
+        ParsleyField.$element.removeClass('is-invalid');
     });
     var $createApart = $('.apartment-submit');
     $('.addApartForm').parsley().on('form:error', function () {
 
-      if ($createApart.hasClass('btn-primary')) {
-        $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
-      }
+        if ($createApart.hasClass('btn-primary')) {
+            $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
+        }
     });
 
     $('.addApartForm').parsley().on('field:success', function () {
 
-      if ($createApart.hasClass('btn-danger')) {
-        $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
-      }
+        if ($createApart.hasClass('btn-danger')) {
+            $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
+        }
     }); //comm
-  }
+}
 
 
 
-  function getApartMap() {
+function getApartMap() {
     var coords;
     var dataLat = $('.data-lat').attr("data-lat");
     var dataLon = $('.data-lon').attr("data-lon");
     // console.log('dataLat', dataLat, ' - dataLon', dataLon);
-    if (dataLat && dataLon){
+    if (dataLat && dataLon) {
         coords = [dataLon, dataLat];
         var map = tt.map({
             container: 'apart-map',
@@ -156,16 +154,22 @@ function formApartValidation() {
 }
 
 function init() {
+    if ($('#app-search').length) {
+
+        var appSearch = new Vue({
+            el: '#app-search',
+        });
+    }
 
 
     if ($('.addApartForm').length) {
 
-       formApartValidation();
+        formApartValidation();
     }
 
     $('.addApartForm').submit(getCoordByAddress);
 
-    if($('#apart-map').length) {
+    if ($('#apart-map').length) {
 
         getApartMap();
     }

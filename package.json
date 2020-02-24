@@ -26,7 +26,6 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "@tomtom-international/web-sdk-maps": "^5.45.0",
         "parsleyjs": "^2.9.2"
     }
 }

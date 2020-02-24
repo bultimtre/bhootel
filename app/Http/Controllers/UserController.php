@@ -17,32 +17,6 @@ class UserController extends Controller
         $this -> middleware('auth');
     }
 
-
-    /*  public function index()
-     {
-         //return if logged
-        $apartments= Apartment::orderBy('id', 'DESC')->paginate(10);
-        return view('pages.index', compact('apartments'));
-    } */
-
-
-    public function search(Request $request)
-    {
-        dd();
-        $data = $request -> all();
-        $result = strtolower($data['search_field']);
-        $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
-        return view('pages.search',compact('apartments', 'result'));
-    }
-
-
-    // public function show($id)
-    // {
-    //     $apartment= Apartment::findOrFail($id);
-    //     return view('pages.show',compact('apartment'));
-    // }
-
-    //nuova show per view count
         public function show(Request $request, $id)
     {
         $apartment= Apartment::findOrFail($id);
@@ -158,10 +132,10 @@ class UserController extends Controller
                 //save image path db da verificare
                 $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
                 $validateApartmentData['image'] = $imageFilePath;
-            } 
-          
+            }
+
             $apartment->update($validateApartmentData);
-                    
+
             if (isset($validateApartmentData['configs_id'])) {
 
                 $configs = Config::find($validateApartmentData['configs_id']);
@@ -169,7 +143,7 @@ class UserController extends Controller
             } else {
                 $apartment->configs()->detach();
             }
-            
+
             return Response()->json([
                 "success" => true,
                 "description" => $validateApartmentData['description']
@@ -205,4 +179,5 @@ class UserController extends Controller
 
         return view('pages.user.user-panel', compact('apartments'));
     }
+    //commento provv
 }
