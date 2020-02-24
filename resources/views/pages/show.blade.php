@@ -88,7 +88,7 @@
 </div>
 
 
-@if (Auth::guest())
+@if (Auth::user() -> id != $apartment -> user -> id)
 
     <form class="mt-5" id="uploadForm" method="POST" action="{{route('mail-store')}}" enctype="multipart/form-data">
         @csrf
