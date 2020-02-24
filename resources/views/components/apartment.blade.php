@@ -95,6 +95,7 @@
                 }
                 // this.aptConfigs = res.data;
                 console.log('aptconfigs', this.aptConfigs);
+                // this.addIcon();
             })
             .catch(err => {
                 this.error = "Error downloading configs";
@@ -116,6 +117,22 @@
             console.log(this.state)
             this.state = this.state === 'far' ? 'fas':'far'
         },
+        // addIcon() { //WORK IN PROGRESS DA TURN aptCOnfig in OBJs
+        //     for(var i=0; i<this.aptConfigs.length; i++) {
+        //         switch(this.aptConfigs[i].service) {
+        //             case 'wifi':
+        //                 this.aptConfigs[i].icon = "fas fa-eye";
+        //                 break;
+        //             case 'parking':
+        //                 this.aptConfigs[i].icon = "fas fa-parking";
+        //                 break;
+        //             default:
+        //                 this.aptConfigs[i].icon = 'fas fa-swimming-pool';
+        //         }
+                
+        //     }
+        //     console.log('ADDED ICONS', this.aptConfigs);
+        // },
         catchType(){
             let classFa;
             let setApts = [];
