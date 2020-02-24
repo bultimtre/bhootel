@@ -9,13 +9,9 @@
                     <fieldset id="coords-disable">
                         <h5>Ricerca alternativa per coordinate</h5>
                         <div class="row">
-                        <div class="col-sm-4">
-                            <label for="vue-lat">latitudine: </label>
-                            <input type="text" class="form-control" v-on:keyup="evData()" v-model="lat" id="vue-lat" placeholder="latitude"/>
-                        </div>
-                        <div class="col-sm-4">
-                            <label for="vue-lon">longitudine: </label>
-                            <input type="text" class="form-control" v-on:keyup="evData()" v-model="lon" id="vue-lon" placeholder="longitudine"/>
+                        <div class="col-sm-8">
+                            <label for="vue-alt-search">Cerca appartamento: </label>
+                            <input type="text" class="form-control" v-on:keyup="evData()" v-model="alt_search_field" id="vue-alt-search" placeholder="Inserisci indirizzo"/>
                         </div>
                         <div class="col-sm-4">
                             <label for="vue-range">distanza (km): </label>
@@ -35,7 +31,8 @@
                         <div class="form-group">
                             <label for="vue-search_field">Cerca appartamento: </label>
                             <input type="text" class="form-control inputsrc" v-on:keyup="evData()" v-model="search_field" id="vue-search_field"/>
-                            <h3 style="display:inline">@{{ res_num }} </h3><h3 style="display:inline" v-text="searchString"></h3>
+                            <h3 style="display:inline">@{{ res_num }} </h3>
+                            {{-- <h3 style="display:inline" v-text="searchString"></h3> --}}
                         </div>
                     </div>
                     <div class="row m-0 option-search" style="border:1px solid red">
@@ -72,7 +69,7 @@
                 </div>
 
                 <div class="search__bottom-right d-md-flex flex-column col-md-9 col-xl-9">
-                        <single-apartment v-for='apartment in apartments' :apartment='apartment'></single-apartment>
+                        <single-apartment v-for='(apartment, index) in apartments' :key="index" :apartment='apartment'></single-apartment>
                 </div>
             </div>
         </div>
@@ -88,9 +85,12 @@
     template: "#searchvue",
     data() {
       return {
+        api_key : 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh',
+        CSRF_TOKEN : '',
         auth_user: '',
         baseUrl: window.location.protocol + "//" + window.location.host + "/",
         search_field: '',
+        alt_search_field: '',
         rooms:1,
         beds:1,
         lat: '',
@@ -116,8 +116,11 @@
       }
     },
     created() {
-      //this.search_field = $('#data_search_field').attr('data-search');
-      //this.auth_user = $('#data_search_field').attr('data-user');
+        // window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; //????//????
+
+      this.CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+      this.search_field = $('#data_search_field').attr('data-search');
+      this.auth_user = $('#data_search_field').attr('data-user');
       this.getAparts();
       this.getAllConfigs();
     },
@@ -134,17 +137,54 @@
                 console.log('err', err)
             });
         },
+        // evData() { // da controllare, alt sost tutti eventi v-on e @change con getAparts()
+        //     if((this.search_field.length >=1) ||
+        //     ((this.lat >=-90 && this.lat <=90) && (this.lon >=-180 && this.lon <=180) && (this.range > 0))
+        //     ) {
+        //         this.getAparts();
+        //     } else {
+        //         this.res_num = 'Inserire i parametri corretti';
+        //         this.apartments = [];
+        //         this.searchString = '';
+        //     }
+
+        // },
         evData() { // da controllare, alt sost tutti eventi v-on e @change con getAparts()
-            if((this.search_field.length >=1) ||
-            ((this.lat >=-90 && this.lat <=90) && (this.lon >=-180 && this.lon <=180) && (this.range > 0))
-            ) {
+            if(this.search_field.length >=1) {
                 this.getAparts();
-            } else {
+            } else if (this.alt_search_field.length >=1) {
+                this.getCoords();
+            }
+             else {
                 this.res_num = 'Inserire i parametri corretti';
                 this.apartments = [];
                 this.searchString = '';
             }
 
+        },
+        getCoords() {
+            window.axios.defaults.headers.common = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            };
+            axios.get("https://api.tomtom.com/search/2/geocode/" + this.alt_search_field + ".json?limit=1&key=" + this.api_key)
+            .then(resp => {
+                // console.log('configs ', resp);
+                if(resp.status == 200) {
+                    console.log('coord resp', resp);
+                    if (resp.data.results.length != 0) {
+                        var position = resp.data.results[0].position;
+                        this.lat = position.lat;
+                        this.lon = position.lon;
+                        this.getAparts();
+                    }
+
+                }
+            })
+            .catch(err => {
+                this.error = "Error downloading configs";
+                console.log('err', err)
+            });
         },
         getAparts() {
             axios.post(this.baseUrl + 'search', {
@@ -163,10 +203,10 @@
                 const data = res.data;
                 if (data.success == true) {
                     this.apartments = data.data;
-                    this.updateResults(data.searchFor);
+                    // this.updateResults(data.searchFor);
                 } else {
                     console.log('success false');
-                    this.updateResults('');
+                    // this.updateResults('');
                 }
                 if(this.apartments.length == 1) {
                     this.res_num = '1 Risultato trovato';
@@ -181,20 +221,20 @@
             })
             .catch(err => {
 
-                this.error = "Error downloading data albums";
+                this.error = "Error downloading ";
                 console.log('err', err)
             });
         },
-        updateResults(data) {
-            // console.log('update results', data);
-            if(data) {
-                this.searchString = (data.search_field) ? `per: ${data.search_field}`
-                : `per: lat ${data.lat} - lon ${data.lon} - raggio ${data.range / 1000}km`;
-            } else {
-                this.searchString = '';
-            }
+        // updateResults(data) {
+        //     // console.log('update results', data);
+        //     if(data) {
+        //         this.searchString = (data.search_field) ? `per: ${data.search_field}`
+        //         : `per: lat ${data.lat} - lon ${data.lon} - raggio ${data.range / 1000}km`;
+        //     } else {
+        //         this.searchString = '';
+        //     }
 
-        },
+        // },
         updateNum(){
             e_obj = event.target
             finder = e_obj.getAttribute('data-finder');

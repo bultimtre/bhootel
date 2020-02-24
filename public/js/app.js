@@ -34156,8 +34156,6 @@ return jQuery;
 
 /***/ }),
 
-<<<<<<< HEAD
-=======
 /***/ "./node_modules/parsleyjs/dist/parsley.js":
 /*!************************************************!*\
   !*** ./node_modules/parsleyjs/dist/parsley.js ***!
@@ -36641,7 +36639,6 @@ return jQuery;
 
 /***/ }),
 
->>>>>>> 508855c0924389a2fc5b44d5df73b1206ba670cb
 /***/ "./node_modules/popper.js/dist/esm/popper.js":
 /*!***************************************************!*\
   !*** ./node_modules/popper.js/dist/esm/popper.js ***!
@@ -51802,11 +51799,6 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-<<<<<<< HEAD
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-=======
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // import parsleyjs for front-end validation
 
 
@@ -51816,10 +51808,10 @@ var funct = __webpack_require__(/*! ./components/style.js */ "./resources/js/com
 //require('./validation.js');
 
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); //import tom tom maps
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+//import tom tom maps
 //import tt from '@tomtom-international/web-sdk-maps';
 
->>>>>>> 508855c0924389a2fc5b44d5df73b1206ba670cb
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -51836,11 +51828,6 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-<<<<<<< HEAD
-var app = new Vue({
-  el: '#app'
-});
-=======
 var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'); //Refers to form http://localhost:8000/user/aparts/create
 
@@ -51976,7 +51963,6 @@ function init() {
 
 ;
 $(document).ready(init);
->>>>>>> 508855c0924389a2fc5b44d5df73b1206ba670cb
 
 /***/ }),
 
@@ -52057,18 +52043,8 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-__webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/sass/app.scss */"./resources/sass/app.scss");
-=======
-<<<<<<< HEAD
-__webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
-=======
 __webpack_require__(/*! C:\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
->>>>>>> 508855c0924389a2fc5b44d5df73b1206ba670cb
->>>>>>> 338e5c98c390858a04c1f07ae3468a67df923d48
 
 
 /***/ })
