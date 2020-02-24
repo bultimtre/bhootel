@@ -55,5 +55,6 @@ Route::get('/user/user-panel', 'UserController@userPanel') -> name('user.user-pa
 Route::get('/clear', 'ClearSessionController@clearSession');
 
 
-
-
+// mail
+Route::post('/mail-store', 'MessageController@store') ->name('mail-store');
+Route::get('/mail-send/{id}', 'MessageController@sendMail') ->name('mail-send');

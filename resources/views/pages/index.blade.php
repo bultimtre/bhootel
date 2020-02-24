@@ -30,11 +30,11 @@
         @endforeach
     </div>
 
-    <div class="w-100 d-flex justify-content-center py-5">
+    {{-- <div class="w-100 d-flex justify-content-center py-5">
         <div>
             {{$apartments->links()}}
         </div>
-    </div>
+    </div> --}}
 
 </main>
 
