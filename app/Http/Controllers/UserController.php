@@ -37,7 +37,6 @@ class UserController extends Controller
 
     public function store(Request $request) {
 
-
         // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',

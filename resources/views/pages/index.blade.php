@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="d-flex flex-wrap justify-content-center" style="">
+    <div class="d-flex flex-wrap justify-content-center">
         @foreach ($apartments as $apartment)
             <div class="card flex-row w-25" style="margin:20px">
                 <div class="wrapper">

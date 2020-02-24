@@ -1,0 +1,117 @@
+.main-search{
+    #app-search{
+        max-width: 1200px;
+        box-shadow: 0 0 30px 1px rgba(0, 0, 0, 0.2);
+        .searchvue{
+            .search{
+                &__top
+                {
+                    //margin-top: 130px;
+                    //height: 150px;
+                    //background-color: #fff;
+                    //border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+
+                    form{
+                        border:1px solid green;
+                    }
+                }
+                &__bottom
+                {
+                    min-height: 800px;
+                    &-left
+                    {
+                        background-color: $bh-side;
+                    }
+                    &-right
+                    {
+                        border:1px solid blue;
+                        .card{
+                            margin:20px;
+                            &:first-child{
+                                margin-top: 60px;
+                            }
+                            &__img
+                            {
+                                &-div
+                                {
+                                    height: auto;
+                                    width: 270px;
+                                }
+                                &-photo{
+                                    height:100%;
+                                }
+                            }
+                            &__body
+                            {
+                                background-color: $bh-side;
+                                &-text
+                                {
+                                    width:275px;
+                                    min-width:200px
+                                }
+                                &-title{
+                                    font-size:0.9rem;
+                                    font-weight: 600;
+                                }
+                                &-desc
+                                {
+                                    font-size:0.8rem;
+                                    color:red;
+                                }
+                                &-configs
+                                {
+                                    >*
+                                    {
+                                        background: none;
+                                        border: none;
+                                    }
+                                }
+                                &-info
+                                {
+                                    font-size:0.7rem;
+                                    p{
+                                       font-weight:700;
+                                       font-size:1.3rem;
+                                       line-height: 25px;
+                                       &:last-of-type{
+                                        font-size:0.8rem;
+                                        font-weight:500;
+                                        line-height: initial;
+                                       }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.button-show {
+  background-color: $bh-default;
+  border: none;
+  color: #000;
+
+  &:hover {
+    background-color: $bh-dark;
+    color:#fff !important
+  }
+}
+
+
+
+
+
+  .ad {
+    border: solid 3px $bh-details;
+  }
+
+  @media (max-width:991px) {
+    .card__img-photo {
+      height: auto;
+      width: unset;
+    }
+  }
+

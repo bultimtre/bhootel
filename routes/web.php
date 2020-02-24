@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('/search/show', 'SearchController@show') -> name('search.show');
     Route::post('/search', 'SearchController@search') -> name('search.search');
     Route::get('/search/configs', 'SearchController@getAllConfigs') ->name('search.config');
+    Route::get('/search/aptConfigs', 'SearchController@getAptConfig') ->name('search.apt-config');
 //-----------------------------------------------------//
 
 ///USERS UPR UPRA
