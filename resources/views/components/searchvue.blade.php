@@ -180,10 +180,13 @@
                 // console.log('configs ', resp);
                 if(resp.status == 200) {
                     console.log('coord resp', resp);
-                    var position = resp.data.results[0].position;
-                    this.lat = position.lat;
-                    this.lon = position.lon;
-                    this.getAparts();
+                    if (resp.data.results.length != 0) {
+                        var position = resp.data.results[0].position;
+                        this.lat = position.lat;
+                        this.lon = position.lon;
+                        this.getAparts();
+                    }
+
                 }
             })
             .catch(err => {
@@ -226,7 +229,7 @@
             })
             .catch(err => {
 
-                this.error = "Error downloading data albums";
+                this.error = "Error downloading ";
                 console.log('err', err)
             });
         },

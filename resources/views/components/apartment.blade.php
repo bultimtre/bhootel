@@ -20,6 +20,9 @@
                     <li class="list-group-item py-0 pr-2"><i class="fas fa-hot-tub"></i></li>
                     <li class="list-group-item py-0 pr-2"><i class="fas fa-eye"></i></li> --}}
                 </ul>
+                <ul>
+                    <li v-for="aptConfig in aptConfigs">@{{ aptConfig}}</li>
+                </ul>
             </div>
             <div class="card__body-info d-flex flex-column flex-grow-1 justify-content-between align-items-center border-left">
                 <div class='likeHeart'>
@@ -50,30 +53,48 @@
         }
     },
     created(){
-        this.getAptConfigs()
+        // this.getAptConfigs()
+        this.getApartConfigs();
         this.catchType();
     },
     props:{
         apartment:Object
     },
     methods:{
-        getAptConfigs() {
-            axios.get(this.baseUrl+'search/aptConfigs').then(resp => {
+        // getAptConfigs() {
+        //     axios.get(this.baseUrl+'search/aptConfigs').then(resp => {
 
-                if(resp.status == 200) {
-                    testdata = resp.data;
-                    this.aptConfigs = resp.data;
-                    console.log('test', this.aptConfigs[0])
-                    /* for (let i = 0; i < testData.length; i++) {
-                        return console.log('tipo', testData[i])
+        //         if(resp.status == 200) {
+        //             testdata = resp.data;
+        //             this.aptConfigs = resp.data;
+        //             console.log('test', this.aptConfigs[0])
+        //             /* for (let i = 0; i < testData.length; i++) {
+        //                 return console.log('tipo', testData[i])
 
-                    } */
-                    /* for(aptConfig in this.aptConfigs){
-                        aptConfig.forEach(el => {
-                            console.log(aptConfig.apt_id)
-                        });
-                    } */
+        //             } */
+        //             /* for(aptConfig in this.aptConfigs){
+        //                 aptConfig.forEach(el => {
+        //                     console.log(aptConfig.apt_id)
+        //                 });
+        //             } */
+        //         }
+        //     })
+        //     .catch(err => {
+        //         this.error = "Error downloading configs";
+        //         //console.log('err', err)
+        //     });
+        // },
+        getApartConfigs() {
+            axios.get(this.baseUrl+'search/apartConfigs/'+this.apartment.id)
+            .then(res => {
+
+                console.log('res APART CONFIGS', res);
+                var data = res.data;
+                for(var i=0; i<data.length;i++) {
+                    this.aptConfigs.push(data[i].service);
                 }
+                // this.aptConfigs = res.data;
+                console.log('aptconfigs', this.aptConfigs);
             })
             .catch(err => {
                 this.error = "Error downloading configs";
