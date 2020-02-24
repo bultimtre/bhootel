@@ -52,71 +52,78 @@
 
 </div>
 
-<div class="d-flex flex-wrap mt-3">
-    <div class="col-4 p-5">
-        <h3>Configurazione</h3>
-        <span> Beds:{{$apartment -> beds}}</span>
-        <p>Rooms: {{$apartment -> rooms}}</p>
-        <p> M2:{{$apartment -> square_mt}}</p>
-        <p> M2:{{$apartment -> sight_mt}}</p>
+<div class="container">
+
+    <div class="d-flex flex-wrap mt-3">
+        <div class="col-4 p-5">
+            <h3>Configurazione</h3>
+            <span> Beds:{{$apartment -> beds}}</span>
+            <p>Rooms: {{$apartment -> rooms}}</p>
+            <p> M2:{{$apartment -> square_mt}}</p>
+            <p> M2:{{$apartment -> sight_mt}}</p>
+        </div>
+        <div class="col-4 p-5">
+            <h3>Descrizione</h3>
+            <p> {{$apartment -> description}}</p>
+        </div>
+        <div class="col-4 p-5">
+            <h3>Servizi</h3>
+            @foreach ($apartment->configs as $config)
+                <li> {{$config -> service}}</li>
+            @endforeach
+        </div>
+
     </div>
-    <div class="col-4 p-5">
-        <h3>Descrizione</h3>
-        <p> {{$apartment -> description}}</p>
+    <hr>
+
+    <div class="d-flex flex-wrap mt-3">
+        <div class="col-12 p-5">
+            <h2>View Count: {{$apartment -> views}}</h2>
+            <h3>Posizione dell'appartamento</h3>
+            <p>{{$apartment -> address}}</p>
+            {{-- Apartment MAP --}}
+            <div id="apart-map" style="height:500px; width:500px;">
+                <div class="data-lat" data-lat="{{ $apartment -> lat }}"></div>
+                <div class="data-lon" data-lon="{{ $apartment -> lon }}"></div>
+            </div>
+        </div>
     </div>
-    <div class="col-4 p-5">
-        <h3>Servizi</h3>
-        @foreach ($apartment->configs as $config)
-            <li> {{$config -> service}}</li>
-        @endforeach
-    </div>
+
+
+    @if (Auth::guest())
+
+        <form class="mt-5" id="uploadForm" method="POST" action="{{route('mail-store')}}" enctype="multipart/form-data">
+            @csrf
+            @method('POST')
+
+            <div class="form-group">
+                <label for="exampleInputEmail1">Indirizzo Email</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Inserisci email">
+              </div>
+
+            <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }} formField">
+                <label for="comment">Contatta il proprietario</label>
+                <input type="hidden" name="id" value=" {{$apartment -> user -> id}} ">
+                <input type="hidden" name="id-apt" value=" {{$apartment -> id}} ">
+                <textarea class="form-control" rows="5" name="text" maxlength="750"></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" name="button" class="btn btn-primary">Invia</button>
+            </div>
+        </form>
+
+    @endif
+
+    {{-- mettere le statistiche --}}
+    @auth
+    @if (Auth::user() -> id == $apartment -> user -> id)
+
+    @endif
+    @endauth
 
 </div>
-<hr>
 
-<div class="d-flex flex-wrap mt-3">
-    <div class="col-12 p-5">
-        <h2>View Count: {{$apartment -> views}}</h2>
-        
-        <p> {{$apartment -> user}} </p>
-
-        <h3>Posizione dell'appartamento</h3>
-        <p>{{$apartment -> address}}</p>
-        {{-- Apartment MAP --}}
-        <div id="apart-map" style="height:500px; width:500px;">
-            <div class="data-lat" data-lat="{{ $apartment -> lat }}"></div>
-            <div class="data-lon" data-lon="{{ $apartment -> lon }}"></div>
-        </div>
-    </div>
-</div>
-
-
-@if (Auth::guest())
-
-    <form class="mt-5" id="uploadForm" method="POST" action="{{route('mail-store')}}" enctype="multipart/form-data">
-        @csrf
-        @method('POST')
-
-        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }} formField">
-            <label for="comment">Contatta il proprietario</label>
-            <input type="hidden" name="id" value=" {{$apartment -> user -> id}} ">
-            <input type="hidden" name="id-apt" value=" {{$apartment -> id}} ">
-            <textarea class="form-control" rows="5" name="text" maxlength="750"></textarea>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" name="button" class="btn btn-primary">Invia</button>
-        </div>
-
-    </form>
-
-@endif
-
-{{-- mettere le statistiche --}}
-@auth
-@if (Auth::user() -> id == $apartment -> user -> id)
-@endif
-@endauth
 
 </main>
 @include('components.footer')
