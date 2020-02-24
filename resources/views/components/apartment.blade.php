@@ -45,17 +45,19 @@
     template: "#apartment",
     data() {
         return {
-
             title_trim:'', //solo per testarlo va creato nella tabella;
             state:'far',
             baseUrl: window.location.protocol + "//" + window.location.host + "/",
             aptConfigs:[],
+            auth_user: '',
         }
     },
     created(){
         // this.getAptConfigs()
         this.getApartConfigs();
         this.catchType();
+        this.auth_user = $('#data_search_field').attr('data-user');
+        console.log('AUTH USER', this.auth_user);
     },
     props:{
         apartment:Object

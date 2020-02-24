@@ -123,6 +123,7 @@
       this.auth_user = $('#data_search_field').attr('data-user');
       this.getAparts();
       this.getAllConfigs();
+      
     },
     methods: {
         getAllConfigs() {
