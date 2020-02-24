@@ -58,6 +58,7 @@
             <input class="form-control mr-sm-2" name='search_field' type="text">
         </form>
     </nav>
+</div>
 
 
 <script>

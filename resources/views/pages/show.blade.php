@@ -77,9 +77,6 @@
 <div class="d-flex flex-wrap mt-3">
     <div class="col-12 p-5">
         <h2>View Count: {{$apartment -> views}}</h2>
-        
-        <p> {{$apartment -> user}} </p>
-
         <h3>Posizione dell'appartamento</h3>
         <p>{{$apartment -> address}}</p>
         {{-- Apartment MAP --}}
