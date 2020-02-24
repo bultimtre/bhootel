@@ -123,6 +123,8 @@
       }
     },
     created() {
+        // window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; //????//????
+
       this.CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
       this.search_field = $('#data_search_field').attr('data-search');
       this.auth_user = $('#data_search_field').attr('data-user');
@@ -168,21 +170,27 @@
 
         },
         getCoords() {
-            axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-            axios.get("https://api.tomtom.com/search/2/geocode/" + this.alt_search_field + ".json?limit=1&key=" + this.api_key, {
+            // axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; //????
+            window.axios.defaults.headers.common = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            };
+            axios.get("https://api.tomtom.com/search/2/geocode/" + this.alt_search_field + ".json?limit=1&key=" + this.api_key)
+            // {
                 // method: 'GET',
                 // mode: 'no-cors',
                 // headers: {
-                //     'Access-Control-Allow-Origin': '*',
-                //     'Content-Type': 'application/json',
+                    // 'Access-Control-Allow-Origin': '*',
+                    // 'X-Requested-With' : 'XMLHttpRequest'
+                    // 'Content-Type': 'application/json',
                 // },
                 // withCredentials: true,
                 // credentials: 'same-origin',
-            })
+            // })
             .then(resp => {
                 // console.log('configs ', resp);
                 if(resp.status == 200) {
-                    console.log('coord resp', res);
+                    console.log('coord resp', resp);
                 }
             })
             .catch(err => {

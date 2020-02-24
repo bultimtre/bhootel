@@ -51808,7 +51808,8 @@ var funct = __webpack_require__(/*! ./components/style.js */ "./resources/js/com
 //require('./validation.js');
 
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); //import tom tom maps
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+//import tom tom maps
 //import tt from '@tomtom-international/web-sdk-maps';
 
 /**
