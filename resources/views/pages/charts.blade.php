@@ -27,36 +27,33 @@
 
   $.ajax({
 
-  url: url + '/stat-msg',
-  method: "GET",
-  data: year,
-  success: function (data) {    
-
-    var months = data.map(function(e) {
-      var x = e.created_at; 
-      return (moment(x).month()+1);
-    });
-        
-    var rowCount = [{1: 0}, {2: 0}, {3: 0}, {4: 0}, {5: 0}, {6: 0}, {7: 0}, {8: 0}, {9: 0}, {10: 0}, {11: 0}, {12: 0}];
-    // var rowCount = [{1: 2}, {2: 5}, {3: 3}, {4: 7}, {5: 5}, {6: 2}, {7: 9}, {8: 7}, {9: 8}, {10: 6}, {11: 8}, {12: 5}];
-
-    var x = data.created_at;
-
-    $.each(months, function(i, el) {
-      rowCount[el-1][el] = (rowCount[el-1][el])+1;
-    });
-
-
-    var count = Object.keys(rowCount).map(x => Object.values(rowCount[x]));
-    
-    viewsGraph(count);
-    // messagesGraph(data);
+    url: url + '/stat-msg',
+    method: "GET",
+    data: {
+        year:'2020'
+    },
+    success: function (data) {
+        console.log(data)
+        /* var months = data.map(function(e) {
+        var x = e.created_at;
+        return (moment(x).month()+1);
+        });
+        var rowCount = [{1: 0}, {2: 0}, {3: 0}, {4: 0}, {5: 0}, {6: 0}, {7: 0}, {8: 0}, {9: 0}, {10: 0}, {11: 0}, {12: 0}];
+        // var rowCount = [{1: 2}, {2: 5}, {3: 3}, {4: 7}, {5: 5}, {6: 2}, {7: 9}, {8: 7}, {9: 8}, {10: 6}, {11: 8}, {12: 5}];
+        var x = data.created_at;
+        $.each(months, function(i, el) {
+        rowCount[el-1][el] = (rowCount[el-1][el])+1;
+        });
+        var count = Object.keys(rowCount).map(x => Object.values(rowCount[x])); */
+        window.location.href = "http://localhost:8000/stat-msg"
+        //viewsGraph(count);
+        // messagesGraph(data);
     },
     error: function (err) {
-
-      console.log("error", err);
+        console.log("error", err);
     }
-  });
+
+});
 
 
 
@@ -66,7 +63,7 @@
 
     var viewsChart = $("#viewsChart");
     new Chart(viewsChart, {
-  
+
       type: "bar",
       data: {
         labels: moment.months(),
@@ -110,7 +107,7 @@
 
     var messagesChart = $("#messagesChart");
     new Chart(messagesChart, {
-  
+
       type: "pie",
       data: {
         labels: moment.months(),

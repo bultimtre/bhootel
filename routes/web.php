@@ -59,7 +59,6 @@ Route::get('/clear', 'ClearSessionController@clearSession');
 Route::post('/mail-store', 'MessageController@store') ->name('mail-store');
 Route::get('/mail-send/{id}', 'MessageController@sendMail') ->name('mail-send');
 
-
 // stat msg
 Route::get('/stat-msg', 'MessageController@stat') -> name('stat-msg');
 
