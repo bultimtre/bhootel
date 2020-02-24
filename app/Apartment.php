@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Stat;
 
 class Apartment extends Model
 {
@@ -71,6 +72,10 @@ class Apartment extends Model
                 $request->session()->put('apart_' .$id, 1);
                 //update view counter apartment
                 $apartment->increment('views');
+
+                $stat = Stat::make();
+                $stat->apartment()->associate($apartment);
+                $stat->save();
             }
         }
     }
