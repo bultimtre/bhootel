@@ -31,12 +31,14 @@ class SearchController extends Controller
         $aptAd = [];
         foreach ($apartments as $apartment) {
             foreach ($apartment->configs as $config) {
-                array_push($aptAd,$config->service);
+                array_push($aptAd,[
+                    'service' => $config->service,
+                    'apt_id'=>$apartment->id
+                    ]);
             }
         }
         return Response()->json($aptAd);
     }
-
     public function search(Request $request)
     {
         // return Response()->json($request); //debug

@@ -2,7 +2,7 @@
 
 
         <div class="searchvue container p-0">
-            <div class="top-search d-flex w-100">
+            <div class="search__top d-flex w-100">
                 <form role="form" class='w-100'>
 
 
@@ -28,42 +28,41 @@
             </div>
 
 
-            <div class="container-fluid d-md-flex m-0 p-0" style="min-height:800px">
+            <div class="container-fluid search__bottom d-md-flex m-0 p-0">
 
-                <div class="left-select col-12 col-md-3 col-xl-3">
+                <div class="search__bottom-left col-12 col-md-3 col-xl-3">
                     <div class="quick-search">
-                        <h3 style="display:inline">@{{ res_num }} </h3><h3 style="display:inline" v-text="searchString"></h3>
                         <div class="form-group">
                             <label for="vue-search_field">Cerca appartamento: </label>
                             <input type="text" class="form-control inputsrc" v-on:keyup="evData()" v-model="search_field" id="vue-search_field"/>
+                            <h3 style="display:inline">@{{ res_num }} </h3><h3 style="display:inline" v-text="searchString"></h3>
                         </div>
-
                     </div>
-
-                    <div class="row m-0 div-option-search" style="border:1px solid red">
+                    <div class="row m-0 option-search" style="border:1px solid red">
 
                         <div class="d-flex flex-column align-items-start p-0 div-num-input">
                             <label class="input-label-style m-0 py-2" for="vue-rooms">Numero di stanze:</label>
                             <div class="d-flex input-num-style">
                                 <input class="input-num" v-on:keyup="evData()" v-model="rooms" id="vue-rooms" type="number" step="1" min="1" max="50">
                                 <div class='num-arrow'>
-                                    <span id='num-up' v-on:click="upNum()"></span>
-                                    <span id='num-down' v-on:click="downNum()"></span>
+                                    <span id='num-up' v-on:click="updateNum()" data-finder="rooms_up"></span>
+                                    <span id='num-down' v-on:click="updateNum()" data-finder="rooms_down"></span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="d-flex flex-column align-items-start p-0 ml-5 div-num-input">
                             <label class="input-label-style m-0 py-2" for="vue-beds">Numero di letti:</label>
-                            <div class="input-num-style">
-                                <input class="input-num abs-0-0" v-on:keyup="evData()" v-model="beds" id="vue-beds" type="number" step="1" min="1" max="50">
+                            <div class="d-flex input-num-style">
+                                <input class="input-num" v-on:keyup="evData()" v-model="beds" id="vue-beds" type="number" step="1" min="1" max="50">
+                                <div class='num-arrow'>
+                                    <span id='num-up' v-on:click="updateNum()" data-finder="beds_up"></span>
+                                    <span id='num-down' v-on:click="updateNum()" data-finder="beds_down"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
-
-                    <div class="form-group">
+                    <div class="form-group check-search">
                         <div v-for='config in configs' class="form-check form-check-inline">
                         <input type="checkbox" :value='config.id' v-model="checkedConfigs" class="form-check-input config-checkbox" @change="evData()">
                         <label for="config-checkbox" >@{{ config.service}}</label>
@@ -71,48 +70,11 @@
                     </div>
 
                 </div>
-                <div v-for='apartment in apartments' class="d-md-flex flex-column col-md-9 col-xl-9 mt-4">
 
-                    <div class="card flex-row" style="margin:20px">
-                        <div class="wrapper d-lg-flex w-100">
-                            <div class="card-img d-lg-flex m-0 p-0">
-                                <img class ="card-img-top image-fluid" style="height:100%" src='setImage(apartment.image)'/>
-                            </div>
-
-                            <div class="card-body w-100 d-flex flex-grow-1 " style="background-color:#f2f2f2; ">
-
-
-                                <div class="desc d-lg-flex flex-column h-100 pr-2">
-                                    <p class="card-text text-uppercase font-weight-bold">@{{apartment.title}}</p>
-                                    <p class="card-text long short">@{{apartment.description}}</p>
-                                    <ul v-for='config in apartment.configs'class="list-group list-group-horizontal justify-content-start">
-                                        <p>ciao @{{config}}</p>
-                                    </ul>
-                                </div>
-                                <div class="d-flex flex-column justify-content-between align-items-center border-left mx-auto pl-3">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-for='apartment in apartments' class="card flex-row" style="margin:20px">
-                        <div class="wrapper">
-                            <img  class ="card-img-top w-100" :src="setImage(apartment.image)"/>
-                            <p class="card-text">@{{ apartment.description}}</p>
-                            <p class="card-text">address: @{{ apartment.address}}</p>
-                            <p class="card-text">beds: @{{ apartment.beds}}</p>
-                            <p class="card-text">rooms: @{{ apartment.rooms}}</p>
-                            <p class="card-text">baths: @{{ apartment.bath}}</p>
-                            <p class="card-text">square_mt: @{{ apartment.square_mt}}</p>
-                            <div class="d-flex justify-content-end">
-                                <span>@{{ apartment.id}}</span>
-                            </div>
-                        </div>
-                        <a class="btn btn-primary" :href="showApart(apartment.id)"> Più informazioni</a>
-                    </div>
+                <div class="search__bottom-right d-md-flex flex-column col-md-9 col-xl-9">
+                        <single-apartment v-for='apartment in apartments' :apartment='apartment'></single-apartment>
                 </div>
             </div>
-
-
         </div>
 
 
@@ -129,8 +91,8 @@
         auth_user: '',
         baseUrl: window.location.protocol + "//" + window.location.host + "/",
         search_field: '',
-        rooms: 1,
-        beds: 1,
+        rooms:1,
+        beds:1,
         lat: '',
         lon: '',
         range: 20,
@@ -154,104 +116,97 @@
       }
     },
     created() {
-      this.search_field = $('#data_search_field').attr('data-search');
-      this.auth_user = $('#data_search_field').attr('data-user');
+      //this.search_field = $('#data_search_field').attr('data-search');
+      //this.auth_user = $('#data_search_field').attr('data-user');
       this.getAparts();
       this.getAllConfigs();
     },
     methods: {
-      getAllConfigs() {
-        axios.get(this.baseUrl+'search/configs').then(resp => {
+        getAllConfigs() {
+            axios.get(this.baseUrl+'search/configs').then(resp => {
                 // console.log('configs ', resp);
                 if(resp.status == 200) {
-                  this.configs = resp.data;
+                    this.configs = resp.data;
                 }
             })
             .catch(err => {
-              this.error = "Error downloading configs";
-              console.log('err', err)
-              });
-      },
-      evData() { // da controllare, alt sost tutti eventi v-on e @change con getAparts()
-        if((this.search_field.length >=1) ||
+                this.error = "Error downloading configs";
+                console.log('err', err)
+            });
+        },
+        evData() { // da controllare, alt sost tutti eventi v-on e @change con getAparts()
+            if((this.search_field.length >=1) ||
             ((this.lat >=-90 && this.lat <=90) && (this.lon >=-180 && this.lon <=180) && (this.range > 0))
-          ) {
-          this.getAparts();
-        } else {
-          this.res_num = 'Inserire i parametri corretti';
-          this.apartments = [];
-          this.searchString = '';
-        }
+            ) {
+                this.getAparts();
+            } else {
+                this.res_num = 'Inserire i parametri corretti';
+                this.apartments = [];
+                this.searchString = '';
+            }
 
-      },
-      getAparts() {
-        axios.post(this.baseUrl + 'search', {
-          search_field: this.search_field,
-          rooms: this.rooms,
-          beds: this.beds,
-          lat: this.lat,
-          lon: this.lon,
-          range: this.range,
-          configs: this.checkedConfigs
-          })
-          .then(res => {
+        },
+        getAparts() {
+            axios.post(this.baseUrl + 'search', {
+                search_field: this.search_field,
+                rooms: this.rooms,
+                beds: this.beds,
+                lat: this.lat,
+                lon: this.lon,
+                range: this.range,
+                configs: this.checkedConfigs
+            })
+            .then(res => {
 
-              console.log('res', res);
+                console.log('res', res);
 
-              const data = res.data;
-              if (data.success == true) {
-                this.apartments = data.data;
-                this.updateResults(data.searchFor);
-              } else {
-                console.log('success false');
-                this.updateResults('');
-              }
-              if(this.apartments.length == 1) {
-                this.res_num = '1 Risultato trovato';
-              } else if (this.apartments.length > 0){
-                this.res_num = this.apartments.length + ' Risultati trovati';
+                const data = res.data;
+                if (data.success == true) {
+                    this.apartments = data.data;
+                    this.updateResults(data.searchFor);
+                } else {
+                    console.log('success false');
+                    this.updateResults('');
+                }
+                if(this.apartments.length == 1) {
+                    this.res_num = '1 Risultato trovato';
+                } else if (this.apartments.length > 0){
+                    this.res_num = this.apartments.length + ' Risultati trovati';
 
-              }  else {
-                this.res_num = 'Nessun Risultato trovato';
-              }
-              console.log('ajax call: ', this.res_num);
+                }  else {
+                    this.res_num = 'Nessun Risultato trovato';
+                }
+                console.log('ajax call: ', this.res_num);
 
-          })
-          .catch(err => {
+            })
+            .catch(err => {
 
-            this.error = "Error downloading data albums";
-            console.log('err', err)
-          });
-      },
-      setImage(img) {
-        return img.includes('images/user/') ?
-            this.baseUrl + img
-            : img;
-      },
-      showApart(id) {
-        return this.auth_user ?
-            this.baseUrl +"/user/apartment/" + id
-            : this.baseUrl +"/apartment/" + id;
-      },
-      updateResults(data) {
-        // console.log('update results', data);
-        if(data) {
-          this.searchString = (data.search_field) ? `per: ${data.search_field}`
-            : `per: lat ${data.lat} - lon ${data.lon} - raggio ${data.range / 1000}km`;
-        } else {
-          this.searchString = '';
-        }
+                this.error = "Error downloading data albums";
+                console.log('err', err)
+            });
+        },
+        updateResults(data) {
+            // console.log('update results', data);
+            if(data) {
+                this.searchString = (data.search_field) ? `per: ${data.search_field}`
+                : `per: lat ${data.lat} - lon ${data.lon} - raggio ${data.range / 1000}km`;
+            } else {
+                this.searchString = '';
+            }
 
-      },
-      upNum(){
-        this.rooms++;
-      },
-      downNum(){
-            this.rooms==1?1:this.rooms--;
-            this.evData();
-      }
+        },
+        updateNum(){
+            e_obj = event.target
+            finder = e_obj.getAttribute('data-finder');
+            if(finder.includes('rooms')){
+                finder=='rooms_up'? this.rooms++ : this.rooms == 1 ? this.rooms=1 : this.rooms--;
+            } else if(finder.includes('beds')){
+                finder=='beds_up'? this.beds++ : this.beds == 1 ? this.beds=1 : this.beds--;
+            }
+            this.evData()
+        },
     }
-  });
+});
 
 </script>
 {{-- //css --}}
@@ -259,12 +214,12 @@
 
     <div class="left-select col-12 col-md-3 col-xl-3"></div>
 
-    @if($apartments->count()>0)
-    <div class="d-md-flex flex-column col-md-9 col-xl-9 mt-4">
-        @foreach ($apartments as $apartment)
-            <div class="card flex-row" style="margin:20px">
-                <div class="wrapper d-lg-flex w-100">
-                    <div class="card-img d-lg-flex m-0 p-0"">
+
+
+
+
+
+
                     {{-- <div class="card-img d-md-flex col-12 col-md-4 m-0 p-0" style="background-image:url('{{$apartment -> image}}'); background-repeat:no-repeat; background-position:left; background-size:cover"> --}}
                      {{--   <img class ="card-img-top image-fluid" style="height:100%" src='{{ url('/') }}/{{$apartment -> image}}'/>
                     </div>

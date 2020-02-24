@@ -51804,7 +51804,7 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // import
 
 __webpack_require__(/*! parsleyjs */ "./node_modules/parsleyjs/dist/parsley.js");
 
-var StyleController = __webpack_require__(/*! ./components/style.js */ "./resources/js/components/style.js"); //import validation
+var funct = __webpack_require__(/*! ./components/style.js */ "./resources/js/components/style.js"); //import validation
 //require('./validation.js');
 
 
@@ -51880,9 +51880,9 @@ function getCoordByAddress(e) {
 
 
 function addNewApart(formData) {
-  var locStore = window.location.origin;
-  var urlStore = locStore + "/user/store";
-  var urlUpdate = locStore + "/user/update-apt/";
+  var locURL = window.location.origin;
+  var urlStore = locURL + "/user/store/";
+  var urlUpdate = locURL + "/user/update-apt/";
   var url = formData.has('id') ? urlUpdate : urlStore;
   $.ajax({
     url: url,
@@ -51894,7 +51894,7 @@ function addNewApart(formData) {
     data: formData,
     success: function success(data) {
       console.log("data", data);
-      window.location.href = locStore; //redirect finito create
+      window.location.href = locURL; //redirect finito create
     },
     cache: false,
     contentType: false,
@@ -52018,8 +52018,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ (function(module, exports) {
 
 module.exports = {
-  inputNumber: function inputNumber() {
-    alert('hello');
+  nameFunct: function nameFunct() {//
   }
 };
 

@@ -7,7 +7,7 @@
 require('./bootstrap');
 // import parsleyjs for front-end validation
 require('parsleyjs');
-var StyleController = require('./components/style.js')
+var funct = require('./components/style.js')
 //import validation
 //require('./validation.js');
 window.Vue = require('vue');
@@ -82,9 +82,9 @@ function getCoordByAddress(e) {
 }
 // send Apartment data with coord to UserApartmentsController@store
 function addNewApart(formData) {
-    var locStore = window.location.origin;
-    var urlStore = locStore+"/user/store";
-    var urlUpdate = locStore+"/user/update-apt/";
+    var locURL = window.location.origin;
+    var urlStore = locURL+"/user/store/";
+    var urlUpdate = locURL+"/user/update-apt/";
     var url = formData.has('id') ? urlUpdate : urlStore;
     $.ajax({
         url: url,
@@ -97,13 +97,14 @@ function addNewApart(formData) {
         ,
         success: function (data) {
             console.log("data", data);
-            window.location.href = locStore; //redirect finito create
+            window.location.href = locURL; //redirect finito create
         },
         cache: false,
         contentType: false,
         processData: false
     });
 }
+
 
 function formApartValidation() {
     $('.addApartForm').parsley();
@@ -173,6 +174,7 @@ function init() {
 
         getApartMap();
     }
+
 
 };
 
