@@ -9,14 +9,6 @@
                     <fieldset id="coords-disable">
                         <h5>Ricerca alternativa per coordinate</h5>
                         <div class="row">
-                        {{-- <div class="col-sm-4">
-                            <label for="vue-lat">latitudine: </label>
-                            <input type="text" class="form-control" v-on:keyup="evData()" v-model="lat" id="vue-lat" placeholder="latitude"/>
-                        </div>
-                        <div class="col-sm-4">
-                            <label for="vue-lon">longitudine: </label>
-                            <input type="text" class="form-control" v-on:keyup="evData()" v-model="lon" id="vue-lon" placeholder="longitudine"/>
-                        </div> --}}
                         <div class="col-sm-8">
                             <label for="vue-alt-search">Cerca appartamento: </label>
                             <input type="text" class="form-control" v-on:keyup="evData()" v-model="alt_search_field" id="vue-alt-search" placeholder="Inserisci indirizzo"/>

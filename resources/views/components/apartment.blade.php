@@ -21,7 +21,7 @@
                     <li class="list-group-item py-0 pr-2"><i class="fas fa-eye"></i></li> --}}
                 </ul>
                 <ul>
-                    <li v-for="aptConfig in aptConfigs">@{{ aptConfig}}</li>
+                    <li v-for="aptConfig in aptConfigs"><i :class="aptConfig.icon"></i>@{{ aptConfig.service }}</li>
                 </ul>
             </div>
             <div class="card__body-info d-flex flex-column flex-grow-1 justify-content-between align-items-center border-left">
@@ -91,11 +91,14 @@
                 console.log('res APART CONFIGS', res);
                 var data = res.data;
                 for(var i=0; i<data.length;i++) {
-                    this.aptConfigs.push(data[i].service);
+                    // this.aptConfigs.push(data[i].service);
+
+                    var obj = {service : data[i].service};
+                    this.aptConfigs.push(obj);
                 }
                 // this.aptConfigs = res.data;
                 console.log('aptconfigs', this.aptConfigs);
-                // this.addIcon();
+                this.addIcon();
             })
             .catch(err => {
                 this.error = "Error downloading configs";
@@ -117,22 +120,22 @@
             console.log(this.state)
             this.state = this.state === 'far' ? 'fas':'far'
         },
-        // addIcon() { //WORK IN PROGRESS DA TURN aptCOnfig in OBJs
-        //     for(var i=0; i<this.aptConfigs.length; i++) {
-        //         switch(this.aptConfigs[i].service) {
-        //             case 'wifi':
-        //                 this.aptConfigs[i].icon = "fas fa-eye";
-        //                 break;
-        //             case 'parking':
-        //                 this.aptConfigs[i].icon = "fas fa-parking";
-        //                 break;
-        //             default:
-        //                 this.aptConfigs[i].icon = 'fas fa-swimming-pool';
-        //         }
+        addIcon() { //WORK IN PROGRESS
+            for(var i=0; i<this.aptConfigs.length; i++) {
+                switch(this.aptConfigs[i].service) {
+                    case 'wifi':
+                        this.aptConfigs[i].icon = "fas fa-eye";
+                        break;
+                    case 'parking':
+                        this.aptConfigs[i].icon = "fas fa-parking";
+                        break;
+                    default:
+                        this.aptConfigs[i].icon = 'fas fa-swimming-pool';
+                }
                 
-        //     }
-        //     console.log('ADDED ICONS', this.aptConfigs);
-        // },
+            }
+            console.log('ADDED ICONS', this.aptConfigs);
+        },
         catchType(){
             let classFa;
             let setApts = [];

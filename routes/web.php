@@ -32,7 +32,7 @@ header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Autho
     Route::post('/search/show', 'SearchController@show') -> name('search.show');
     Route::post('/search', 'SearchController@search') -> name('search.search');
     Route::get('/search/configs', 'SearchController@getAllConfigs') ->name('search.config');
-    Route::get('/search/aptConfigs', 'SearchController@getAptConfig') ->name('search.apt-config');
+    // Route::get('/search/aptConfigs', 'SearchController@getAptConfig') ->name('search.apt-config');
     //new
     Route::get('/search/apartConfigs/{id}', 'SearchController@getApartConfigs') ->name('search.apart-config');
 
