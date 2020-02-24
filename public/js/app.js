@@ -34156,8 +34156,6 @@ return jQuery;
 
 /***/ }),
 
-<<<<<<< HEAD
-=======
 /***/ "./node_modules/parsleyjs/dist/parsley.js":
 /*!************************************************!*\
   !*** ./node_modules/parsleyjs/dist/parsley.js ***!
@@ -36641,7 +36639,6 @@ return jQuery;
 
 /***/ }),
 
->>>>>>> 508855c0924389a2fc5b44d5df73b1206ba670cb
 /***/ "./node_modules/popper.js/dist/esm/popper.js":
 /*!***************************************************!*\
   !*** ./node_modules/popper.js/dist/esm/popper.js ***!
@@ -51802,11 +51799,6 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-<<<<<<< HEAD
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-=======
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // import parsleyjs for front-end validation
 
 
@@ -51819,10 +51811,6 @@ var funct = __webpack_require__(/*! ./components/style.js */ "./resources/js/com
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); //import tom tom maps
 //import tt from '@tomtom-international/web-sdk-maps';
 
-<<<<<<< HEAD
-=======
->>>>>>> 508855c0924389a2fc5b44d5df73b1206ba670cb
->>>>>>> 338e5c98c390858a04c1f07ae3468a67df923d48
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -51839,11 +51827,6 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-<<<<<<< HEAD
-var app = new Vue({
-  el: '#app'
-});
-=======
 var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'); //Refers to form http://localhost:8000/user/aparts/create
 
@@ -51979,7 +51962,6 @@ function init() {
 
 ;
 $(document).ready(init);
->>>>>>> 508855c0924389a2fc5b44d5df73b1206ba670cb
 
 /***/ }),
 
@@ -52049,7 +52031,7 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\n\r\n@import 'search-bar.scss';\r\n       ^\r\n      Can't find stylesheet to import.\n   ╷\n22 │ @import 'search-bar.scss';\r\n   │         ^^^^^^^^^^^^^^^^^\n   ╵\n  stdin 22:9  root stylesheet\r\n      in C:\\Boolean\\bhootel\\resources\\sass\\app.scss (line 22, column 9)\n    at C:\\Boolean\\bhootel\\node_modules\\webpack\\lib\\NormalModule.js:316:20\n    at C:\\Boolean\\bhootel\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\Boolean\\bhootel\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (C:\\Boolean\\bhootel\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at C:\\Boolean\\bhootel\\node_modules\\sass-loader\\dist\\index.js:89:7\n    at Function.call$2 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:56230:16)\n    at _render_closure1.call$2 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:34691:12)\n    at _RootZone.runBinary$3$3 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:20227:18)\n    at _RootZone.runBinary$3 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:20231:19)\n    at _FutureListener.handleError$1 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18696:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18984:40)\n    at Object._Future__propagateToListeners (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:3500:88)\n    at _Future._completeError$2 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18820:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18219:12)\n    at Object._asyncRethrow (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:3256:17)\n    at C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:10615:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:3279:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18240:12)\n    at _awaitOnObject_closure0.call$2 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18232:25)\n    at _RootZone.runBinary$3$3 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:20227:18)\n    at _RootZone.runBinary$3 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:20231:19)\n    at _FutureListener.handleError$1 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18696:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18984:40)\n    at Object._Future__propagateToListeners (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:3500:88)\n    at _Future._completeError$2 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18820:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18219:12)\n    at Object._asyncRethrow (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:3256:17)\n    at C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:12510:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:3279:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18240:12)\n    at _awaitOnObject_closure0.call$2 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18232:25)\n    at _RootZone.runBinary$3$3 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:20227:18)\n    at _RootZone.runBinary$3 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:20231:19)\n    at _FutureListener.handleError$1 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18696:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:18984:40)\n    at Object._Future__propagateToListeners (C:\\Boolean\\bhootel\\node_modules\\sass\\sass.dart.js:3500:88)");
 
 /***/ }),
 
@@ -52060,18 +52042,8 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-__webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/sass/app.scss */"./resources/sass/app.scss");
-=======
-<<<<<<< HEAD
-__webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Flavio\Desktop\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
-=======
 __webpack_require__(/*! C:\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
->>>>>>> 508855c0924389a2fc5b44d5df73b1206ba670cb
->>>>>>> 338e5c98c390858a04c1f07ae3468a67df923d48
 
 
 /***/ })
