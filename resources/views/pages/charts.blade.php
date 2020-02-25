@@ -24,9 +24,15 @@
 
     var url = window.location.origin;
     var year = $("#year_selection").val()
+    var lineGraph
     $("#year_selection").change(function(){
-        year = $(this).val();
-        setStat();
+            year = $(this).val();
+            // if the chart is not undefined (e.g. it has been created)
+            // then destory the old one so we can create a new one later
+            if (lineGraph) {
+                lineGraph.destroy();
+            }
+            setStat();
     })
 
     //ajax Call
@@ -51,12 +57,6 @@
 
     // grafico messaggi
     function messagesGraph(data) {
-
-        // if the chart is not undefined (e.g. it has been created)
-        // then destory the old one so we can create a new one later
-        if (lineGraph) {
-            lineGraph.destroy();
-        }
 
         var messagesChart = $("#messagesChart");
         var lineGraph = new Chart(messagesChart, {
