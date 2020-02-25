@@ -9,24 +9,13 @@
             <div class="card__body-text d-lg-flex flex-column pr-2">
                 <p class="card__body-title card-text  text-uppercase font-weight-bold m-0 mb-2" >@{{textTrim(25, "QUESTO E' IL TITOLO DELL'APPARTAMENTO")}}</p>
                 <p class="card__body-desc card-text m-0 flex-grow-1">@{{textTrim(50, apartment.description)}}</p>
-                <ul class="card__body-configs list-group  list-group-horizontal justify-content-start" v-for="aptConfig in aptConfigs">
-                    <li v-if="apartment.id == aptConfig.apt_id"></li>
-
-
-                    {{-- <li class="list-group-item py-0 pl-0 pr-2"><i class="fas fa-wifi"></i></li>
-                    <li class="list-group-item py-0 pr-2"><i class="fas fa-parking"></i></li>
-                    <li class="list-group-item py-0 pr-2"><i class="fas fa-swimming-pool"></i></li>
-                    <li class="list-group-item py-0 pr-2"><i class="fas fa-concierge-bell"></i></li>
-                    <li class="list-group-item py-0 pr-2"><i class="fas fa-hot-tub"></i></li>
-                    <li class="list-group-item py-0 pr-2"><i class="fas fa-eye"></i></li> --}}
-                </ul>
-                <ul>
-                    <li v-for="aptConfig in aptConfigs"><i :class="aptConfig.icon"></i>@{{ aptConfig.service }}</li>
+                <ul class="card__body-configs list-group list-group-horizontal justify-content-start">
+                    <li class="card__body-configs--item list-group-item py-0 pr-2" v-for="aptConfig in aptConfigs"><i :class="aptConfig.icon"></i></li>
                 </ul>
             </div>
             <div class="card__body-info d-flex flex-column flex-grow-1 justify-content-between align-items-center border-left">
                 <div class='likeHeart'>
-                    <i class="fa-heart fa-2x" :class="state" @click='classToggle()'></i>
+                    <i class="fa-heart fa-2x bh-icon" :class="state" @click='classToggle()'></i>
                 </div>
 
 
@@ -119,22 +108,33 @@
             return text.length>num ? text.substring(0,num)+'...' : text
         },
         classToggle(){
-            console.log(this.state)
             this.state = this.state === 'far' ? 'fas':'far'
         },
         addIcon() { //WORK IN PROGRESS
             for(var i=0; i<this.aptConfigs.length; i++) {
                 switch(this.aptConfigs[i].service) {
                     case 'wifi':
-                        this.aptConfigs[i].icon = "fas fa-eye";
+                        this.aptConfigs[i].icon = "fas fa-wifi";
                         break;
                     case 'parking':
                         this.aptConfigs[i].icon = "fas fa-parking";
                         break;
+                    case 'pool':
+                        this.aptConfigs[i].icon = "fas fa-swimming-pool";
+                        break;
+                    case 'reception':
+                        this.aptConfigs[i].icon = "fas fa-concierge-bell";
+                        break;
+                    case 'sauna':
+                        this.aptConfigs[i].icon = "fas fa-hot-tub";
+                        break;
+                    case 'sight':
+                        this.aptConfigs[i].icon = "fas fa-eye";
+                        break;
                     default:
-                        this.aptConfigs[i].icon = 'fas fa-swimming-pool';
+                        break;
                 }
-                
+
             }
             console.log('ADDED ICONS', this.aptConfigs);
         },

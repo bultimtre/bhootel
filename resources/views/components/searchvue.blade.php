@@ -6,19 +6,26 @@
                 <form role="form" class='w-100'>
 
 
-                    <fieldset id="coords-disable">
-                        <h5>Ricerca alternativa per coordinate</h5>
-                        <div class="row">
-                        <div class="col-sm-8">
-                            <label for="vue-alt-search">Cerca appartamento: </label>
+                    <div role="group" id="coords-disable" class="search__top-wrap d-flex flex-row flex-nowrap align-items-center">
+                        <h5 class="px-2">Conosci l'indirizzo dell'apparmento? inserisicilo qui <i class="far fa-hand-point-right bh-icon"></i></h5>
+                        <div class="px-3 input-tomtom flex-grow-1">
                             <input type="text" class="form-control" v-on:keyup="evData()" v-model="alt_search_field" id="vue-alt-search" placeholder="Inserisci indirizzo"/>
                         </div>
-                        <div class="col-sm-4">
-                            <label for="vue-range">distanza (km): </label>
-                            <input type="text" class="form-control" v-on:keyup="evData()" v-model="range" id="vue-range" placeholder="raggio"/>
+                        <div class="px-3 input-tomtom d-flex align-items-center">
+                            <select class="p-2" v-on:change="evData()" v-model="range" id="vue-range">
+                                <option value="5" selected>5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="30">30</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <label for="vue-range"  class="label-tomtom px-3"> cerca entro <br>(in km)</label>
                         </div>
-                        </div>
-                    </fieldset>
+                    </div>
 
                 </form>
             </div>
@@ -26,19 +33,18 @@
 
             <div class="container-fluid search__bottom d-md-flex m-0 p-0">
 
-                <div class="search__bottom-left col-12 col-md-3 col-xl-3">
-                    <div class="quick-search">
-                        <div class="form-group">
-                            <label for="vue-search_field">Cerca appartamento: </label>
+                <div class="search__bottom-left col-12 col-md-3" >
+                    <div class="quick-search p-2 m-0">
+                        <div class="form-group d-flex flex-column">
+                            <label class="p-1" for="vue-search_field">Ricerca rapida</label>
                             <input type="text" class="form-control inputsrc" v-on:keyup="evData()" v-model="search_field" id="vue-search_field"/>
-                            <h3 style="display:inline">@{{ res_num }} </h3>
-                            {{-- <h3 style="display:inline" v-text="searchString"></h3> --}}
+                            <h5 class="px-3">@{{ res_num }} </h5>
                         </div>
                     </div>
-                    <div class="row m-0 option-search" style="border:1px solid red">
+                    <div class="option-search p-2 m-0" >
 
-                        <div class="d-flex flex-column align-items-start p-0 div-num-input">
-                            <label class="input-label-style m-0 py-2" for="vue-rooms">Numero di stanze:</label>
+                        <div class="div-num-input d-flex px-0 py-2">
+                            <label class="input-label-style m-0 p-2 flex-grow-1" for="vue-rooms">+ stanze:</label>
                             <div class="d-flex input-num-style">
                                 <input class="input-num" v-on:keyup="evData()" v-model="rooms" id="vue-rooms" type="number" step="1" min="1" max="50">
                                 <div class='num-arrow'>
@@ -48,8 +54,8 @@
                             </div>
                         </div>
 
-                        <div class="d-flex flex-column align-items-start p-0 ml-5 div-num-input">
-                            <label class="input-label-style m-0 py-2" for="vue-beds">Numero di letti:</label>
+                        <div class="div-num-input d-flex px-0 py-2">
+                            <label class="input-label-style m-0 p-2 flex-grow-1" for="vue-beds">+ letti:</label>
                             <div class="d-flex input-num-style">
                                 <input class="input-num" v-on:keyup="evData()" v-model="beds" id="vue-beds" type="number" step="1" min="1" max="50">
                                 <div class='num-arrow'>
@@ -59,10 +65,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group check-search">
-                        <div v-for='config in configs' class="form-check form-check-inline">
-                        <input type="checkbox" :value='config.id' v-model="checkedConfigs" class="form-check-input config-checkbox" @change="evData()">
-                        <label for="config-checkbox" >@{{ config.service}}</label>
+                    <div class="form-group check-search p-2 m-0">
+                        <div v-for='config in configObj' class="form-check form-check-inline d-flex flex-column align-items-start p-2">
+                            <div class="d-flex flex-row align-items-center">
+                                <input type="checkbox" :value='config.id' v-model="checkedConfigs" class="form-check-input config-checkbox" @change="evData()">
+                                <span class="px-2" ><i :class="config.icon"></i></span>
+                                <label class="m-0" for="config-checkbox">@{{config.service}}</label>
+                            </div>
                         </div>
                     </div>
 
@@ -103,15 +112,16 @@
         configs: [],
         checkedConfigs: [],
         res_num: '',
+        configObj:[],
       };
     }
     ,
     watch: {
       search_field: function() {
         if (this.search_field.length > 0) {
-          $('#coords-disable').prop("disabled", true);
+          $('#coords-disable :input').prop("disabled", true);
         } else {
-          $('#coords-disable').removeAttr("disabled");
+          $('#coords-disable :input').removeAttr("disabled");
         }
       }
     },
@@ -123,7 +133,6 @@
       this.auth_user = $('#data_search_field').attr('data-user');
       this.getAparts();
       this.getAllConfigs();
-      
     },
     methods: {
         getAllConfigs() {
@@ -131,6 +140,7 @@
                 // console.log('configs ', resp);
                 if(resp.status == 200) {
                     this.configs = resp.data;
+                    this.buildConfigObj();
                 }
             })
             .catch(err => {
@@ -246,6 +256,24 @@
             }
             this.evData()
         },
+        buildConfigObj(){
+            let fa_icons =[
+                'fas fa-wifi',
+                'fas fa-parking',
+                'fas fa-swimming-pool',
+                'fas fa-concierge-bell',
+                'fas fa-hot-tub',
+                'fas fa-eye',
+            ]
+            this.configs.forEach((el,i) => {
+                this.configObj.push({
+                    id:el.id,
+                    service: el.service,
+                    icon: fa_icons[i]
+                })
+            });
+            console.log('configurazioni' ,this.configObj)
+        }
     }
 });
 

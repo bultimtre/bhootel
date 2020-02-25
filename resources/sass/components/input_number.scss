@@ -1,7 +1,7 @@
 .input-num-style{
     width:100px;
     height:50px;
-
+    transform: scale(0.9);
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button
     {
