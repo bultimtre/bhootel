@@ -44,42 +44,31 @@
 
 
     //ajax Call
-    function setMessagesStat(){
+    function getData(dest) {
         $.ajax({
-            url: url + '/stat-msg',
+            url: url + dest,
             method: "GET",
             data: {
                 year_jq: year,
                 id_jq: id
             },
             success: function (data) {
+
+                if (dest == '/stat-msg') {
+                    
+                    messagesData(data);
+                } else {
+
+                    viewsData(data);
+                }
                 
-                messagesData(data);
             },
             error: function (err) {
                 console.log("error", err);
             }
         });
     }
-    
-    
-    function setViewsStat(){
-        $.ajax({
-            url: url + '/view-stat',
-            method: "GET",
-            data: {
-                year_jq: year,
-                id_jq: id
-            },
-            success: function (data) {
-                
-                viewsData(data);
-            },
-            error: function (err) {
-                console.log("error", err);
-            }
-        });
-    }
+
 
 
     // grafico messaggi
@@ -214,8 +203,11 @@
         viewsGraph(count);
     }
 
-    setMessagesStat();
-    setViewsStat();
+    var destMsg = '/stat-msg';
+    var destView = '/view-stat';
+
+    getData(destMsg);
+    getData(destView);
 
 </script>
 @endsection
