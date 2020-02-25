@@ -25,11 +25,8 @@
 
     var url = window.location.origin;
     var year = $("#year_selection").val();
-    console.log('anno',year);
     
     var id = {{json_encode($apartment->id)}};
-
-    console.log('prova',id);
     
     var msgGraph;
     var viewGraph;
@@ -56,7 +53,6 @@
                 id_jq: id
             },
             success: function (data) {
-                console.log(id);
                 
                 messagesData(data);
             },
@@ -72,10 +68,11 @@
             url: url + '/view-stat',
             method: "GET",
             data: {
-                year_jq: year
+                year_jq: year,
+                id_jq: id
             },
             success: function (data) {
-
+                
                 viewsData(data);
             },
             error: function (err) {
@@ -86,7 +83,7 @@
 
 
     // grafico messaggi
-    function messagesGraph(data) {
+    function messagesGraph(count) {
 
         var messagesChart = $("#messagesChart");
         var msgGraph = new Chart(messagesChart, {
@@ -96,7 +93,7 @@
             labels: moment.months(),
             datasets: [{
                 label: "Messages",
-                data: data,
+                data: count,
                 backgroundColor: [
                 'rgba(255, 99, 132, 0.6)',
                 'rgba(54, 162, 235, 0.6)',
@@ -132,7 +129,7 @@
 
 
     // grafico views
-    function viewsGraph(data) {
+    function viewsGraph(count) {
 
         var viewsChart = $("#viewsChart");
         new Chart(viewsChart, {
@@ -142,7 +139,7 @@
                 labels: moment.months(),
                 datasets: [{
                 label: "Views",
-                data: data,
+                data: count,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.6)',
                     'rgba(54, 162, 235, 0.6)',
@@ -214,7 +211,7 @@
 
         var count = Object.keys(rowCount).map(x => Object.values(rowCount[x]));
 
-        viewsGraph(data);
+        viewsGraph(count);
     }
 
     setMessagesStat();

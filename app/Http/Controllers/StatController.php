@@ -18,25 +18,28 @@ class StatController extends Controller
    public function viewStat(Request $request) {
 
         $year_jq = $request -> year_jq;
-        $year_jq+= 5;
-        $id_jq = $request -> id;
-        $dateView = Stat::where('apartment_id', '=', $id) 
+        $id_jq = $request -> id_jq;
+        $dateView = Stat::where('apartment_id', '=', $id_jq) 
                     -> whereYear('created_at', '=', $year_jq)
                     -> select('created_at') 
                     -> get();
                     
+        if (request()->ajax()) {
+
+            return response() -> json($dateView);
+        }
         // return response() -> json($dateView);
-        return $year_jq;
     }
 
-    //  public function msgStat(Request $request, $id) {
+     public function msgStat(Request $request) {
        
-    //     $year_jq = $request -> year_jq;
-    //     $msgs = Message::where('apartment_id', '=', $id) 
-    //             -> whereYear('created_at', '=', $year_jq)
-    //             -> select('created_at')
-    //             -> get();
+        $year_jq = $request -> year_jq;
+        $id_jq = $request -> id_jq;
+        $msgs = Message::where('apartment_id', '=', $id_jq) 
+                -> whereYear('created_at', '=', $year_jq)
+                -> select('created_at')
+                -> get();
                 
-    //     return response() -> json($msgs);
-    // }
+        return response() -> json($msgs);
+    }
 }
