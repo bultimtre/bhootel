@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Stat;
+use Carbon\Carbon;
 
 class ViewsController extends Controller
 {
-    public function stat(Request $request) {
-        $year_jq = $request->year_jq;
-        $msgs = Message::whereYear('created_at', '=', $year_jq)->get() ;
-        return response() -> json($msgs);
+    public function viewStat(Request $request, $id) {
+ 
+        $dateView = Stat::where('apartment_id', '=', $id) 
+                    -> select('created_at') 
+                    -> get();
+                    
+        return response() -> json($dateView);
     }
 }
