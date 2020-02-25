@@ -50,6 +50,7 @@
                 rowCount[el-1][el] = (rowCount[el-1][el])+1;
                 });
                 var count = Object.keys(rowCount).map(x => Object.values(rowCount[x]));
+
                 viewsGraph(count);
                 //messagesGraph(data);
             },
@@ -61,8 +62,14 @@
 
     function viewsGraph(count) {
 
+        // if the chart is not undefined (e.g. it has been created)
+        // then destory the old one so we can create a new one later
+        if (lineGraph) {
+            lineGraph.destroy();
+        }
+
         var viewsChart = $("#viewsChart");
-        new Chart(viewsChart, {
+        var lineGraph = new Chart(viewsChart, {
 
             type: "bar",
             data: {
@@ -87,18 +94,18 @@
             }]
             },
             options: {
-            title: {
-                display: true,
-                text: 'Apartment Views',
-                fontSize: 30
-            },
-            scales: {
-                yAxes: [{
-                ticks: {
-                    beginAtZero:true
+                title: {
+                    display: true,
+                    text: 'Apartment Views',
+                    fontSize: 30
+                },
+                scales: {
+                    yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                    }]
                 }
-                }]
-            }
             }
         });
     }
