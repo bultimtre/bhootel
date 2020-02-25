@@ -7,6 +7,7 @@ use Braintree_Transaction;
 use App\Apartment;
 use App\Ad;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 class PaymentsController extends Controller
 {
      public function pay(Request $request,$id)
@@ -38,10 +39,6 @@ class PaymentsController extends Controller
   
  //collegamento
    
-    $today = Carbon::now();
-     $new_expire= new Carbon($today->addHours(24)); 
-     $diff= $new_expire-> diffInRealHours($today,false); 
-     
        $ads = Ad::all();
 
        $gateway = new Braintree_Gateway([
@@ -65,6 +62,17 @@ class PaymentsController extends Controller
       $time = '144';
     }
      
+     $today = Carbon::now();
+     $new_expire= new Carbon($today->addHours($time)); 
+     $diff= $new_expire-> diffInRealHours($today,false); 
+     
+
+
+  //aggiorno l'expire-date
+  DB::table('ad_apartment')
+            ->where('apartment_id',$id)
+            ->update(['expire_date' => $new_expire]);
+
         $payload = $request->input('payload', false);
         $nonce = $payload['nonce'];
         $apartments= Apartment::all();
@@ -91,7 +99,4 @@ class PaymentsController extends Controller
       return redirect('/user/apartment/'.$id)->with(['successo' => $successo]);
        
     }
-
-    
-
 }

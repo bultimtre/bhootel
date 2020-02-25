@@ -61,10 +61,13 @@
  
 
 @if (!session()->get( 'successo'))
+         
         <div class="alert alert-success">
            @if (Auth::user() -> id == $apartment -> user -> id)
-
+            
+           
     <p>Seleziona la tua sponsorizzazione:</p>
+
        <div class="form-group">
    
     @foreach ($ads  as $ad)
@@ -84,12 +87,19 @@
         </div>
         @else 
         <div class="ad-result">
-            <p>Hai una sponsorizzazione attiva <span> <a href=""> vedi info </a></span> </p>
+            <p>Hai una sponsorizzazione attiva  </p>
             
+                        <p>scadrà giorno:</p>
+            {{-- per tirarsi fuori i pagamenti precedenti  --}}
+                         @foreach ($apartment->ads  as $ad)
+                         @if($loop->last)
+                                <p>{{$ad->pivot->expire_date}}</p>
+                            @endif
+                                
+                        @endforeach
+          
         </div>
-      
-        
-       
+     
     @endif
 
 </form>

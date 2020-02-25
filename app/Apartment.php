@@ -34,7 +34,7 @@ class Apartment extends Model
 
     public function ads()
     {
-        return $this->belongsToMany(Ad::class);
+        return $this->belongsToMany(Ad::class)->withTimestamps()->withPivot('expire_date');
     }
 
     public function stats()
