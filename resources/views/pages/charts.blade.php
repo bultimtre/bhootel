@@ -29,8 +29,8 @@
             year = $(this).val();
             // if the chart is not undefined (e.g. it has been created)
             // then destory the old one so we can create a new one later
-            if (lineGraph) {
-                lineGraph.destroy();
+            if (messagesGraph) {
+                messagesGraph.destroy();
             }
             setStat();
     })
@@ -59,7 +59,7 @@
     function messagesGraph(data) {
 
         var messagesChart = $("#messagesChart");
-        var lineGraph = new Chart(messagesChart, {
+        var messagesGraph = new Chart(messagesChart, {
 
             type: "bar",
             data: {
@@ -99,8 +99,8 @@
             }
         });
     }
-    
-    
+
+
     // grafico views
     function viewGraph(count) {
 
