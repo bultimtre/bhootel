@@ -42,15 +42,15 @@ class MessageController extends Controller
     }
 
 
-    public function stat(Request $request, $id) {
+    //  public function stat(Request $request) {
        
-        $year_jq = $request -> year_jq;
-        $msgs = Message::where('apartment_id', '=', $id) 
-                -> whereYear('created_at', '=', $year_jq)
-                -> select('created_at')
-                -> get();
+    //     $year_jq = $request -> year_jq;
+    //      $msgs = Message::where('apartment_id', '=', $id) 
+    //              -> whereYear('created_at', '=', $year_jq)
+    //              -> select('created_at')
+    //             -> get();
                 
-        return response() -> json($msgs);
-    }
+    //    return response() -> json($msgs);
+    // }
 }
 

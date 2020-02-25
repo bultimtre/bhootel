@@ -25,7 +25,12 @@
 
     var url = window.location.origin;
     var year = $("#year_selection").val();
+    console.log('anno',year);
+    
     var id = {{json_encode($apartment->id)}};
+
+    console.log('prova',id);
+    
     var msgGraph;
     var viewGraph;
     $("#year_selection").change(function(){
@@ -44,7 +49,7 @@
     //ajax Call
     function setMessagesStat(){
         $.ajax({
-            url: url + '/stat-msg' + '/{id}',
+            url: url + '/stat-msg',
             method: "GET",
             data: {
                 year_jq: year,
@@ -64,7 +69,7 @@
     
     function setViewsStat(){
         $.ajax({
-            url: url + '/view-stat' + '/{id}',
+            url: url + '/view-stat',
             method: "GET",
             data: {
                 year_jq: year
