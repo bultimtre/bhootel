@@ -5,10 +5,10 @@
 
 <div class="container-fluid d-lg-flex mt-5">
   <div class="chart-container mt-5" style="position: relative; margin:auto; width:50vw">
-    <canvas id="viewsChart"></canvas>
+    <canvas id="messagesChart"></canvas>
   </div>
   <div class="chart-container mt-5" style="position: relative; margin:auto; width:50vw">
-    <canvas id="messagesChart"></canvas>
+    <canvas id="viewsChart"></canvas>
   </div>
 </div>
 
@@ -36,7 +36,7 @@
     })
 
     //ajax Call
-    var setStat = function(){
+    function setStat(){
         $.ajax({
             url: url + '/stat-msg',
             method: "GET",
@@ -46,26 +46,8 @@
             success: function (data) {
                 // console.log('this',data)
 
-                var months = data.map(function(e) {
-                    var x = e.created_at;
-                    return (moment(x).month()+1);
-                });
-
-                var rowCount = [{1: 0}, {2: 0}, {3: 0}, {4: 0}, {5: 0}, {6: 0}, {7: 0}, {8: 0}, {9: 0}, {10: 0}, {11: 0}, {12: 0}];
-                // var rowCount = [{1: 2}, {2: 5}, {3: 3}, {4: 7}, {5: 5}, {6: 2}, {7: 9}, {8: 7}, {9: 8}, {10: 6}, {11: 8}, {12: 5}]; //serve per testare
-                console.log('months', months);
-
-
-                var x = data.created_at;
-
-                $.each(months, function(i, el) {
-                    rowCount[el-1][el] = (rowCount[el-1][el])+1;
-                });
-
-                var count = Object.keys(rowCount).map(x => Object.values(rowCount[x]));
-
-                viewsGraph(count);
-                //messagesGraph(data);
+                messagesData(data);
+                // viewGraph(count);
             },
             error: function (err) {
                 console.log("error", err);
@@ -73,17 +55,18 @@
         });
     }
 
-    function viewsGraph(count) {
+    // grafico messaggi
+    function messagesGraph(data) {
 
-        var viewsChart = $("#viewsChart");
-        lineGraph = new Chart(viewsChart, {
+        var messagesChart = $("#messagesChart");
+        var lineGraph = new Chart(messagesChart, {
 
             type: "bar",
             data: {
             labels: moment.months(),
             datasets: [{
-                label: "Views",
-                data: count,
+                label: "messages",
+                data: data,
                 backgroundColor: [
                 'rgba(255, 99, 132, 0.6)',
                 'rgba(54, 162, 235, 0.6)',
@@ -103,7 +86,7 @@
             options: {
                 title: {
                     display: true,
-                    text: 'Apartment Views',
+                    text: 'Apartment messages',
                     fontSize: 30
                 },
                 scales: {
@@ -116,17 +99,20 @@
             }
         });
     }
-    function messagesGraph(data) {
+    
+    
+    // grafico views
+    function viewGraph(count) {
 
-        var messagesChart = $("#messagesChart");
-        new Chart(messagesChart, {
+        var viewChart = $("#viewChart");
+        new Chart(viewChart, {
 
         type: "pie",
         data: {
             labels: moment.months(),
             datasets: [{
             label: "Messages",
-            data: data,
+            data: count,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.6)',
                 'rgba(54, 162, 235, 0.6)',
@@ -151,6 +137,27 @@
             }
         }
         });
+    }
+
+
+    // dati da passare per messaggi
+    function messagesData(data) {
+
+        var months = data.map(function(e) {
+            var x = e.created_at;
+            return (moment(x).month()+1);
+        });
+
+        var rowCount = [{1: 0}, {2: 0}, {3: 0}, {4: 0}, {5: 0}, {6: 0}, {7: 0}, {8: 0}, {9: 0}, {10: 0}, {11: 0}, {12: 0}];
+        // var rowCount = [{1: 2}, {2: 5}, {3: 3}, {4: 7}, {5: 5}, {6: 2}, {7: 9}, {8: 7}, {9: 8}, {10: 6}, {11: 8}, {12: 5}]; //serve per testare
+
+        $.each(months, function(i, el) {
+            rowCount[el-1][el] = (rowCount[el-1][el])+1;
+        });
+
+        var count = Object.keys(rowCount).map(x => Object.values(rowCount[x]));
+
+        messagesGraph(count);
     }
 
     setStat();

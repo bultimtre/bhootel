@@ -75,3 +75,6 @@ Route::get('/stat-msg', 'MessageController@stat') -> name('stat-msg');
 Route::get('/charts', function() {
     return view('pages.charts');
 });
+
+// stats views
+Route::get('/view-stat/{id}', 'ViewsController@viewStat') -> name('view-stat');
