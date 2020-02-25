@@ -87,7 +87,7 @@
     </div>
 </div>
 
-<a href="{{route('view-stat', $apartment -> id)}}">vedi stats</a>
+<a href="{{route('charts', $apartment -> id)}}">vedi stats</a>
 
 @auth
 @if (Auth::user() -> id != $apartment -> user -> id)

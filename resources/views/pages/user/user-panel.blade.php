@@ -18,9 +18,9 @@
                     <div class="card">
                         {{$countMsg}}
                         {{$collection}}
-                        @foreach($collection as $collected)
+                        {{-- @foreach($collection as $collected)
                             {{$collected->number}}
-                        @endforeach
+                        @endforeach --}}
                     </div>
                 </div>
                 <div class="panel_right-cards--views">

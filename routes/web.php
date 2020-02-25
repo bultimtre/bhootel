@@ -68,13 +68,13 @@ Route::post('/mail-store', 'MessageController@store') ->name('mail-store');
 Route::get('/mail-send/{id}', 'MessageController@sendMail') ->name('mail-send');
 
 // stat msg
-Route::get('/stat-msg', 'MessageController@stat') -> name('stat-msg');
+Route::get('/stat-msg/{id}', 'MessageController@stat') -> name('stat-msg');
 
 
 // charts
-Route::get('/charts', function() {
+Route::get('/charts/{id}', function() {
     return view('pages.charts');
-});
+}) -> name('charts');
 
 // stats views
 Route::get('/view-stat/{id}', 'ViewsController@viewStat') -> name('view-stat');
