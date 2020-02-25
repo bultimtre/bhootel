@@ -79,7 +79,7 @@
             <br>
        
     @endforeach
-   
+   {{-- ciao --}}
 </div>
        <button type="submit">Sponsorizza</button>
        
