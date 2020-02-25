@@ -176,7 +176,7 @@ function init() {
         getApartMap();
     }
 
-    //
+    funct.buttonChange();
 };
 
 $(document).ready(init);
