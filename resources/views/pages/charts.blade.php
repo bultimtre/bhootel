@@ -25,8 +25,8 @@
     var url = window.location.origin;
     var year = $("#year_selection").val()
     $("#year_selection").change(function(){
-            year = $(this).val();
-            setStat();
+        year = $(this).val();
+        setStat();
     })
 
     //ajax Call
@@ -38,17 +38,24 @@
                 year_jq: year
             },
             success: function (data) {
-                console.log('this',data)
+                // console.log('this',data)
+
                 var months = data.map(function(e) {
-                var x = e.created_at;
-                return (moment(x).month()+1);
+                    var x = e.created_at;
+                    return (moment(x).month()+1);
                 });
+
                 var rowCount = [{1: 0}, {2: 0}, {3: 0}, {4: 0}, {5: 0}, {6: 0}, {7: 0}, {8: 0}, {9: 0}, {10: 0}, {11: 0}, {12: 0}];
                 // var rowCount = [{1: 2}, {2: 5}, {3: 3}, {4: 7}, {5: 5}, {6: 2}, {7: 9}, {8: 7}, {9: 8}, {10: 6}, {11: 8}, {12: 5}]; //serve per testare
+                console.log('months', months);
+                
+                
                 var x = data.created_at;
+                
                 $.each(months, function(i, el) {
-                rowCount[el-1][el] = (rowCount[el-1][el])+1;
+                    rowCount[el-1][el] = (rowCount[el-1][el])+1;
                 });
+                
                 var count = Object.keys(rowCount).map(x => Object.values(rowCount[x]));
 
                 viewsGraph(count);

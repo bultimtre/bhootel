@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Config;
+use App\Stat;
 
 use App\Apartment;
 use Illuminate\Http\Request;

@@ -88,32 +88,48 @@
 </div>
 
 
+@auth
 @if (Auth::user() -> id != $apartment -> user -> id)
 
-    <form class="mt-5" id="uploadForm" method="POST" action="{{route('mail-store')}}" enctype="multipart/form-data">
-        @csrf
-        @method('POST')
+<form class="mt-5" id="uploadForm" method="POST" action="{{route('mail-store')}}" enctype="multipart/form-data">
+    @csrf
+    @method('POST')
+    
+    <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }} formField">
+        <label for="comment">Contatta il proprietario</label>
+        <input type="hidden" name="id" value=" {{$apartment -> user -> id}} ">
+        <input type="hidden" name="id-apt" value=" {{$apartment -> id}} ">
+        <textarea class="form-control" rows="5" name="text" maxlength="750"></textarea>
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" name="button" class="btn btn-primary">Invia</button>
+    </div>
+    
+</form>
 
-        <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }} formField">
-            <label for="comment">Contatta il proprietario</label>
-            <input type="hidden" name="id" value=" {{$apartment -> user -> id}} ">
-            <input type="hidden" name="id-apt" value=" {{$apartment -> id}} ">
-            <textarea class="form-control" rows="5" name="text" maxlength="750"></textarea>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" name="button" class="btn btn-primary">Invia</button>
-        </div>
-
-    </form>
-
-@endif
-
-{{-- mettere le statistiche --}}
-@auth
-@if (Auth::user() -> id == $apartment -> user -> id)
 @endif
 @endauth
+
+
+@guest
+<form class="mt-5" id="uploadForm" method="POST" action="{{route('mail-store')}}" enctype="multipart/form-data">
+    @csrf
+    @method('POST')
+    
+    <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }} formField">
+        <label for="comment">Contatta il proprietario</label>
+        <input type="hidden" name="id" value=" {{$apartment -> user -> id}} ">
+        <input type="hidden" name="id-apt" value=" {{$apartment -> id}} ">
+        <textarea class="form-control" rows="5" name="text" maxlength="750"></textarea>
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" name="button" class="btn btn-primary">Invia</button>
+    </div>
+    
+</form>
+@endguest
 
 </main>
 @include('components.footer')
