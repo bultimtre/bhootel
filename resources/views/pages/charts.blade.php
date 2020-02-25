@@ -24,16 +24,16 @@
 
     var url = window.location.origin;
     var year = $("#year_selection").val()
-    var lineGraph
+    var msgGraph
     $("#year_selection").change(function(){
             year = $(this).val();
             // if the chart is not undefined (e.g. it has been created)
             // then destory the old one so we can create a new one later
-            if (messagesGraph) {
-                messagesGraph.destroy();
+            if (msgGraph) {
+                msgGraph.destroy();
             }
             setStat();
-    })
+    });
 
     //ajax Call
     function setStat(){
@@ -59,7 +59,7 @@
     function messagesGraph(data) {
 
         var messagesChart = $("#messagesChart");
-        var messagesGraph = new Chart(messagesChart, {
+        var msgGraph = new Chart(messagesChart, {
 
             type: "bar",
             data: {
