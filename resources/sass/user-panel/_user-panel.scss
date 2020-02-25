@@ -2,7 +2,14 @@
     .panel{
         &_left{}
         &_right{
+            &-cards
+            {
+                .card{
+
+                }
+            }
             &-table{
+
                 &--apt
                 {
                     height:500px;
