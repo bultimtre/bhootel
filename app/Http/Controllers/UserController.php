@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Config;
-use App\Ad;
+use App\Stat;
+use App\Message;
+use App\User;
+
 use App\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\Inline\Element\Code;
+
 
 class UserController extends Controller
 {
@@ -17,32 +21,7 @@ class UserController extends Controller
         $this -> middleware('auth');
     }
 
-//non ho fatto nnt
-    /*  public function index()
-     {
-         //return if logged
-        $apartments= Apartment::orderBy('id', 'DESC')->paginate(10);
-        return view('pages.index', compact('apartments'));
-    } */
-
-
-    public function search(Request $request)
-    {
-        $data = $request -> all();
-        $result = strtolower($data['search_field']);
-        $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
-        return view('pages.search',compact('apartments', 'result'));
-    }
-
-
-    // public function show($id)
-    // {
-    //     $apartment= Apartment::findOrFail($id);
-    //     return view('pages.show',compact('apartment'));
-    // }
-
-    //nuova show per view count
-        public function show(Request $request, $id)
+    public function show(Request $request, $id)
     {
 
         $apartment= Apartment::findOrFail($id);
@@ -64,7 +43,6 @@ class UserController extends Controller
 
 
     public function store(Request $request) {
-
 
         // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
@@ -198,10 +176,19 @@ class UserController extends Controller
 
     public function userPanel()
     {
+        $countMsg = 0;
         $user = Auth::user();
         $apartments = $user -> apartments() -> get();
-
-        return view('pages.user.user-panel', compact('apartments'));
+        foreach ($apartments as $apartment) {
+            $countMsg += $apartment->messages()->count();
+        }
+        $collection = collect([
+            ['number' => 1],
+            ['number' => 2],
+            ['number' => 3],
+        ]);
+        $collection->all();
+        return view('pages.user.user-panel', compact('apartments', "countMsg","collection"));
     }
     //commento provv
 }

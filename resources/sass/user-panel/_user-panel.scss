@@ -1,0 +1,44 @@
+.main-panel{
+    .panel{
+        &_left{}
+        &_right{
+            &-cards
+            {
+                .card{
+
+                }
+            }
+            &-table{
+
+                &--apt
+                {
+                    height:500px;
+                    //border:10px solid $bh-default-v2;
+                    overflow:hidden;
+                    .title
+                    {
+                        background:$bh-default-v2;
+                        color:#fff;
+                    }
+                    .bh-table
+                    {
+                        height:440px;
+                        overflow-x:hidden;
+                        overflow-y:scroll;
+                        thead th
+                        {
+                            font-weight: 500;
+
+                        }
+                    }
+                }
+                &--msg{
+                    overflow-y:scroll;
+                    overflow-x:hidden;
+                    height:500px;
+                    //border:10px solid $bh-default;
+                }
+            }
+        }
+    }
+}

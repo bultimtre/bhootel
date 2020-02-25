@@ -7,10 +7,12 @@
 require('./bootstrap');
 // import parsleyjs for front-end validation
 require('parsleyjs');
+var funct = require('./components/style.js')
 //import validation
 //require('./validation.js');
 window.Vue = require('vue');
 
+// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //import tom tom maps
 //import tt from '@tomtom-international/web-sdk-maps';
 /**
@@ -24,17 +26,13 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// const app = new Vue({
-//     el: '#app',
-// });
+
 
 var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
@@ -85,8 +83,9 @@ function getCoordByAddress(e) {
 }
 // send Apartment data with coord to UserApartmentsController@store
 function addNewApart(formData) {
-    var urlStore = "http://localhost:8000/user/store";
-    var urlUpdate = "http://localhost:8000/user/update-apt/";
+    var locURL = window.location.origin;
+    var urlStore = locURL+"/user/store/";
+    var urlUpdate = locURL+"/user/update-apt/";
     var url = formData.has('id') ? urlUpdate : urlStore;
     $.ajax({
         url: url,
@@ -99,13 +98,14 @@ function addNewApart(formData) {
         ,
         success: function (data) {
             console.log("data", data);
-            window.location.href = 'http://localhost:8000'; //redirect finito create
+            window.location.href = locURL; //redirect finito create
         },
         cache: false,
         contentType: false,
         processData: false
     });
 }
+
 
 function formApartValidation() {
     $('.addApartForm').parsley();
@@ -156,6 +156,12 @@ function getApartMap() {
 }
 
 function init() {
+    if ($('#app-search').length) {
+
+        var appSearch = new Vue({
+            el: '#app-search',
+        });
+    }
 
 
     if ($('.addApartForm').length) {
@@ -169,6 +175,8 @@ function init() {
 
         getApartMap();
     }
+
+    funct.buttonChange();
 };
 
 $(document).ready(init);

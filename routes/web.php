@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+header('Access-Control-Allow-Origin:  *');
+header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization,X-Requested-With');
+
+
 //LOGIN ONLY
     Route::get('/login/{status}', 'Auth\LoginController@showLoginForm') -> name('bhootel.login');
 
@@ -16,21 +21,30 @@ use Illuminate\Support\Facades\Route;
 
 
 //GUEST ROUTES
-    Route::post('/search', 'GuestController@search') -> name('guest.search');
+    //SOSTITUITA DA SEARCH ROUTES
+    // Route::post('/search', 'GuestController@search') -> name('guest.search');
 
     Route::get('/apartment/{id}', 'GuestController@show') -> name('guest-apt.show');
 
 
 //-----------------------------------------------------//
+//SEARCH ROUTES
+    Route::post('/search/show', 'SearchController@show') -> name('search.show');
+    Route::post('/search', 'SearchController@search') -> name('search.search');
+    Route::get('/search/configs', 'SearchController@getAllConfigs') ->name('search.config');
+    // Route::get('/search/aptConfigs', 'SearchController@getAptConfig') ->name('search.apt-config');
+    //new
+    Route::get('/search/apartConfigs/{id}', 'SearchController@getApartConfigs') ->name('search.apart-config');
 
+//-----------------------------------------------------//
 
 ///USERS UPR UPRA
 
 Auth::routes();
 
 
-
-Route::post('/user/search', 'UserController@search') -> name('user.search');
+//SOSTITUITA DA SEARCH ROUTES
+// Route::post('/user/search', 'UserController@search') -> name('user.search');
 
 Route::get('/user/apartment/{id}', 'UserController@show') -> name('user-apt.show');
 
@@ -56,4 +70,18 @@ Route::get('/payment/make/{id}', 'PaymentsController@pay')->name('payment.pay');
 Route::post('/payment/make/{id}{adId}', 'PaymentsController@make')->name('payment.make');
 
 Route::get('/payment/sponsor/{id}', 'PaymentsController@sponsor')->name('sponsor.show');
+// mail
+Route::post('/mail-store', 'MessageController@store') ->name('mail-store');
+Route::get('/mail-send/{id}', 'MessageController@sendMail') ->name('mail-send');
 
+// stat msg
+Route::get('/stat-msg/{id}', 'MessageController@stat') -> name('stat-msg');
+
+
+// charts
+Route::get('/charts/{id}', function() {
+    return view('pages.charts');
+}) -> name('charts');
+
+// stats views
+Route::get('/view-stat/{id}', 'ViewsController@viewStat') -> name('view-stat');

@@ -17,7 +17,7 @@ class CreateMessagesTable extends Migration
             $table->bigIncrements('id');
             $table->text('body');
             $table->string('title');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamps();
         });
     }

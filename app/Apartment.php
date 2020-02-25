@@ -2,25 +2,41 @@
 
 namespace App;
 
+use App\Stat;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 class Apartment extends Model
 {
-    protected $fillable = [
-        'description', 
-        'image', 
-        'address', 
-        'lat', 
-        'lon', 
-        'rooms', 
-        'beds', 
-        'bath', 
-        'square_mt', 
+    protected $fillable =[
+        'description',
+        'image',
+        'address',
+        'lat',
+        'lon',
+        'rooms',
+        'beds',
+        'bath',
+        'square_mt',
         'show',
-        'views'    
+        'views'
+
+        /* 'title',
+        'description',
+        'image',
+        'address',
+        'lat',
+        'lon',
+        'rooms',
+        'beds',
+        'bath',
+        'square_mt',
+        'ads_expired',
+        'show',
+        'views',
+        'price', */
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -41,22 +57,26 @@ class Apartment extends Model
     {
         return $this->hasMany(Stat::class);
     }
-    
+
     public function messages()
     {
         return $this->hasMany(Message::class);
     }
 
     public function viewsCount($request, $id, $apartment) {
-            if (Auth::id() !== $apartment -> user -> id) {
-            //implementing view counter with sessions
-            $apartKey = 'apart_' .$id;
+        if (Auth::id() !== $apartment -> user -> id) {
+        //implementing view counter with sessions
+        $apartKey = 'apart_' .$id;
 
             if(!$request->session()->has($apartKey)) {
                 $request->session()->put('apart_' .$id, 1);
                 //update view counter apartment
                 $apartment->increment('views');
-            } 
+
+                $stat = Stat::make();
+                $stat->apartment()->associate($apartment);
+                $stat->save();
+            }
         }
     }
 }
