@@ -179,17 +179,20 @@ class UserController extends Controller
     {
         $countMsg = 0;
         $user = Auth::user();
+        $allMsgsApt = collect([]);
         $apartments = $user -> apartments() -> get();
         foreach ($apartments as $apartment) {
             $countMsg += $apartment->messages()->count();
-        }
-        $collection = collect([
-            ['number' => 1],
-            ['number' => 2],
-            ['number' => 3],
-        ]);
-        $collection->all();
-        return view('pages.user.user-panel', compact('apartments', "countMsg","collection"));
+            if (($apartment->messages()->where('apartment_id', '=', $apartment->id))->exists()) {
+                $allMsgsApt->push(
+                    $apartment->messages()->where('apartment_id', '=', $apartment->id)->get(),
+                );
+            };
+        };
+
+        $$allMsgsApt = collect([['number' => 1],['number' => 2],['number' => 3]]);
+        $$allMsgsApt->all();
+        return view('pages.user.user-panel', compact('apartments', "countMsg",'allMsgsApt'));
     }
     //commento provv
 }
