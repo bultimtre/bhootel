@@ -38,8 +38,8 @@
                 msgGraph.destroy();
                 viewGraph.destroy();
             }
-            getData(destMsg);
-            getData(destView);
+        getData(destMsg);
+        getData(destView);
     });
 
 
@@ -123,7 +123,7 @@
         var viewsChart = $("#viewsChart");
         new Chart(viewsChart, {
 
-            type: "line",
+            type: "bar",
             data: {
                 labels: moment.months(),
                 datasets: [{
