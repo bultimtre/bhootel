@@ -48,6 +48,7 @@ class UserController extends Controller
         // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title' => 'required|max:80',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -115,6 +116,7 @@ class UserController extends Controller
         $validateApartmentData = $request -> validate([
             'id' => 'required|exists:apartments,id',
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title' => 'required|max:80',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
