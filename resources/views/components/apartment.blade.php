@@ -42,9 +42,8 @@
         }
     },
     created(){
-        // this.getAptConfigs()
+        this.aptConfigs = [];
         this.getApartConfigs();
-        this.catchType();
         this.auth_user = $('#data_search_field').attr('data-user');
         console.log('AUTH USER', this.auth_user);
     },
@@ -52,29 +51,6 @@
         apartment:Object
     },
     methods:{
-        // getAptConfigs() {
-        //     axios.get(this.baseUrl+'search/aptConfigs').then(resp => {
-
-        //         if(resp.status == 200) {
-        //             testdata = resp.data;
-        //             this.aptConfigs = resp.data;
-        //             console.log('test', this.aptConfigs[0])
-        //             /* for (let i = 0; i < testData.length; i++) {
-        //                 return console.log('tipo', testData[i])
-
-        //             } */
-        //             /* for(aptConfig in this.aptConfigs){
-        //                 aptConfig.forEach(el => {
-        //                     console.log(aptConfig.apt_id)
-        //                 });
-        //             } */
-        //         }
-        //     })
-        //     .catch(err => {
-        //         this.error = "Error downloading configs";
-        //         //console.log('err', err)
-        //     });
-        // },
         getApartConfigs() {
             axios.get(this.baseUrl+'search/apartConfigs/'+this.apartment.id)
             .then(res => {
@@ -138,51 +114,7 @@
             }
             console.log('ADDED ICONS', this.aptConfigs);
         },
-        catchType(){
-            let classFa;
-            let setApts = [];
-            console.log(this.aptConfigs)
 
-            //this.apartment.id
-
-
-            /* return{
-                aptsWithConfig:setApts,
-                log: console.log(this.test)
-            } */
-            /* switch(type) {
-                case 'wifi':
-                    classFa = 'fas fa-wifi'
-                    console.log(classFa)
-                    break;
-                case 'parking':
-                    classFa = 'fas fa-parking'
-                    console.log(classFa)
-                    break;
-                case 'pool':
-                    classFa = 'fas fa-swimming-pool'
-                    console.log(classFa)
-                    break;
-                case 'reception':
-                    classFa = 'fas fa-concierge-bell'
-                    console.log(classFa)
-                    break;
-                case 'sauna':
-                    classFa = 'fas fa-hot-tub'
-                    console.log(classFa)
-                    break;
-                case 'sight':
-                    classFa = 'fas fa-eye'
-                    console.log(classFa)
-                    break;
-                default:
-                    break;
-            }
-            return {
-
-                faClass: classFa
-            };  */
-        }
     }
 });
 </script>
