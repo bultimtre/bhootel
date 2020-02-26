@@ -12,6 +12,6 @@ class Ad extends Model
 
     public function apartments()
     {
-        return $this->belongsToMany(Apartment::class);
+        return $this->belongsToMany(Apartment::class)->withTimestamps()->withPivot('expire_date');
     }
 }

@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Config;
+use App\Stat;
+use App\Message;
+use App\User;
+use App\Ad;
 
 use App\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\Inline\Element\Code;
+
 
 class UserController extends Controller
 {
@@ -17,11 +22,14 @@ class UserController extends Controller
         $this -> middleware('auth');
     }
 
-        public function show(Request $request, $id)
+    public function show(Request $request, $id)
     {
+
         $apartment= Apartment::findOrFail($id);
+        $ads = Ad::all();
         $apartment -> viewsCount($request, $id, $apartment);
-        return view('pages.show',compact('apartment'));
+
+        return view('pages.show',compact('apartment','ads'));
     }
 
 
@@ -37,10 +45,10 @@ class UserController extends Controller
 
     public function store(Request $request) {
 
-
         // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title' => 'required|max:80',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -108,6 +116,7 @@ class UserController extends Controller
         $validateApartmentData = $request -> validate([
             'id' => 'required|exists:apartments,id',
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title' => 'required|max:80',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -132,10 +141,10 @@ class UserController extends Controller
                 //save image path db da verificare
                 $imageFilePath = 'images/user/'. Auth::user()->name.'/'. $filename;
                 $validateApartmentData['image'] = $imageFilePath;
-            } 
-          
+            }
+
             $apartment->update($validateApartmentData);
-                    
+
             if (isset($validateApartmentData['configs_id'])) {
 
                 $configs = Config::find($validateApartmentData['configs_id']);
@@ -143,7 +152,7 @@ class UserController extends Controller
             } else {
                 $apartment->configs()->detach();
             }
-            
+
             return Response()->json([
                 "success" => true,
                 "description" => $validateApartmentData['description']
@@ -168,15 +177,24 @@ class UserController extends Controller
         return redirect()->route('all.index');// nuova modifica
     }
 
-
-
-
-
     public function userPanel()
     {
+        $countMsg = 0;
         $user = Auth::user();
+        $allMsgsApt = collect([]);
         $apartments = $user -> apartments() -> get();
+        foreach ($apartments as $apartment) {
+            $countMsg += $apartment->messages()->count();
+            if (($apartment->messages()->where('apartment_id', '=', $apartment->id))->exists()) {
+                $allMsgsApt->push(
+                    $apartment->messages()->where('apartment_id', '=', $apartment->id)->get()
+                );
+            };
+        };
 
-        return view('pages.user.user-panel', compact('apartments'));
+        $$allMsgsApt = collect([['number' => 1],['number' => 2],['number' => 3]]);
+        $$allMsgsApt->all();
+        return view('pages.user.user-panel', compact('apartments', "countMsg",'allMsgsApt'));
     }
+    //commento provv
 }

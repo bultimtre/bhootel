@@ -1,18 +1,23 @@
+
 @extends('layouts.base')
+
 
 @section('search')
 @include('components.header')
-    <main>
+<main class='main-search nav-fix'>
 
-    
-    <div id="data_search_field" data-search="{{ $search_field }}" data-user="{{ Auth::user() ?  Auth::user()-> id : ''}}"></div>
+
     @include('components.searchvue')
-    <div id="app-search">
+    @include('components.apartment')
+
+
+    <div id="data_search_field" data-search="{{ $search_field }}" data-user="{{ Auth::user() ?  Auth::user()-> id : '' }}"></div>
+    <div id="app-search" class="container px-0 pb-0">
 
       <searchvue />
-    </div>  
+    </div>
 
 
-    </main>
+</main>
 @include('components.footer')
 @endsection

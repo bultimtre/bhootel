@@ -4,16 +4,22 @@ namespace App\Http\Controllers;
 
 
 use App\User;
-use App\Apartment;
 use App\Config;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-
+use App\Apartment;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this -> middleware('cors');
+    // }
     public function show(Request $request)
     {
         $data = $request -> all();
@@ -24,9 +30,26 @@ class SearchController extends Controller
     public function getAllConfigs() {
         $configs = Config::all();
         return Response()->json($configs);
+    }
+    // public function getAptConfig() {
+    //     $apartments=Apartment::all();
+    //     $aptAd = [];
+    //     foreach ($apartments as $apartment) {
+    //         foreach ($apartment->configs as $config) {
+    //             array_push($aptAd,[
+    //                 'service' => $config->service,
+    //                 'apt_id'=>$apartment->id
+    //                 ]);
+    //         }
+    //     }
+    //     return Response()->json($aptAd);
+    // }
+    public function getApartConfigs($id) {
+        $apartment = Apartment::find($id);
+        $configs = $apartment->configs;
+        return Response()->json($configs);
 
     }
-
     public function search(Request $request)
     {
         // return Response()->json($request); //debug
@@ -64,7 +87,7 @@ class SearchController extends Controller
                 'success' => true,
                 'data' => [],
                 'response' => 'missing parameters'
-            
+
             ];
 
         }
@@ -98,9 +121,9 @@ class SearchController extends Controller
                 'lon' => $lon,
                 'range' => $range
             ]
-        
+
         ];
 
-        
+
     }
 }

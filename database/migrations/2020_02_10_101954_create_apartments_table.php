@@ -15,7 +15,9 @@ class CreateApartmentsTable extends Migration
     public function up()
     {
         Schema::create('apartments', function (Blueprint $table) {
+
             $table->bigIncrements('id');
+            $table->string('title');
             $table->text('description');
             $table->string('image')->nullable();
             $table->string('address');
@@ -28,7 +30,7 @@ class CreateApartmentsTable extends Migration
             $table->timestamp('ads_expired')->nullable();
             $table->tinyInteger('show')->defaut('1')->nullable();
             $table->integer('views')->default('0')->nullable();
-            $table->timestamps(); ///push test
+            $table->timestamps();
 
         });
     }

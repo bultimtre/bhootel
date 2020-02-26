@@ -7,10 +7,12 @@
 require('./bootstrap');
 // import parsleyjs for front-end validation
 require('parsleyjs');
+var funct = require('./components/style.js')
 //import validation
 //require('./validation.js');
 window.Vue = require('vue');
 
+// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //import tom tom maps
 //import tt from '@tomtom-international/web-sdk-maps';
 /**
@@ -23,8 +25,6 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -83,8 +83,9 @@ function getCoordByAddress(e) {
 }
 // send Apartment data with coord to UserApartmentsController@store
 function addNewApart(formData) {
-    var urlStore = "http://localhost:8000/user/store";
-    var urlUpdate = "http://localhost:8000/user/update-apt/";
+    var locURL = window.location.origin;
+    var urlStore = locURL+"/user/store/";
+    var urlUpdate = locURL+"/user/update-apt/";
     var url = formData.has('id') ? urlUpdate : urlStore;
     $.ajax({
         url: url,
@@ -97,7 +98,7 @@ function addNewApart(formData) {
         ,
         success: function (data) {
             console.log("data", data);
-            window.location.href = 'http://localhost:8000'; //redirect finito create
+            window.location.href = locURL; //redirect finito create
         },
         cache: false,
         contentType: false,
@@ -105,40 +106,41 @@ function addNewApart(formData) {
     });
 }
 
+
 function formApartValidation() {
     $('.addApartForm').parsley();
 
     $('.addApartForm').parsley().on('field:error', function (ParsleyField) {
-      ParsleyField.$element.addClass('is-invalid');
-      console.log('fired error');
+        ParsleyField.$element.addClass('is-invalid');
+        console.log('fired error');
     });
     $('.addApartForm').parsley().on('field:success', function (ParsleyField) {
-      ParsleyField.$element.removeClass('is-invalid');
+        ParsleyField.$element.removeClass('is-invalid');
     });
     var $createApart = $('.apartment-submit');
     $('.addApartForm').parsley().on('form:error', function () {
 
-      if ($createApart.hasClass('btn-primary')) {
-        $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
-      }
+        if ($createApart.hasClass('btn-primary')) {
+            $('.apartment-submit').removeClass('btn-primary').addClass('btn-danger');
+        }
     });
 
     $('.addApartForm').parsley().on('field:success', function () {
 
-      if ($createApart.hasClass('btn-danger')) {
-        $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
-      }
+        if ($createApart.hasClass('btn-danger')) {
+            $('.apartment-submit').removeClass('btn-danger').addClass('btn-primary');
+        }
     }); //comm
-  }
+}
 
 
 
-  function getApartMap() {
+function getApartMap() {
     var coords;
     var dataLat = $('.data-lat').attr("data-lat");
     var dataLon = $('.data-lon').attr("data-lon");
     // console.log('dataLat', dataLat, ' - dataLon', dataLon);
-    if (dataLat && dataLon){
+    if (dataLat && dataLon) {
         coords = [dataLon, dataLat];
         var map = tt.map({
             container: 'apart-map',
@@ -164,15 +166,17 @@ function init() {
 
     if ($('.addApartForm').length) {
 
-       formApartValidation();
+        formApartValidation();
     }
 
     $('.addApartForm').submit(getCoordByAddress);
 
-    if($('#apart-map').length) {
+    if ($('#apart-map').length) {
 
         getApartMap();
     }
+
+    funct.buttonChange();
 };
 
 $(document).ready(init);

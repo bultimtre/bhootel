@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Apartment;
 use App\Config;
+use App\Stat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
