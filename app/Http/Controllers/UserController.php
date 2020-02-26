@@ -89,7 +89,8 @@ class UserController extends Controller
 
             return Response()->json([
                 "success" => true,
-                "description" => $validateApartmentData['description']
+                "description" => $validateApartmentData['description'],
+                "apart_id" => $apartment->id 
             ]);
 
         }
@@ -155,7 +156,8 @@ class UserController extends Controller
 
             return Response()->json([
                 "success" => true,
-                "description" => $validateApartmentData['description']
+                "description" => $validateApartmentData['description'],
+                "apart_id" => $apartment->id 
             ]);
         }
 
