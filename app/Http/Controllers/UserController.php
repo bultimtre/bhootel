@@ -6,6 +6,7 @@ use App\Config;
 use App\Stat;
 use App\Message;
 use App\User;
+use App\Ad;
 
 use App\Apartment;
 use Illuminate\Http\Request;

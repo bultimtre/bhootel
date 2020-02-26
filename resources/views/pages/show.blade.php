@@ -62,45 +62,48 @@
 
 @if (!session()->get( 'successo'))
          
-        <div class="alert alert-success">
-           @if (Auth::user() -> id == $apartment -> user -> id)
-            
-           
-    <p>Seleziona la tua sponsorizzazione:</p>
+    <div class="alert alert-success">
+        @if (Auth::user()->id == $apartment->user->id)
+        
+            <p>Seleziona la tua sponsorizzazione:</p>
 
-       <div class="form-group">
-   
-    @foreach ($ads  as $ad)
+            <div class="form-group">
+        
+            @foreach ($ads  as $ad)
 
-            <input  type="radio" name="ads" value="{{ $ad->id}}">
-            <label for="{{ $ad->price }}">
-                [{{ $ad->id }}]-{{ $ad->price/100}}
-            </label>
-            <br>
-       
-    @endforeach
-   {{-- ciao2 --}}
-</div>
-       <button type="submit">Sponsorizza</button>
-       
-   @endif
-        </div>
-        @else 
-        <div class="ad-result">
-            <p>Hai una sponsorizzazione attiva  </p>
+                    <input  type="radio" name="ads" value="{{ $ad->id}}">
+                    <label for="{{ $ad->price }}">
+                        [{{ $ad->id }}]-{{ $ad->price/100}}
+                    </label>
+                    <br>
             
-                        <p>scadrà giorno:</p>
-            {{-- per tirarsi fuori i pagamenti precedenti  --}}
-                         @foreach ($apartment->ads  as $ad)
-                         @if($loop->last)
-                                <p>{{$ad->pivot->expire_date}}</p>
-                            @endif
-                                
-                        @endforeach
-          
-        </div>
+            @endforeach
+        
+                </div>
+            <button type="submit">Sponsorizza</button>
+    
+        @endif
+    </div>
+
+@else 
+
+    <div class="ad-result">
+        <p>Hai una sponsorizzazione attiva  </p>
+        
+        <p>scadrà giorno:</p>
+        {{-- per tirarsi fuori i pagamenti precedenti  --}}
+        @foreach ($apartment->ads  as $ad)
+        @if($loop->last)
+                <p>{{$ad->pivot->expire_date}}</p>
+            @endif
+                
+        @endforeach
+
+    
+
+    </div>
      
-    @endif
+@endif
 
 </form>
 @endauth

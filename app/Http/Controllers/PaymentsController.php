@@ -73,6 +73,8 @@ class PaymentsController extends Controller
             ->where('apartment_id',$id)
             ->update(['expire_date' => $new_expire]);
 
+            
+
         $payload = $request->input('payload', false);
         $nonce = $payload['nonce'];
         $apartments= Apartment::all();
