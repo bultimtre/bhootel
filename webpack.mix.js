@@ -12,12 +12,16 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .copy('resources/images', 'public/images')
-   .sass('resources/sass/app.scss', 'public/css')
-   .browserSync({
-      proxy: 'localhost:8000',
-      open: false,
-      notify: false
+    .sass('resources/sass/app.scss', 'public/css')
+      .copy('resources/images', 'public/images')
+      .sass('resources/sass/app.scss', 'public/css')
+       .browserSync({
+         proxy: 'localhost:8000',
+         open: false,
+         notify: false
+
    });
 
-//commento provv
+
+
+

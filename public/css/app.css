@@ -10951,6 +10951,15 @@ main.main-search.nav-fix {
   border-top: 1px solid #d2d2d2;
 }
 
+<<<<<<< HEAD
+.apt {
+  margin: 10px;
+  padding: 5px;
+  background-color: #c7c2c2;
+  height: 180px;
+  display: flex;
+  justify-content: space-between;
+=======
 .input-num-style .num-arrow span#num-up:before,
 .input-num-style .num-arrow span#num-down:before {
   position: absolute;
@@ -11090,13 +11099,21 @@ nav.navbar.dark {
 .footer .footer-sec ul {
   text-align: center;
   list-style-type: none;
+>>>>>>> 5e16d22875cecb63e1ee13ad5db3aaecd6303259
 }
 
-.container.search {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.apt .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.apt:hover {
+  text-decoration: none;
+}
+
+.apt img {
+  height: 100%;
 }
 
 .container.search .form-control {

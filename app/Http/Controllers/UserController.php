@@ -6,6 +6,7 @@ use App\Config;
 use App\Stat;
 use App\Message;
 use App\User;
+use App\Ad;
 
 use App\Apartment;
 use Illuminate\Http\Request;
@@ -23,9 +24,12 @@ class UserController extends Controller
 
     public function show(Request $request, $id)
     {
+
         $apartment= Apartment::findOrFail($id);
+        $ads = Ad::all();
         $apartment -> viewsCount($request, $id, $apartment);
-        return view('pages.show',compact('apartment'));
+
+        return view('pages.show',compact('apartment','ads'));
     }
 
 
@@ -170,10 +174,6 @@ class UserController extends Controller
 
         return redirect()->route('all.index');// nuova modifica
     }
-
-
-
-
 
     public function userPanel()
     {
