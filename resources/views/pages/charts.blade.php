@@ -25,9 +25,9 @@
 
     var url = window.location.origin;
     var year = $("#year_selection").val();
-    
+
     var id = {{json_encode($apartment->id)}};
-    
+
     var msgGraph;
     var viewGraph;
     $("#year_selection").change(function(){
@@ -38,8 +38,8 @@
                 msgGraph.destroy();
                 viewGraph.destroy();
             }
-        setMessagesStat();
-        setViewsStat();
+            getData(destMsg);
+            getData(destView);
     });
 
 
@@ -55,13 +55,13 @@
             success: function (data) {
 
                 if (dest == '/stat-msg') {
-                    
+
                     messagesData(data);
                 } else {
 
                     viewsData(data);
                 }
-                
+
             },
             error: function (err) {
                 console.log("error", err);
@@ -205,9 +205,6 @@
 
     var destMsg = '/stat-msg';
     var destView = '/view-stat';
-
-    getData(destMsg);
-    getData(destView);
 
 </script>
 @endsection
