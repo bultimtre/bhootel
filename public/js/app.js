@@ -51959,6 +51959,8 @@ function init() {
   if ($('#apart-map').length) {
     getApartMap();
   }
+
+  funct.buttonChange();
 }
 
 ;
@@ -52019,7 +52021,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ (function(module, exports) {
 
 module.exports = {
-  nameFunct: function nameFunct() {//
+  buttonChange: function buttonChange() {
+    $(".show-hide").click(function () {
+      $(this).text($(this).text() == 'Mostra negli annunci' ? 'Nascondi dagli annunci' : 'Mostra negli annunci');
+      $(this).css('opacity') === '1' ? $(this).css({
+        'opacity': '0.3'
+      }) : $(this).css({
+        'opacity': '1'
+      });
+    });
   }
 };
 
@@ -52043,13 +52053,8 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-__webpack_require__(/*! C:\Users\vigli\Desktop\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\vigli\Desktop\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
-=======
 __webpack_require__(/*! C:\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
->>>>>>> 5e16d22875cecb63e1ee13ad5db3aaecd6303259
 
 
 /***/ })
