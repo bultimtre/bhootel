@@ -25,7 +25,6 @@
 
     var url = window.location.origin;
     var year = $("#year_selection").val();
-
     var id = {{json_encode($apartment->id)}};
 
     var msgGraph;
@@ -70,7 +69,6 @@
     }
 
 
-
     // grafico messaggi
     function messagesGraph(count) {
 
@@ -79,25 +77,25 @@
 
             type: "bar",
             data: {
-            labels: moment.months(),
-            datasets: [{
-                label: "Messages",
-                data: count,
-                backgroundColor: [
-                'rgba(255, 99, 132, 0.6)',
-                'rgba(54, 162, 235, 0.6)',
-                'rgba(255, 206, 86, 0.6)',
-                'rgba(75, 192, 192, 0.6)',
-                'rgba(153, 102, 255, 0.6)',
-                'rgba(163, 174, 24, 0.6)',
-                'rgba(68, 122, 247, 0.6)',
-                'rgba(232, 34, 209, 0.6)',
-                'rgba(21, 51, 221, 0.6)',
-                'rgba(194, 139, 128, 0.6)',
-                'rgba(87, 4, 131, 0.6)',
-                'rgba(169, 26, 127, 0.6)'
-                ]
-            }]
+                labels: moment.months(),
+                datasets: [{
+                    label: "Messages",
+                    data: count,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(163, 174, 24, 0.6)',
+                        'rgba(68, 122, 247, 0.6)',
+                        'rgba(232, 34, 209, 0.6)',
+                        'rgba(21, 51, 221, 0.6)',
+                        'rgba(194, 139, 128, 0.6)',
+                        'rgba(87, 4, 131, 0.6)',
+                        'rgba(169, 26, 127, 0.6)'
+                    ]
+                }]
             },
             options: {
                 title: {
@@ -127,22 +125,22 @@
             data: {
                 labels: moment.months(),
                 datasets: [{
-                label: "Views",
-                data: count,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(163, 174, 24, 0.6)',
-                    'rgba(68, 122, 247, 0.6)',
-                    'rgba(232, 34, 209, 0.6)',
-                    'rgba(21, 51, 221, 0.6)',
-                    'rgba(194, 139, 128, 0.6)',
-                    'rgba(87, 4, 131, 0.6)',
-                    'rgba(169, 26, 127, 0.6)'
-                ]
+                    label: "Views",
+                    data: count,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(163, 174, 24, 0.6)',
+                        'rgba(68, 122, 247, 0.6)',
+                        'rgba(232, 34, 209, 0.6)',
+                        'rgba(21, 51, 221, 0.6)',
+                        'rgba(194, 139, 128, 0.6)',
+                        'rgba(87, 4, 131, 0.6)',
+                        'rgba(169, 26, 127, 0.6)'
+                    ]
                 }]
             },
             options: {
@@ -206,5 +204,10 @@
     var destMsg = '/stat-msg';
     var destView = '/view-stat';
 
+
+
+
+    getData(destMsg);
+    getData(destView);
 </script>
 @endsection
