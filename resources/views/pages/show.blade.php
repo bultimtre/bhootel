@@ -1,7 +1,9 @@
 @extends('layouts.base')
 @section('apt-show')
 @include('components.header')
-
+@php
+    $now = date('Y-m-d H:i:s');
+@endphp
 <main>
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -56,11 +58,27 @@
 @auth
     
 
-<form action="{{route('payment.pay', $apartment->id)}}" method="get">
-    @csrf
- 
+@if(Auth::user()->id == $apartment->user->id and $apartment->ads_expired > $now)
 
-@if (!session()->get( 'successo'))
+    <div class="ad-result">
+    <p>Hai una sponsorizzazione attiva  </p>
+    
+    <p>scadrà giorno:</p>
+    {{-- per tirarsi fuori i pagamenti precedenti  --}}
+    @foreach ($apartment->ads  as $ad)
+    @if($loop->last)
+            <p>{{$ad->pivot->expire_date}}</p>
+        @endif
+            
+    @endforeach
+
+    
+
+    </div>
+@else 
+    <form action="{{route('payment.pay', $apartment->id)}}" method="get">
+    @csrf
+
          
     <div class="alert alert-success">
         @if (Auth::user()->id == $apartment->user->id)
@@ -84,30 +102,12 @@
     
         @endif
     </div>
+    </form>
 
-@else 
-
-    <div class="ad-result">
-        <p>Hai una sponsorizzazione attiva  </p>
-        
-        <p>scadrà giorno:</p>
-        {{-- per tirarsi fuori i pagamenti precedenti  --}}
-        @foreach ($apartment->ads  as $ad)
-        @if($loop->last)
-                <p>{{$ad->pivot->expire_date}}</p>
-            @endif
-                
-        @endforeach
-
-    
-
-    </div>
-     
 @endif
-
-</form>
 @endauth
-
+<p>data scadenza{{$apartment->ads_expired}}</p>
+   <p>data oggi{{$now}} </p>                    
 <div class="d-flex flex-wrap mt-3">
     <div class="col-4 p-5">
         <h3>Configurazione</h3>
