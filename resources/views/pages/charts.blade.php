@@ -38,8 +38,8 @@
                 msgGraph.destroy();
                 viewGraph.destroy();
             }
-        getData(destMsg);
-        getData(destView);
+            getData(destMsg);
+    getData(destView);
     });
 
 

@@ -185,7 +185,7 @@ class UserController extends Controller
             $countMsg += $apartment->messages()->count();
             if (($apartment->messages()->where('apartment_id', '=', $apartment->id))->exists()) {
                 $allMsgsApt->push(
-                    $apartment->messages()->where('apartment_id', '=', $apartment->id)->get(),
+                    $apartment->messages()->where('apartment_id', '=', $apartment->id)->get()
                 );
             };
         };
