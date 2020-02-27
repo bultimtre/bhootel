@@ -21,6 +21,12 @@
     border-bottom-left-radius: $bl;
     border-bottom-right-radius: $br;
 }
+@mixin alphaBgColor($color,$alpha){
+    background-color:rgba($color,$alpha) ;
+}
+
+
+//class only
 
 .bRad-top{
     @include borderRaidus(10px, 10px, 0px, 0px)

@@ -350,7 +350,7 @@
                                         <div class="apt_info">
                                             <div class="apt_details pt-2 px-3">
                                             @foreach($countHide as $apt)
-                                            <div class="py-2">{{$apt->id}} - <a href="{{route('user-apt.show', $apartment -> id)}}">{{$apt->title}}TITOLO APT</a></div>
+                                            <div class="py-2">{{$apt->id}} - <a href="{{route('user-apt.show', $apartment -> id)}}">{{$apt->title}}</a></div>
                                             @endforeach
                                         </div>
                                     </div>

@@ -37,7 +37,7 @@ class GuestController extends Controller
         $apartment= Apartment::findOrFail($id);
         $apartment -> viewsCount($request, $id, $apartment);
         return view('pages.show',compact('apartment'));
-    }    
+    }
 
 
     public function create()

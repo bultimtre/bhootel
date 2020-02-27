@@ -90,7 +90,7 @@ function addNewApart(formData) {
     $.ajax({
         url: url,
         enctype: 'multipart/form-data',
-        type: "POST",
+        type: "GET",
         headers: {
             'X-CSRF-TOKEN': CSRF_TOKEN
         },
