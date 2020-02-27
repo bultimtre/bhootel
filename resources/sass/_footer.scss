@@ -60,7 +60,7 @@
   }
 
   .botlist li{
-    font-size: 12px;
+    font-size: 14px;
     color: $bh-light-v3;
 
     a {
@@ -70,11 +70,6 @@
         text-decoration: none;
         color: $bh-default;
       }
-    }
-
-    &:hover {
-      text-decoration: none;
-      color: $bh-default;
     }
   }
 }

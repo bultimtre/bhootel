@@ -1,7 +1,9 @@
 @extends('layouts.base')
 @section('apt-show')
 @include('components.header')
-
+@php
+    $now = date('Y-m-d H:i:s');
+@endphp
 <main>
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -56,11 +58,27 @@
 @auth
     
 
-<form action="{{route('payment.pay', $apartment->id)}}" method="get">
-    @csrf
- 
+@if(Auth::user()->id == $apartment->user->id and $apartment->ads_expired > $now)
 
-@if (!session()->get( 'successo'))
+    <div class="ad-result">
+    <p>Hai una sponsorizzazione attiva  </p>
+    
+    <p>scadrà giorno:</p>
+    {{-- per tirarsi fuori i pagamenti precedenti  --}}
+    @foreach ($apartment->ads  as $ad)
+    @if($loop->last)
+            <p>{{$ad->pivot->expire_date}}</p>
+        @endif
+            
+    @endforeach
+
+    
+
+    </div>
+@else 
+    <form action="{{route('payment.pay', $apartment->id)}}" method="get">
+    @csrf
+
          
     <div class="alert alert-success">
         @if (Auth::user()->id == $apartment->user->id)
@@ -84,37 +102,18 @@
     
         @endif
     </div>
+    </form>
 
-@else 
-
-    <div class="ad-result">
-        <p>Hai una sponsorizzazione attiva  </p>
-        
-        <p>scadrà giorno:</p>
-        {{-- per tirarsi fuori i pagamenti precedenti  --}}
-        @foreach ($apartment->ads  as $ad)
-        @if($loop->last)
-                <p>{{$ad->pivot->expire_date}}</p>
-            @endif
-                
-        @endforeach
-
-    
-
-    </div>
-     
 @endif
-
-</form>
 @endauth
-
+<p>data scadenza{{$apartment->ads_expired}}</p>
+   <p>data oggi{{$now}} </p>                    
 <div class="d-flex flex-wrap mt-3">
     <div class="col-4 p-5">
         <h3>Configurazione</h3>
-        <span> Beds:{{$apartment -> beds}}</span>
-        <p>Rooms: {{$apartment -> rooms}}</p>
-        <p> M2:{{$apartment -> square_mt}}</p>
-        <p> M2:{{$apartment -> sight_mt}}</p>
+        <span>Letti: {{$apartment -> beds}}</span>
+        <p>Stanze: {{$apartment -> rooms}}</p>
+        <p>Metri quadri: {{$apartment -> square_mt}}</p>
     </div>
     <div class="col-4 p-5">
         <h3>Descrizione</h3>
@@ -143,38 +142,29 @@
     </div>
 </div>
 
-@auth
-    @if (Auth::user() -> id == $apartment -> user -> id)
-        <a href="{{route('charts', $apartment -> id)}}">vedi stats</a>
-    @endif
-@endauth
+<a href="{{route('charts', $apartment -> id)}}">vedi stats</a>
 
 @auth
-    @if (Auth::user() -> id != $apartment -> user -> id)
+@if (Auth::user() -> id != $apartment -> user -> id)
 
-        <form class="mt-5" id="uploadForm" method="POST" action="{{route('mail-store')}}" enctype="multipart/form-data">
-            @csrf
-            @method('POST')
+<form class="mt-5" id="uploadForm" method="POST" action="{{route('mail-store')}}" enctype="multipart/form-data">
+    @csrf
+    @method('POST')
+    
+    <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }} formField">
+        <label for="comment">Contatta il proprietario</label>
+        <input type="hidden" name="id" value=" {{$apartment -> user -> id}} ">
+        <input type="hidden" name="id-apt" value=" {{$apartment -> id}} ">
+        <textarea class="form-control" rows="5" name="text" maxlength="750"></textarea>
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" name="button" class="btn btn-primary">Invia</button>
+    </div>
+    
+</form>
 
-            <div class="form-group">
-                <label for="email" class="col-md-4 col-form-label">Indirizzo Email</label>
-                <input type="email" class="form-control  @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" name="email" value="{{ Auth::user() -> email }}" required autocomplete="off">
-            </div>
-            
-            <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }} formField">
-                <label for="comment">Contatta il proprietario</label>
-                <input type="hidden" name="id" value=" {{$apartment -> user -> id}} ">
-                <input type="hidden" name="id-apt" value=" {{$apartment -> id}} ">
-                <textarea class="form-control" rows="5" name="text" minlength="1" maxlength="750" required></textarea>
-            </div>
-            
-            <div class="form-group">
-                <button type="submit" name="button" class="btn btn-primary">Invia</button>
-            </div>
-            
-        </form>
-
-    @endif
+@endif
 @endauth
 
 
@@ -182,11 +172,6 @@
 <form class="mt-5" id="uploadForm" method="POST" action="{{route('mail-store')}}" enctype="multipart/form-data">
     @csrf
     @method('POST')
-
-    <div class="form-group">
-        <label for="email" class="col-md-4 col-form-label">Indirizzo Email</label>
-        <input type="email" class="form-control  @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" placeholder="Inserisci email" name="email" value="{{ old('email') }}" required autocomplete="email">
-    </div>
     
     <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }} formField">
         <label for="comment">Contatta il proprietario</label>

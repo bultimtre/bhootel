@@ -99,19 +99,31 @@
 </div>
 
 <div class="bottomfooter">
-  <div class="container botlist">
+  <div class="container botlist d-flex justify-content-center">
     <ul class="d-flex list-inline">
       <li class="list-inline-item">
-        <a href="{{route('all.index')}}">Home  |</a>
+        <a href="{{route('all.index')}}">Home</a>
       </li>
       <li class="list-inline-item">
-        About  |
+        |
       </li>
       <li class="list-inline-item">
-        Team  |
+        About
       </li>
       <li class="list-inline-item">
-        Services  |
+        |
+      </li>
+      <li class="list-inline-item">
+        Team
+      </li>
+      <li class="list-inline-item">
+        |
+      </li>
+      <li class="list-inline-item">
+        Services
+      </li>
+      <li class="list-inline-item">
+        |
       </li>
       <li class="list-inline-item">
         Contact

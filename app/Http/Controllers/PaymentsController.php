@@ -73,6 +73,10 @@ class PaymentsController extends Controller
             ->where('apartment_id',$id)
             ->update(['expire_date' => $new_expire]);
 
+  DB::table('apartments')
+            ->where('id',$id)
+            ->update(['ads_expired' => $new_expire]);
+
             
 
         $payload = $request->input('payload', false);
@@ -86,19 +90,24 @@ class PaymentsController extends Controller
                 ]]);
                                
       if($result ->success){
-        //$successo = 'true';
+       
         return view('pages.info-sponsor',compact('apartment','amount','time','today','new_expire'));
-       // return view('pages.show',compact('apId'));
-     //return redirect('/user/apartment/'.$id)->with(['successo' => $successo]);
+       
       }
 }
 
  public function sponsor($id)
     {
       $apId = $id;
-      $successo = 'true';
       
-      return redirect('/user/apartment/'.$id)->with(['successo' => $successo]);
-       
+      $apartment = Apartment::find($id);
+      
+       return redirect('/user/apartment/'.$id)->with([
+        'apartment' => $apartment
+        ]);
+
+     // return redirect('/user/apartment/'.$id)->with(['successo' => $successo]);
+      
+
     }
 }
