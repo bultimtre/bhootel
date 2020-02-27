@@ -1,8 +1,12 @@
+
 @extends('layouts.base')
 @section('apt-show')
 @include('components.header')
-
 <main>
+@php
+    $now = date('Y-m-d H:i:s');
+    // echo $now;
+@endphp
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -53,10 +57,61 @@
 
 </div>
 
+
 @auth
+{{-- <div>{{ $apartment->id}}</div>
+<div>{{ $apartment->ads_expired}}</div> --}}
+
+@if(Auth::user()->id == $apartment->user->id and $apartment->ads_expired > $now)
+
+    <div class="ad-result">
+    <p>Hai una sponsorizzazione attiva  </p>
+    
+    <p>scadrà giorno:</p>
+    {{-- per tirarsi fuori i pagamenti precedenti  --}}
+    @foreach ($apartment->ads  as $ad)
+    @if($loop->last)
+            <p>{{$ad->pivot->expire_date}}</p>
+        @endif
+            
+    @endforeach
+
     
 
-<form action="{{route('payment.pay', $apartment->id)}}" method="get">
+    </div>
+@else 
+    <form action="{{route('payment.pay', $apartment->id)}}" method="get">
+    @csrf
+
+         
+    <div class="alert alert-success">
+        @if (Auth::user()->id == $apartment->user->id)
+        
+            <p>Seleziona la tua sponsorizzazione:</p>
+
+            <div class="form-group">
+        
+            @foreach ($ads  as $ad)
+
+                    <input  type="radio" name="ads" value="{{ $ad->id}}">
+                    <label for="{{ $ad->price }}">
+                        [{{ $ad->id }}]-{{ $ad->price/100}}
+                    </label>
+                    <br>
+            
+            @endforeach
+        
+                </div>
+            <button type="submit">Sponsorizza</button>
+    
+        @endif
+    </div>
+    </form>
+
+@endif
+
+
+{{-- <form action="{{route('payment.pay', $apartment->id)}}" method="get">
     @csrf
  
 
@@ -92,7 +147,7 @@
         
         <p>scadrà giorno:</p>
         {{-- per tirarsi fuori i pagamenti precedenti  --}}
-        @foreach ($apartment->ads  as $ad)
+        {{-- @foreach ($apartment->ads  as $ad)
         @if($loop->last)
                 <p>{{$ad->pivot->expire_date}}</p>
             @endif
@@ -103,9 +158,9 @@
 
     </div>
      
-@endif
+@endif --}}
 
-</form>
+{{-- </form> --}}
 @endauth
 
 <div class="d-flex flex-wrap mt-3">

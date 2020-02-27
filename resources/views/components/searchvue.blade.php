@@ -198,6 +198,7 @@
             });
         },
         getAparts() {
+            this.apartments = [];
             axios.post(this.baseUrl + 'search', {
                 search_field: this.search_field,
                 rooms: this.rooms,

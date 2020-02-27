@@ -72,6 +72,10 @@ class PaymentsController extends Controller
   DB::table('ad_apartment')
             ->where('apartment_id',$id)
             ->update(['expire_date' => $new_expire]);
+    DB::table('apartments')
+            ->where('id', $id)
+            ->update(['ads_expired' => $new_expire]);
+
 
             
 
@@ -97,8 +101,12 @@ class PaymentsController extends Controller
     {
       $apId = $id;
       $successo = 'true';
+      $apartment= Apartment::find($id);
       
-      return redirect('/user/apartment/'.$id)->with(['successo' => $successo]);
+      return redirect('/user/apartment/'.$id)->with([
+        'successo' => $successo,
+        'apartment' => $apartment
+        ]);
        
     }
 }
