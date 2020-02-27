@@ -15,11 +15,13 @@ class MessageController extends Controller
     public function store(Request $request) {
 
         $toSend = $request -> all();
+        $mail = Auth::user() ? Auth::user() -> email : $_POST['email'];
         $data = Message::make([
             "body" => $request['text'],
             "title" => 'prova',
-            "email" => 'mia@mail.com'
+            "email" => $mail
         ]);
+
         $apartment = Apartment::findOrFail($request['id-apt']);
         $apartment->messages()->save($data);
         // return redirect() -> route('mail-send');
