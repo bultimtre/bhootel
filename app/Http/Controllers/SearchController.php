@@ -95,13 +95,11 @@ class SearchController extends Controller
         $apartments->where('show', '=', 1);
         $aparts = $apartments->get();
 
-        // $apartments->where('show', '=', 1)->get();
-
         foreach ($aparts as $apart) {
             $configs = $apart->configs;
             $apart->configs = $configs;
         }
-        // $send_data = $apartments;
+        
         
 
         return [
