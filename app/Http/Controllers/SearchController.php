@@ -93,12 +93,18 @@ class SearchController extends Controller
 
         // appartamento visibile o meno
         $apartments->where('show', '=', 1);
+        $aparts = $apartments->get();
 
-        $send_data = $apartments->get();
+        foreach ($aparts as $apart) {
+            $configs = $apart->configs;
+            $apart->configs = $configs;
+        }
+        
+        
 
         return [
             'success' => true,
-            'data' => $send_data,
+            'data' => $aparts,
             'searchFor' => [
                 'search_field' => $search_field,
                 'lat' => $lat,
