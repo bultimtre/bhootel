@@ -13,6 +13,7 @@ use App\Apartment;
 $factory -> define(Apartment::class, function (Faker $faker) {
     return [
 
+        'title' => $faker -> words(3, 4),
         'description' => 'desc-'.$faker -> sentence,
         'address' => $faker -> address,
         'rooms' => rand(1,5),

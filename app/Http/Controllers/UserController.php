@@ -6,6 +6,7 @@ use App\Config;
 use App\Stat;
 use App\Message;
 use App\User;
+use App\Ad;
 
 use App\Apartment;
 use Illuminate\Http\Request;
@@ -23,9 +24,12 @@ class UserController extends Controller
 
     public function show(Request $request, $id)
     {
+
         $apartment= Apartment::findOrFail($id);
+        $ads = Ad::all();
         $apartment -> viewsCount($request, $id, $apartment);
-        return view('pages.show',compact('apartment'));
+
+        return view('pages.show',compact('apartment','ads'));
     }
 
 
@@ -44,6 +48,7 @@ class UserController extends Controller
         // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title' => 'required|max:80',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -84,7 +89,8 @@ class UserController extends Controller
 
             return Response()->json([
                 "success" => true,
-                "description" => $validateApartmentData['description']
+                "description" => $validateApartmentData['description'],
+                "apart_id" => $apartment->id 
             ]);
 
         }
@@ -111,6 +117,7 @@ class UserController extends Controller
         $validateApartmentData = $request -> validate([
             'id' => 'required|exists:apartments,id',
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title' => 'required|max:80',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -149,7 +156,8 @@ class UserController extends Controller
 
             return Response()->json([
                 "success" => true,
-                "description" => $validateApartmentData['description']
+                "description" => $validateApartmentData['description'],
+                "apart_id" => $apartment->id 
             ]);
         }
 
@@ -171,10 +179,6 @@ class UserController extends Controller
         return redirect()->route('all.index');// nuova modifica
     }
 
-
-
-
-
     public function userPanel()
     {
         $countMsg = 0;
@@ -185,7 +189,7 @@ class UserController extends Controller
             $countMsg += $apartment->messages()->count();
             if (($apartment->messages()->where('apartment_id', '=', $apartment->id))->exists()) {
                 $allMsgsApt->push(
-                    $apartment->messages()->where('apartment_id', '=', $apartment->id)->get(),
+                    $apartment->messages()->where('apartment_id', '=', $apartment->id)->get()
                 );
             };
         };

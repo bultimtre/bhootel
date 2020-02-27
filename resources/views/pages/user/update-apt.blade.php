@@ -22,10 +22,17 @@
           </div>
 
           <div class="form-group">
-              <label for="description">Title</label>
+              <label for="description">Titolo</label>
+          <input value="{{$apartment->title}}" id="apart-title" class="form-control" name="title" type="text" placeholder="Inserisci titolo"
+          required data-parsley-maxlength="80" data-parsley-trigger="keyup"/>
+          </div>
+          
+          <div class="form-group">
+              <label for="description">Descrizione</label>
           <input value="{{$apartment->description}}" id="apart-title" class="form-control" name="description" type="text" placeholder="Inserisci descrizione"
           required data-parsley-maxlength="850" data-parsley-trigger="keyup"/>
           </div>
+
           <div class="form-group">
               <label for="address">Address</label>
               <input value="{{$apartment->address}}" id="apart-address" class="form-control" name="address" type="text" placeholder="Inserisci un indirizzo"

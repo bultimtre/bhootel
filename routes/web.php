@@ -62,7 +62,14 @@ Route::get('/user/user-panel', 'UserController@userPanel') -> name('user.user-pa
 // Clear Session for Testing view count
 Route::get('/clear', 'ClearSessionController@clearSession');
 
+//braintree
+//Route::post('/dropin/{id}','PaymentsController@pay')->name('dropin.payment');
 
+Route::view('/hosted','hosted');
+Route::get('/payment/make/{id}', 'PaymentsController@pay')->name('payment.pay');
+Route::post('/payment/make/{id}{adId}', 'PaymentsController@make')->name('payment.make');
+
+Route::get('/payment/sponsor/{id}', 'PaymentsController@sponsor')->name('sponsor.show');
 // mail
 Route::post('/mail-store', 'MessageController@store') ->name('mail-store');
 Route::get('/mail-send/{id}', 'MessageController@sendMail') ->name('mail-send');
