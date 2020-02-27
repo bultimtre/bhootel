@@ -178,7 +178,8 @@ function init() {
     }
 
     funct.buttonChange();
+
 };
 
 $(document).ready(init);
-
+//

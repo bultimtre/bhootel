@@ -51965,7 +51965,7 @@ function init() {
 }
 
 ;
-$(document).ready(init);
+$(document).ready(init); //
 
 /***/ }),
 
@@ -52054,8 +52054,8 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

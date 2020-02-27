@@ -28,9 +28,8 @@
 
     var url = window.location.origin;
     var year = $("#year_selection").val();
-    
     var id = {{json_encode($apartment->id)}};
-    
+
     var msgGraph;
     var viewGraph;
     $("#year_selection").change(function(){
@@ -53,13 +52,13 @@
             success: function (data) {
 
                 if (dest == '/stat-msg') {
-                    
+
                     messagesData(data);
                 } else {
 
                     viewsData(data);
                 }
-                
+
             },
             error: function (err) {
                 console.log("error", err);
@@ -68,14 +67,13 @@
     }
 
 
-
     // grafico messaggi
     function messagesGraph(count) {
 
         var messagesChart = $("#messagesChart");
-        
+
         if (msgGraph) msgGraph.destroy();
-        
+
         window.msgGraph = new Chart(messagesChart, {
 
             type: "bar",
@@ -126,7 +124,7 @@
         var viewsChart = $("#viewsChart");
 
         if (viewGraph) viewGraph.destroy();
-        
+
         window.viewGraph = new Chart(viewsChart, {
 
             type: "bar",
@@ -214,8 +212,10 @@
     var destMsg = '/stat-msg';
     var destView = '/view-stat';
 
+
+
+
     getData(destMsg);
     getData(destView);
-
 </script>
 @endsection

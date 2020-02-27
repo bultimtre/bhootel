@@ -90,7 +90,7 @@ class UserController extends Controller
             return Response()->json([
                 "success" => true,
                 "description" => $validateApartmentData['description'],
-                "apart_id" => $apartment->id 
+                "apart_id" => $apartment->id
             ]);
 
         }
@@ -157,7 +157,7 @@ class UserController extends Controller
             return Response()->json([
                 "success" => true,
                 "description" => $validateApartmentData['description'],
-                "apart_id" => $apartment->id 
+                "apart_id" => $apartment->id
             ]);
         }
 
@@ -182,9 +182,12 @@ class UserController extends Controller
     public function userPanel()
     {
         $countMsg = 0;
+        $allAdsApt = collect([]);;
         $user = Auth::user();
         $allMsgsApt = collect([]);
         $apartments = $user -> apartments() -> get();
+        $countHide = $apartments->where('show','=', 0);
+
         foreach ($apartments as $apartment) {
             $countMsg += $apartment->messages()->count();
             if (($apartment->messages()->where('apartment_id', '=', $apartment->id))->exists()) {
@@ -192,11 +195,19 @@ class UserController extends Controller
                     $apartment->messages()->where('apartment_id', '=', $apartment->id)->get()
                 );
             };
+            foreach ($apartment->ads as $ad) {
+                $adsActive = $ad->pivot->expire_date;
+                $allAdsApt->push(
+                    $adsActive
+                );
+
+            }
         };
+
 
         $$allMsgsApt = collect([['number' => 1],['number' => 2],['number' => 3]]);
         $$allMsgsApt->all();
-        return view('pages.user.user-panel', compact('apartments', "countMsg",'allMsgsApt'));
+        return view('pages.user.user-panel', compact('apartments', "countMsg",'allMsgsApt','countHide','allAdsApt'));
     }
     //commento provv
 }

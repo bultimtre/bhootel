@@ -10888,6 +10888,27 @@ a.text-dark:focus {
   }
 }
 
+.bRad-top {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.bRad-bottom {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.bRad-all {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
 .abs-50-50 {
   position: absolute;
   top: 50%;
@@ -10904,6 +10925,12 @@ a.text-dark:focus {
 main.main-search.nav-fix,
 main.main-panel.nav-fix {
   margin-top: 68.25px;
+}
+
+main.main-search {
+  background-image: url(/images/sea_4_1920.jpg?b3006cd5222c2672583aaee0e5a2cab5);
+  background-size: cover;
+  background-position: center center;
 }
 
 .input-num-style {
@@ -11010,7 +11037,7 @@ nav.navbar .navbar-brand img {
 }
 
 nav.navbar.dark {
-  background-color: #252f32;
+  background-color: #15252e;
 }
 
 .wrapper.main {
@@ -11077,19 +11104,83 @@ nav.navbar.dark {
   letter-spacing: 1px;
 }
 
-.footer {
+.topfooter {
   background-color: #15262f;
   padding: 60px 0;
-  color: lightgray;
+  color: #ababab;
 }
 
-.footer .footer-sec h3 {
+.topfooter .colbottom img {
+  height: 30px;
+}
+
+.topfooter a {
+  color: #797979;
+}
+
+.topfooter a:hover {
+  text-decoration: none;
+  color: #00ffda;
+}
+
+.topfooter .ftitleblack {
+  font-family: "Raleway";
+  font-size: 1.2rem;
+  color: #b1b8b8;
+  font-weight: 700;
+}
+
+.topfooter .social {
+  margin: 0 5px;
+}
+
+.topfooter .listitem {
+  color: #797979;
+}
+
+.topfooter .items a {
+  margin-left: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.topfooter .grey {
+  color: #797979;
+}
+
+.topfooter .grey2 {
+  color: #666;
+}
+
+.bottomfooter {
+  width: 100%;
+  background: #12222a;
+  padding: 30px 0;
+  overflow: hidden;
+}
+
+.bottomfooter .botlist {
+  margin: 0 auto;
   text-align: center;
 }
 
-.footer .footer-sec ul {
-  text-align: center;
-  list-style-type: none;
+.bottomfooter .botlist li {
+  font-size: 12px;
+  color: #797979;
+}
+
+.bottomfooter .botlist li a {
+  color: #797979;
+}
+
+.bottomfooter .botlist li a:hover {
+  text-decoration: none;
+  color: #00ffda;
+}
+
+.bottomfooter .botlist li:hover {
+  text-decoration: none;
+  color: #00ffda;
 }
 
 .container.search {
@@ -11223,7 +11314,7 @@ nav.navbar.dark {
 
 .main-search #app-search .searchvue .search__bottom-right .card__body-desc {
   font-size: 0.8rem;
-  color: #252f32;
+  color: #15252e;
 }
 
 .main-search #app-search .searchvue .search__bottom-right .card__body-configs > * {
@@ -11258,7 +11349,7 @@ nav.navbar.dark {
 }
 
 .button-show:hover {
-  background-color: #252f32;
+  background-color: #15252e;
   color: #fff !important;
 }
 
@@ -11314,8 +11405,17 @@ nav.navbar.dark {
 
 .main-panel .panel_left > * {
   border-bottom: 1px solid #797979;
-  color: #252f32;
+  color: #15252e;
   font-size: 0.9rem;
+}
+
+.main-panel .panel_left > * a {
+  color: #15252e;
+  text-decoration: none;
+}
+
+.main-panel .panel_left > *.disable {
+  opacity: 0.6;
 }
 
 @media (max-width: 991.98px) {
@@ -11324,8 +11424,9 @@ nav.navbar.dark {
   }
 }
 
-.main-panel .panel_left > *:hover {
+.main-panel .panel_left > *:not(.disable):hover {
   background-color: #bdbdbd;
+  cursor: pointer;
 }
 
 @media (max-width: 991.98px) {
@@ -11391,7 +11492,7 @@ nav.navbar.dark {
 
 .main-panel .panel_right-table--apt .title {
   background: #f5f6f8;
-  color: #252f32;
+  color: #15252e;
 }
 
 .main-panel .panel_right-table--apt .bh-table {
@@ -11405,32 +11506,40 @@ nav.navbar.dark {
   font-weight: 500;
 }
 
+.main-panel .panel_right-table--apt .bh-table td.col-desc {
+  max-width: 250px;
+  color: #345e74;
+  font-size: 0.85rem;
+}
+
 .main-panel .panel_right-table--apt .bh-table button {
   background-color: #ff00c2;
   border: none;
 }
 
-.main-panel .panel_right-table--apt .bh-table .img-apt {
+.main-panel .panel_right-table--apt .bh-table .img-apt .wrap-div {
+  width: 80px;
+  height: 80px;
   position: relative;
 }
 
-.main-panel .panel_right-table--apt .bh-table .img-apt .img-div {
+.main-panel .panel_right-table--apt .bh-table .img-apt .wrap-div .img-div {
   width: 80px;
   height: 80px;
   overflow: hidden;
 }
 
-.main-panel .panel_right-table--apt .bh-table .img-apt .img-div img {
+.main-panel .panel_right-table--apt .bh-table .img-apt .wrap-div .img-div img {
   width: auto;
   height: 100%;
   transform: translateX(-20%);
 }
 
-.main-panel .panel_right-table--apt .bh-table .img-apt .id-apt {
+.main-panel .panel_right-table--apt .bh-table .img-apt .wrap-div .id-apt {
   position: absolute;
   height: 40px;
   width: 40px;
-  right: 0;
+  left: calc(100% - 20px);
   top: 50%;
   transform: translateY(calc(-50%));
   background: #fff;
@@ -11439,6 +11548,7 @@ nav.navbar.dark {
   border-radius: 50%;
   box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px rgba(90, 97, 105, 0.06), 0 7px 70px rgba(90, 97, 105, 0.1);
   font-size: 1.3rem;
+  z-index: 1;
 }
 
 .main-panel .panel_right-table--msg,
@@ -11506,6 +11616,86 @@ nav.navbar.dark {
   border-top-right-radius: 10px;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
+}
+
+.main-panel .panel .modal {
+  background-color: #252f32c6;
+}
+
+.main-panel .panel .modal-dialog {
+  margin: auto;
+  max-width: unset;
+}
+
+.main-panel .panel .modal-dialog .modal-content {
+  max-width: 900px;
+  box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px rgba(90, 97, 105, 0.06), 0 7px 70px rgba(90, 97, 105, 0.1);
+}
+
+.main-panel .panel .modal-dialog .modal-content .modal-header span {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item {
+  margin: 0 10px;
+  flex-basis: 250px;
+  box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px rgba(90, 97, 105, 0.06), 0 7px 70px rgba(90, 97, 105, 0.1);
+}
+
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .price_title,
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .price_footer,
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .apt_title,
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .apt_footer {
+  background-color: #15252e;
+  color: #fff;
+}
+
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .price_info,
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .apt_info {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .price_info .price_price,
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .apt_info .price_price {
+  position: absolute;
+  bottom: 86%;
+  left: 50%;
+  height: 90px;
+  width: 90px;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  line-height: 85px;
+  transform: translateX(-50%);
+}
+
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .price_info .price_price.base,
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .apt_info .price_price.base {
+  background-color: #80ffed;
+}
+
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .price_info .price_price.mid,
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .apt_info .price_price.mid {
+  background-color: #ff80e1;
+}
+
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .price_info .price_price.high,
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .apt_info .price_price.high {
+  background-color: #8686f1;
+}
+
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .price_info .price_details,
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .apt_info .price_details {
+  background-color: #f5f6f8;
+  min-height: 300px;
+}
+
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .price_info .price_details .sub_text,
+.main-panel .panel .modal-dialog .modal-content .bh-modal-item .apt_info .price_details .sub_text {
+  font-size: 0.9rem;
+  color: #15252e;
+  font-weight: 300;
 }
 
 html,
