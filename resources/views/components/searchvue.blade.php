@@ -209,11 +209,13 @@
             })
             .then(res => {
 
-                console.log('res', res);
+                // console.log('apartments ', res);
 
                 const data = res.data;
                 if (data.success == true) {
                     this.apartments = data.data;
+                    console.log('apartments ', this.apartments);
+                    this.addIcon();
                     // this.updateResults(data.searchFor);
                 } else {
                     console.log('success false');
@@ -236,16 +238,38 @@
                 console.log('err', err)
             });
         },
-        // updateResults(data) {
-        //     // console.log('update results', data);
-        //     if(data) {
-        //         this.searchString = (data.search_field) ? `per: ${data.search_field}`
-        //         : `per: lat ${data.lat} - lon ${data.lon} - raggio ${data.range / 1000}km`;
-        //     } else {
-        //         this.searchString = '';
-        //     }
+        addIcon() { //WORK IN PROGRESS
+            this.apartments.forEach( apart => {
+                 for(var i=0; i<apart.configs.length; i++) {
+                    var config = apart.configs[i];
+                    switch(config.service) {
+                        case 'wifi':
+                            config.icon = "fas fa-wifi";
+                            break;
+                        case 'parking':
+                            config.icon = "fas fa-parking";
+                            break;
+                        case 'pool':
+                            config.icon = "fas fa-swimming-pool";
+                            break;
+                        case 'reception':
+                            config.icon = "fas fa-concierge-bell";
+                            break;
+                        case 'sauna':
+                            config.icon = "fas fa-hot-tub";
+                            break;
+                        case 'sight':
+                            config.icon = "fas fa-eye";
+                            break;
+                        default:
+                            break;
+                    }
 
-        // },
+            }
+            });
+
+            // console.log('ADDED ICONS', this.aptConfigs);
+        },
         updateNum(){
             e_obj = event.target
             finder = e_obj.getAttribute('data-finder');
@@ -272,7 +296,7 @@
                     icon: fa_icons[i]
                 })
             });
-            console.log('configurazioni' ,this.configObj)
+            // console.log('configurazioni' ,this.configObj)
         }
     }
 });

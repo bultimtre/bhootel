@@ -10,7 +10,8 @@
                 <p class="card__body-title card-text  text-uppercase font-weight-bold m-0 mb-2" >@{{textTrim(25, "QUESTO E' IL TITOLO DELL'APPARTAMENTO")}}</p>
                 <p class="card__body-desc card-text m-0 flex-grow-1">@{{textTrim(50, apartment.description)}}</p>
                 <ul class="card__body-configs list-group list-group-horizontal justify-content-start">
-                    <li class="card__body-configs--item list-group-item py-0 pr-2" v-for="aptConfig in aptConfigs"><i :class="aptConfig.icon"></i></li>
+                    {{-- <li class="card__body-configs--item list-group-item py-0 pr-2" v-for="aptConfig in aptConfigs"><i :class="aptConfig.icon"></i></li> --}}
+                    <li class="card__body-configs--item list-group-item py-0 pr-2" v-for="aptConfig in apartment.configs"><i :class="aptConfig.icon"></i>@{{ aptConfig.service}}</li>
                 </ul>
             </div>
             <div class="card__body-info d-flex flex-column flex-grow-1 justify-content-between align-items-center border-left">
@@ -42,35 +43,40 @@
         }
     },
     created(){
-        this.aptConfigs = [];
-        this.getApartConfigs();
+        // this.aptConfigs = [];
+        // this.aptConfigs = this.apartment.configs;
+        // console.log('aptconfigs ', this.aptConfigs);
+        // this.addIcon();
         this.auth_user = $('#data_search_field').attr('data-user');
-        console.log('AUTH USER', this.auth_user);
+        // console.log('AUTH USER', this.auth_user);
     },
     props:{
         apartment:Object
     },
     methods:{
         getApartConfigs() {
-            axios.get(this.baseUrl+'search/apartConfigs/'+this.apartment.id)
-            .then(res => {
+            var configs = this.apartment.configs;
+            console.log('configs ', configs);
+            // axios.get(this.baseUrl+'search/apartConfigs/'+this.apartment.id)
+            // .then(res => {
 
-                console.log('res APART CONFIGS', res);
-                var data = res.data;
-                for(var i=0; i<data.length;i++) {
-                    // this.aptConfigs.push(data[i].service);
+            //     // console.log('res APART CONFIGS', res);
+            //     var data = res.data;
+            //     for(var i=0; i<data.length;i++) {
+            //         // this.aptConfigs.push(data[i].service);
 
-                    var obj = {service : data[i].service};
-                    this.aptConfigs.push(obj);
-                }
-                // this.aptConfigs = res.data;
-                console.log('aptconfigs', this.aptConfigs);
-                this.addIcon();
-            })
-            .catch(err => {
-                this.error = "Error downloading configs";
-                //console.log('err', err)
-            });
+            //         var obj = {service : data[i].service};
+            //         this.aptConfigs.push(obj);
+            //     }
+            //     // this.aptConfigs = res.data;
+            //     // console.log('aptconfigs', this.aptConfigs);
+            //     this.addIcon();
+            // })
+            // .catch(err => {
+            //     this.error = "Error downloading configs";
+            //     //console.log('err', err)
+            // });
+
         },
         setImage(img) {
             return img.includes('images/user/') ? this.baseUrl + img : img;
@@ -86,34 +92,34 @@
         classToggle(){
             this.state = this.state === 'far' ? 'fas':'far'
         },
-        addIcon() { //WORK IN PROGRESS
-            for(var i=0; i<this.aptConfigs.length; i++) {
-                switch(this.aptConfigs[i].service) {
-                    case 'wifi':
-                        this.aptConfigs[i].icon = "fas fa-wifi";
-                        break;
-                    case 'parking':
-                        this.aptConfigs[i].icon = "fas fa-parking";
-                        break;
-                    case 'pool':
-                        this.aptConfigs[i].icon = "fas fa-swimming-pool";
-                        break;
-                    case 'reception':
-                        this.aptConfigs[i].icon = "fas fa-concierge-bell";
-                        break;
-                    case 'sauna':
-                        this.aptConfigs[i].icon = "fas fa-hot-tub";
-                        break;
-                    case 'sight':
-                        this.aptConfigs[i].icon = "fas fa-eye";
-                        break;
-                    default:
-                        break;
-                }
+        // addIcon() { //WORK IN PROGRESS
+        //     for(var i=0; i<this.aptConfigs.length; i++) {
+        //         switch(this.aptConfigs[i].service) {
+        //             case 'wifi':
+        //                 this.aptConfigs[i].icon = "fas fa-wifi";
+        //                 break;
+        //             case 'parking':
+        //                 this.aptConfigs[i].icon = "fas fa-parking";
+        //                 break;
+        //             case 'pool':
+        //                 this.aptConfigs[i].icon = "fas fa-swimming-pool";
+        //                 break;
+        //             case 'reception':
+        //                 this.aptConfigs[i].icon = "fas fa-concierge-bell";
+        //                 break;
+        //             case 'sauna':
+        //                 this.aptConfigs[i].icon = "fas fa-hot-tub";
+        //                 break;
+        //             case 'sight':
+        //                 this.aptConfigs[i].icon = "fas fa-eye";
+        //                 break;
+        //             default:
+        //                 break;
+        //         }
 
-            }
-            console.log('ADDED ICONS', this.aptConfigs);
-        },
+        //     }
+        //     // console.log('ADDED ICONS', this.aptConfigs);
+        // },
 
     }
 });
