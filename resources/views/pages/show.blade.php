@@ -31,7 +31,7 @@
                     @foreach ($ads  as $ad)
                             <input  type="radio" name="ads" value="{{ $ad->id}}">
                             <label for="{{ $ad->price }}">
-                                [{{ $ad->id }}]-{{ $ad->price/100}}
+                                {{ $ad->price/100 }} €
                             </label>
                             <br>
                     @endforeach
