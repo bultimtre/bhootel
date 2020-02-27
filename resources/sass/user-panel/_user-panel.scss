@@ -1,7 +1,9 @@
 .main-panel{
     background: $bh-side;
     .panel{
+        //position:relative;
         &_left{
+
             background-color:$bh-light-v2;
             box-shadow: 0 0.125rem 9.375rem rgba(90,97,105,.1), 0 0.25rem 0.5rem rgba(90,97,105,.12), 0 0.9375rem 1.375rem rgba(90,97,105,.1), 0 0.4375rem 2.1875rem rgba(165,182,201,.1);
             @media (min-width: 1200px)
@@ -9,17 +11,26 @@
                 max-width: 300px;
                 min-width:290px;
             }
-            >*{
+            >*
+            {
                 border-bottom:1px solid $bh-light-v3;
                 color:$bh-dark;
                 font-size: 0.9rem;
+                a{
+                    color:$bh-dark;
+                    text-decoration: none;
+                }
+                &.disable{
+                    opacity:0.6
+                }
                 @media (max-width: 991.98px)
                 {
                     justify-content: center;
                 }
-                &:hover
+                &:not(.disable):hover
                 {
-                   @include colorLighten($bh-light-v2,7%)
+                   @include bgColorLighten($bh-light-v2,7%);
+                   cursor:pointer
                 }
                 .div-label
                 {
@@ -29,22 +40,21 @@
                     }
                 }
             }
-
         }
         &_right{
             &-cards
             {
                 &--apts
                 {
-                    @include colorLighten ($bh-details, $perc:40%);
+                    @include bgColorLighten ($bh-details, $perc:40%);
                 }
                 &--msgs
                 {
-                    @include colorLighten ($bh-default-v2, $perc:70%);
+                    @include bgColorLighten ($bh-default-v2, $perc:70%);
                 }
                 &--views
                 {
-                    @include colorLighten ($bh-default, $perc:40%);
+                    @include bgColorLighten ($bh-default, $perc:40%);
                 }
                 >*
                 {
@@ -104,39 +114,54 @@
                         {
                             font-weight: 500;
                         }
+                        td.col-desc
+                        {
+                            max-width:250px;
+                            @include colorLighten($bh-dark,20%);
+                            font-size:0.85rem;
+                        }
                         button
                         {
                             background-color:$bh-details;
                             border:none;
                         }
                         .img-apt{
-                            position:relative;
-                            .img-div
+                            .wrap-div
                             {
                                 width:80px;
                                 height:80px;
-                                overflow: hidden;
-                                img{
-                                    width:auto;
-                                    height:100%;
-                                    transform: translateX(-20%);
+                                position:relative;
+
+                                .img-div
+                                {
+                                    width:80px;
+                                    height:80px;
+                                    overflow: hidden;
+                                    img{
+                                        width:auto;
+                                        height:100%;
+                                        transform: translateX(-20%);
+                                    }
+                                }
+                                .id-apt
+                                {
+                                    position:absolute;
+                                    height: 40px;
+                                    width: 40px;
+                                    left:calc(100% - 20px);
+                                    top:50%;
+                                    transform: translateY(calc(-50%));
+                                    background:#fff;
+                                    text-align: center;
+                                    line-height: 35px;
+                                    border-radius: 50%;
+                                    @include advShadow;
+                                    font-size: 1.3rem;
+                                    z-index: 1;
                                 }
                             }
-                            .id-apt
-                            {
-                                position:absolute;
-                                height: 40px;
-                                width: 40px;
-                                right:0;
-                                top:50%;
-                                transform: translateY(calc(-50%));
-                                background:#fff;
-                                text-align: center;
-                                line-height: 35px;
-                                border-radius: 50%;
-                                @include advShadow;
-                                font-size: 1.3rem;
-                            }
+
+
                         }
 
                     }
@@ -183,6 +208,59 @@
                 }
 
 
+            }
+        }
+        .modal{
+            display:block;
+            opacity:1;
+            background-color: #252f32c6;
+        }
+        .modal-dialog{
+            margin: auto;
+            max-width:unset;
+
+            .modal-content
+            {
+                @include advShadow;
+                .bh-modal-item
+                {
+                    margin:0 10px;
+                    flex-basis:250px;
+                    @include advShadow;
+                    .price{
+
+                        &_title,
+                        &_footer
+                        {
+                            background-color: $bh-default-v2;
+                            color:#fff;
+
+                        }
+                        &_info{
+                            position: relative;
+                            .price_price{
+                                position:absolute;
+                                bottom:90%;
+                                left:50%;
+                                height:80px;
+                                width:80px;
+                                border-radius: 50%;
+                                font-size: 1.4rem;
+                                line-height: 76px;
+                                background: $bh-details;
+                                transform:translateX(-50%)
+                            }
+                            .price_details
+                            {
+                                background-color: $bh-light;
+
+                                min-height:300px;
+                            }
+                        }
+
+
+                    }
+                }
             }
         }
     }
