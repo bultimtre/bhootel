@@ -2,7 +2,7 @@
     #app-search{
         max-width: 1200px;
         padding-top:90px;
-        box-shadow: 0 0 30px 1px rgba(0, 0, 0, 0.2);
+        @include shadow($x:0px,$y:0px,$blur:30px,$size:1px,$opac:0.2);
         i.bh-icon{
             color:$bh-details
         }

@@ -1,23 +1,26 @@
 @extends('layouts.base')
 
-@include('components.header')
+{{-- @include('components.header') --}}
 @section('search')
 
-<div class="container-fluid d-lg-flex mt-5">
-  <div class="chart-container mt-5" style="position: relative; margin:auto; width:50vw">
-    <canvas id="messagesChart"></canvas>
-  </div>
-  <div class="chart-container mt-5" style="position: relative; margin:auto; width:50vw">
-    <canvas id="viewsChart"></canvas>
-  </div>
+
+<div class="container-fluid d-flex-column mt-5">
+    <div class="form-group w-100 selectdiv text-center">
+        <select class="col-12 col-md-4 mt-5 form-control" id="year_selection">
+            <option value="2020" selected>2020</option>
+            <option value="2019" >2019</option>
+            <option value="2018">2018</option>
+        </select>
+    </div>
+    <div class="container-fluid mt-5 p-3">
+    <div class="chart-container mt-5 p-3">
+        <canvas id="messagesChart"></canvas>
+    </div>
+    <div class="chart-container mt-5 p-3">
+        <canvas id="viewsChart"></canvas>
+    </div>
+    </div>
 </div>
-
-
-<select name="" id="year_selection">
-  <option value="2020" selected>2020</option>
-  <option value="2019" >2019</option>
-  <option value="2018">2018</option>
-</select>
 
 
 
@@ -26,52 +29,36 @@
     var url = window.location.origin;
     var year = $("#year_selection").val();
     var id = {{json_encode($apartment->id)}};
+
     var msgGraph;
     var viewGraph;
     $("#year_selection").change(function(){
-            year = $(this).val();
-            // if the chart is not undefined (e.g. it has been created)
-            // then destory the old one so we can create a new one later
-            if (msgGraph && viewGraph) {
-                msgGraph.destroy();
-                viewGraph.destroy();
-            }
-        setMessagesStat();
-        setViewsStat();
+        year = $(this).val();
+
+        getData(destMsg);
+        getData(destView);
     });
 
 
     //ajax Call
-    function setMessagesStat(){
+    function getData(dest) {
         $.ajax({
-            url: url + '/stat-msg' + '/{id}',
+            url: url + dest,
             method: "GET",
             data: {
                 year_jq: year,
                 id_jq: id
             },
             success: function (data) {
-                console.log(id);
-                
-                messagesData(data);
-            },
-            error: function (err) {
-                console.log("error", err);
-            }
-        });
-    }
-    
-    
-    function setViewsStat(){
-        $.ajax({
-            url: url + '/view-stat' + '/{id}',
-            method: "GET",
-            data: {
-                year_jq: year
-            },
-            success: function (data) {
 
-                viewsData(data);
+                if (dest == '/stat-msg') {
+
+                    messagesData(data);
+                } else {
+
+                    viewsData(data);
+                }
+
             },
             error: function (err) {
                 console.log("error", err);
@@ -81,37 +68,40 @@
 
 
     // grafico messaggi
-    function messagesGraph(data) {
+    function messagesGraph(count) {
 
         var messagesChart = $("#messagesChart");
-        var msgGraph = new Chart(messagesChart, {
+
+        if (msgGraph) msgGraph.destroy();
+
+        window.msgGraph = new Chart(messagesChart, {
 
             type: "bar",
             data: {
-            labels: moment.months(),
-            datasets: [{
-                label: "Messages",
-                data: data,
-                backgroundColor: [
-                'rgba(255, 99, 132, 0.6)',
-                'rgba(54, 162, 235, 0.6)',
-                'rgba(255, 206, 86, 0.6)',
-                'rgba(75, 192, 192, 0.6)',
-                'rgba(153, 102, 255, 0.6)',
-                'rgba(163, 174, 24, 0.6)',
-                'rgba(68, 122, 247, 0.6)',
-                'rgba(232, 34, 209, 0.6)',
-                'rgba(21, 51, 221, 0.6)',
-                'rgba(194, 139, 128, 0.6)',
-                'rgba(87, 4, 131, 0.6)',
-                'rgba(169, 26, 127, 0.6)'
-                ]
-            }]
+                labels: moment.months(),
+                datasets: [{
+                    label: "Messaggi",
+                    data: count,
+                    backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(163, 174, 24, 0.6)',
+                    'rgba(68, 122, 247, 0.6)',
+                    'rgba(232, 34, 209, 0.6)',
+                    'rgba(21, 51, 221, 0.6)',
+                    'rgba(194, 139, 128, 0.6)',
+                    'rgba(87, 4, 131, 0.6)',
+                    'rgba(169, 26, 127, 0.6)'
+                    ]
+                }]
             },
             options: {
                 title: {
                     display: true,
-                    text: 'Apartment Messages',
+                    text: 'Statistiche Messaggi',
                     fontSize: 30
                 },
                 scales: {
@@ -120,24 +110,29 @@
                             beginAtZero:true
                         }
                     }]
-                }
+                },
+                // responsive: true
+                maintainAspectRatio: true
             }
         });
     }
 
 
     // grafico views
-    function viewsGraph(data) {
+    function viewsGraph(count) {
 
         var viewsChart = $("#viewsChart");
-        new Chart(viewsChart, {
 
-            type: "line",
+        if (viewGraph) viewGraph.destroy();
+
+        window.viewGraph = new Chart(viewsChart, {
+
+            type: "bar",
             data: {
                 labels: moment.months(),
                 datasets: [{
-                label: "Views",
-                data: data,
+                label: "Visualizzazioni",
+                data: count,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.6)',
                     'rgba(54, 162, 235, 0.6)',
@@ -157,7 +152,7 @@
             options: {
                 title: {
                     display: true,
-                    text: 'Apartment Views',
+                    text: 'Statistiche Visualizzazioni',
                     fontSize: 30
                 },
                 scales: {
@@ -166,7 +161,9 @@
                             beginAtZero:true
                         }
                     }]
-                }
+                },
+                // responsive: true
+                maintainAspectRatio: true
             }
         });
     }
@@ -209,11 +206,16 @@
 
         var count = Object.keys(rowCount).map(x => Object.values(rowCount[x]));
 
-        viewsGraph(data);
+        viewsGraph(count);
     }
 
-    setMessagesStat();
-    setViewsStat();
+    var destMsg = '/stat-msg';
+    var destView = '/view-stat';
 
+
+
+
+    getData(destMsg);
+    getData(destView);
 </script>
 @endsection

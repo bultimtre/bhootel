@@ -97,8 +97,9 @@ function addNewApart(formData) {
         data: formData
         ,
         success: function (data) {
-            console.log("data", data);
-            window.location.href = locURL; //redirect finito create
+            console.log("data_store", data);
+            // window.location.href = locURL; //redirect finito create
+            window.location.href = locURL + "/user/apartment/" + data.apart_id; //redirect finito create to apartment show
         },
         cache: false,
         contentType: false,
@@ -177,7 +178,8 @@ function init() {
     }
 
     funct.buttonChange();
+
 };
 
 $(document).ready(init);
-
+//

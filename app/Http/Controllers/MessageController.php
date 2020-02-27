@@ -15,11 +15,13 @@ class MessageController extends Controller
     public function store(Request $request) {
 
         $toSend = $request -> all();
+        $mail = Auth::user() ? Auth::user() -> email : $_POST['email'];
         $data = Message::make([
             "body" => $request['text'],
             "title" => 'prova',
-            "email" => 'mia@mail.com'
+            "email" => $mail
         ]);
+
         $apartment = Apartment::findOrFail($request['id-apt']);
         $apartment->messages()->save($data);
         // return redirect() -> route('mail-send');
@@ -42,15 +44,15 @@ class MessageController extends Controller
     }
 
 
-    public function stat(Request $request, $id) {
+    //  public function stat(Request $request) {
        
-        $year_jq = $request -> year_jq;
-        $msgs = Message::where('apartment_id', '=', $id) 
-                -> whereYear('created_at', '=', $year_jq)
-                -> select('created_at')
-                -> get();
+    //     $year_jq = $request -> year_jq;
+    //      $msgs = Message::where('apartment_id', '=', $id) 
+    //              -> whereYear('created_at', '=', $year_jq)
+    //              -> select('created_at')
+    //             -> get();
                 
-        return response() -> json($msgs);
-    }
+    //    return response() -> json($msgs);
+    // }
 }
 

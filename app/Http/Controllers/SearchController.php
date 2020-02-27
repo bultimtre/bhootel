@@ -16,10 +16,6 @@ use Illuminate\Support\Facades\Auth;
 class SearchController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this -> middleware('cors');
-    // }
     public function show(Request $request)
     {
         $data = $request -> all();
@@ -31,19 +27,7 @@ class SearchController extends Controller
         $configs = Config::all();
         return Response()->json($configs);
     }
-    // public function getAptConfig() {
-    //     $apartments=Apartment::all();
-    //     $aptAd = [];
-    //     foreach ($apartments as $apartment) {
-    //         foreach ($apartment->configs as $config) {
-    //             array_push($aptAd,[
-    //                 'service' => $config->service,
-    //                 'apt_id'=>$apartment->id
-    //                 ]);
-    //         }
-    //     }
-    //     return Response()->json($aptAd);
-    // }
+
     public function getApartConfigs($id) {
         $apartment = Apartment::find($id);
         $configs = $apartment->configs;
@@ -109,12 +93,18 @@ class SearchController extends Controller
 
         // appartamento visibile o meno
         $apartments->where('show', '=', 1);
+        $aparts = $apartments->get();
 
-        $send_data = $apartments->get();
+        foreach ($aparts as $apart) {
+            $configs = $apart->configs;
+            $apart->configs = $configs;
+        }
+        
+        
 
         return [
             'success' => true,
-            'data' => $send_data,
+            'data' => $aparts,
             'searchFor' => [
                 'search_field' => $search_field,
                 'lat' => $lat,

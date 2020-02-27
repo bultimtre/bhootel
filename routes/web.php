@@ -29,7 +29,7 @@ header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Autho
 
 //-----------------------------------------------------//
 //SEARCH ROUTES
-    Route::post('/search/show', 'SearchController@show') -> name('search.show');
+    Route::post('/show', 'SearchController@show') -> name('search.show');
     Route::post('/search', 'SearchController@search') -> name('search.search');
     Route::get('/search/configs', 'SearchController@getAllConfigs') ->name('search.config');
     // Route::get('/search/aptConfigs', 'SearchController@getAptConfig') ->name('search.apt-config');
@@ -74,14 +74,12 @@ Route::get('/payment/sponsor/{id}', 'PaymentsController@sponsor')->name('sponsor
 Route::post('/mail-store', 'MessageController@store') ->name('mail-store');
 Route::get('/mail-send/{id}', 'MessageController@sendMail') ->name('mail-send');
 
-// stat msg
-Route::get('/stat-msg/{id}', 'MessageController@stat') -> name('stat-msg');
 
 
 // charts
-Route::get('/charts/{id}', function() {
-    return view('pages.charts');
-}) -> name('charts');
+Route::get('/charts/{id}', 'StatController@charStat')-> name('charts');
 
 // stats views
-Route::get('/view-stat/{id}', 'ViewsController@viewStat') -> name('view-stat');
+Route::get('/view-stat', 'StatController@viewStat') -> name('view-stat');
+// stat msg
+Route::get('/stat-msg', 'StatController@msgstat') -> name('stat-msg');

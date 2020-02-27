@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class Apartment extends Model
 {
     protected $fillable =[
+        'title',
         'description',
         'image',
         'address',
@@ -20,21 +21,6 @@ class Apartment extends Model
         'square_mt',
         'show',
         'views'
-
-        /* 'title',
-        'description',
-        'image',
-        'address',
-        'lat',
-        'lon',
-        'rooms',
-        'beds',
-        'bath',
-        'square_mt',
-        'ads_expired',
-        'show',
-        'views',
-        'price', */
     ];
 
     public function user()

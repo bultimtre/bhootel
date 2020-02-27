@@ -51894,8 +51894,9 @@ function addNewApart(formData) {
     },
     data: formData,
     success: function success(data) {
-      console.log("data", data);
-      window.location.href = locURL; //redirect finito create
+      console.log("data_store", data); // window.location.href = locURL; //redirect finito create
+
+      window.location.href = locURL + "/user/apartment/" + data.apart_id; //redirect finito create to apartment show
     },
     cache: false,
     contentType: false,
@@ -51959,10 +51960,12 @@ function init() {
   if ($('#apart-map').length) {
     getApartMap();
   }
+
+  funct.buttonChange();
 }
 
 ;
-$(document).ready(init);
+$(document).ready(init); //
 
 /***/ }),
 
@@ -52019,7 +52022,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ (function(module, exports) {
 
 module.exports = {
-  nameFunct: function nameFunct() {//
+  buttonChange: function buttonChange() {
+    $(".show-hide").click(function () {
+      $(this).text($(this).text() == 'Mostra negli annunci' ? 'Nascondi dagli annunci' : 'Mostra negli annunci');
+      $(this).css('opacity') === '1' ? $(this).css({
+        'opacity': '0.3'
+      }) : $(this).css({
+        'opacity': '1'
+      });
+    });
   }
 };
 
@@ -52043,13 +52054,8 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-__webpack_require__(/*! C:\Users\vigli\Desktop\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\vigli\Desktop\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
-=======
-__webpack_require__(/*! C:\Boolean\bhootel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Boolean\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
->>>>>>> 5e16d22875cecb63e1ee13ad5db3aaecd6303259
+__webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

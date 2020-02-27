@@ -9,6 +9,8 @@ use App\Stat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+
 
 class GuestController extends Controller
 {
@@ -16,17 +18,22 @@ class GuestController extends Controller
     {
         $this -> middleware('guest') -> except(['login','index']);
     }
-    //'indx'
+
+
     public function index()
     {
         $users = User::all();
-        $apartments = Apartment::orderBy('id', 'DESC') -> paginate(10);
-        return view('pages.index',compact('users','apartments'));
+        $adApts = Apartment::where('ads_expired','<>','0') -> inRandomOrder() -> limit(9) -> get();
+        // $aptChunk = $adApts -> chunk(3);
+        // dd($adApts);
+        $apartments = Apartment::orderBy('id', 'DESC') -> paginate(9);
+
+        return view('pages.index',compact('users','apartments', 'adApts'));
     }
+
 
     public function show(Request $request, $id)
     {
-            // return 'OOOO';
         $apartment= Apartment::findOrFail($id);
         $apartment -> viewsCount($request, $id, $apartment);
         return view('pages.show',compact('apartment'));
@@ -35,36 +42,10 @@ class GuestController extends Controller
 
     public function create()
     {
-        // $this -> middleware('Auth');
 
         return view('pages.user.create-apt', [
             'configs' => Config::all()
         ]);
     }
-
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    public function edit(User $user)
-    {
-        //
-    }
-
-
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-
-    public function destroy(User $user)
-    {
-        //
-    }
-
 
 }
