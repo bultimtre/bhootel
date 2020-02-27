@@ -211,8 +211,7 @@
             }
         }
         .modal{
-            display:block;
-            opacity:1;
+
             background-color: #252f32c6;
         }
         .modal-dialog{
@@ -221,40 +220,56 @@
 
             .modal-content
             {
+                max-width:900px;
+                .modal-header span
+                {
+                    font-size: 2.5rem;
+                    font-weight: 600;
+                }
                 @include advShadow;
                 .bh-modal-item
                 {
                     margin:0 10px;
                     flex-basis:250px;
                     @include advShadow;
-                    .price{
+                    .price,
+                    .apt{
 
                         &_title,
-                        &_footer
+                        &_footer,
                         {
-                            background-color: $bh-default-v2;
+                            background-color: $bh-dark;
                             color:#fff;
 
                         }
                         &_info{
                             position: relative;
+                            box-sizing: border-box;
                             .price_price{
                                 position:absolute;
-                                bottom:90%;
+                                bottom:86%;
                                 left:50%;
-                                height:80px;
-                                width:80px;
+                                height:90px;
+                                width:90px;
                                 border-radius: 50%;
                                 font-size: 1.4rem;
-                                line-height: 76px;
-                                background: $bh-details;
-                                transform:translateX(-50%)
+                                line-height: 85px;
+                                transform:translateX(-50%);
+                                &.base{@include bgColorLighten($bh-default, 25%);}
+                                &.mid{@include bgColorLighten($bh-details, 25%);}
+                                &.high{@include bgColorLighten($bh-default-v2, 60%);}
+
                             }
                             .price_details
                             {
                                 background-color: $bh-light;
-
                                 min-height:300px;
+                                .sub_text
+                                {
+                                    font-size:0.9rem;
+                                    color:$bh-dark;
+                                    font-weight: 300;
+                                }
                             }
                         }
 

@@ -10,7 +10,7 @@
                 <div class="div-icon px-2">
                     <img src="https://img.icons8.com/cute-clipart/64/000000/iron-man.png">
                 </div>
-                <div class="div-label px-2">
+                <div class="div-label px-2 " onclick="location.href=window.location.origin+'/user/user-panel'">
                     {{Auth::user()->name}}
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     Tabella prezzi
                 </div>
             </div>
-            <div class="panel_left--disable d-flex w-100 align-items-center py-2">
+            <div class="panel_left--disable d-flex w-100 align-items-center py-2" data-toggle="modal" data-target="#apt-disable">
                 <div class="div-icon px-3">
                     <img src="https://img.icons8.com/ios/35/000000/box.png">
                 </div>
@@ -77,7 +77,7 @@
                 <div class="panel_right-cards--views py-3 px-2">
                     <div class="card">
                         <div class="card-title">IN VETRINA</div>
-                        <h2>23</h2>
+                        <h2>{{$allAdsApt->count()}}</h2>
                     </div>
                 </div>
             </div>
@@ -212,8 +212,8 @@
                         </div>
                         <table class="table" >
                             <tbody>
-                                @foreach($allMsgsApt as $item)
-                                    @foreach($item as $el)
+
+                                @foreach($allAdsApt as $item)
                                     <tr>
                                         <td>
                                             <div class="d-flex">
@@ -221,17 +221,21 @@
                                                     <i class="fas fa-award"></i>
                                                 </div>
                                                 <div class="ads-time activated">
-                                                    attivato il:
+                                                    attivato il:{{\Carbon\Carbon::create($item)->isoFormat('MM/DD/YYYY')}}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
+
                                             <div class="ads-time expire">
-                                                stato:
+                                            @if(( \Carbon\Carbon::now())->diffInDays($item, false) < 0)
+                                                stato: SCADUTO
+                                                @else
+                                                stato: ATTIVO
+                                            @endif
                                             </div>
                                         </td>
                                     </tr>
-                                    @endforeach
                                 @endforeach
                             </tbody>
                         </table>
@@ -241,33 +245,33 @@
         </div>
         {{-- modals --}}
         <div class="price-table modal fade" id="price-table" tabindex="-1" role="dialog" aria-labelledby="price-table" aria-hidden="true">
-            <div class="d-flex w-100 h-100 align-items-center justify-content-center">
-                <div class="modal-dialog" role="document" style="border: 1px solid red">
-                    <div class="modal-content ">
-                        <div class="modal- header">
-                            <h5 class="modal-title" id="exampleModalLabel">Tabella sponsorizzazioni</h5>
+            <div class="d-flex w-100 h-100 align-items-center ">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title px-5" id="exampleModalLabel">La nostra offerta</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body d-flex flex-row">
+                        <div class="modal-body d-flex flex-row justify-content-center">
 
                             <!-- First -->
-                            <div class="bh-modal-item">
-                                <div class="card mb-5 mb-lg-0 h-100 bRad-top">
+                            <div class="bh-modal-item bRad-all">
+                                <div class="card mb-5 mb-lg-0 h-100 bRad-all">
                                     <div class="card-body p-0 bRad-top bRad-bottom">
                                         <div class="price_title p-3 pb-5 text-center bRad-top">
                                             <h1 class="bRad-top mb-3">24h</h1>
                                         </div>
                                         <div class="price_info">
-                                            <div class="price_price text-center">
+                                            <div class="price_price text-center base">
                                                 €2.99
                                             </div>
-                                            <div class="price_details pt-5">
-                                            <div class="">Annuncio in vetrina</div>
-                                            <div>Durata 24h (1 giorno)</div>
-                                            <div>Possibilità di rinnovo e non romper le palle</div>
-                                            <div>Offerta cumulabile</div>
+                                            <div class="price_details pt-5 px-3">
+                                            <div class="py-2">Annuncio in vetrina</div>
+                                            <div class="py-2">Durata 24h (1 giorno) <span class="sub_text">*previo annullamento dell'offerta</span></div>
+                                            <div class="py-2">Possibilità di rinnovo</div>
+                                            <div class="py-2">Offerta cumulabile</div>
                                         </div>
                                     </div>
                                         <div class="price_footer p-2 bRad-bottom"></div>
@@ -275,38 +279,85 @@
                                 </div>
                             </div>
                             <!-- Secondo-->
-                            <div class="bh-modal-item" style="border: 1px solid red">
-                                <div class="card mb-5 mb-lg-0">
-                                    <div class="card-body">
-                                        <div class="price_title"> 24h</div>
-                                        <div class="price_price"></div>
-                                        <div class="price_details">
-                                            <div>Annuncio in vetrina</div>
-                                            <div>Durata 24h (1 giorno)</div>
-                                            <div>Possibilità di rinnovo</div>
-                                            <div>Offerta cumulabile</div>
+                            <div class="bh-modal-item bRad-all">
+                                <div class="card mb-5 mb-lg-0 h-100 bRad-all">
+                                    <div class="card-body p-0 bRad-top bRad-bottom">
+                                        <div class="price_title p-3 pb-5 text-center bRad-top">
+                                            <h1 class="bRad-top mb-3">72h</h1>
                                         </div>
-                                        <div class="price_footer"></div>
+                                        <div class="price_info">
+                                            <div class="price_price text-center mid">
+                                                €5.99
+                                            </div>
+                                            <div class="price_details pt-5 px-3">
+                                            <div class="py-2">Annuncio in vetrina</div>
+                                            <div class="py-2">Durata 24h (1 giorno) <span class="sub_text">*previo annullamento dell'offerta</span></div>
+                                            <div class="py-2">Possibilità di rinnovo</div>
+                                            <div class="py-2">Offerta cumulabile</div>
+                                        </div>
+                                    </div>
+                                        <div class="price_footer p-2 bRad-bottom"></div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Third -->
-                            <div class="bh-modal-item" style="border: 1px solid red">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="price_title"> 24h</div>
-                                        <div class="price_price"></div>
-                                        <div class="price_details">
-                                            <div>Annuncio in vetrina</div>
-                                            <div>Durata 24h (1 giorno)</div>
-                                            <div>Possibilità di rinnovo</div>
-                                            <div>Offerta cumulabile</div>
+                            <div class="bh-modal-item bRad-all">
+                                <div class="card mb-5 mb-lg-0 h-100 bRad-all">
+                                    <div class="card-body p-0 bRad-top">
+                                        <div class="price_title p-3 pb-5 text-center bRad-top">
+                                            <h1 class="bRad-top mb-3">144h</h1>
                                         </div>
-                                        <div class="price_footer"></div>
+                                        <div class="price_info">
+                                            <div class="price_price text-center high">
+                                                €9.99
+                                            </div>
+                                            <div class="price_details pt-5 px-3">
+                                            <div class="py-2">Annuncio in vetrina</div>
+                                            <div class="py-2">Durata 24h (1 giorno) <span class="sub_text">*previo annullamento dell'offerta</span></div>
+                                            <div class="py-2">Possibilità di rinnovo</div>
+                                            <div class="py-2">Offerta cumulabile</div>
+                                        </div>
+                                    </div>
+                                        <div class="price_footer p-2 bRad-bottom"></div>
                                     </div>
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="apt-disable modal fade" id="apt-disable" tabindex="-1" role="dialog" aria-labelledby="apt-disable" aria-hidden="true">
+            <div class="d-flex w-100 h-100 align-items-center">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title px-5" id="exampleModalLabel">Appartamenti che hai nascosto dal nostro portale</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body d-flex flex-row justify-content-center">
+                            <!-- First -->
+                            <div class="bh-modal-item bRad-all">
+                                <div class="card mb-5 mb-lg-0 h-100 bRad-all">
+                                    <div class="card-body p-0 bRad-top bRad-bottom">
+                                        <div class="apt_title p-3 pb-3 text-center bRad-top">
+                                        <h1 class="bRad-top mb-3">{{$countHide->count()}}</h1>
+                                            <p>nascosti</p>
+                                        </div>
+                                        <div class="apt_info">
+                                            <div class="apt_details pt-2 px-3">
+                                            @foreach($countHide as $apt)
+                                            <div class="py-2">{{$apt->id}} - <a href="{{route('user-apt.show', $apartment -> id)}}">{{$apt->title}}TITOLO APT</a></div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                        <div class="price_footer p-2 bRad-bottom"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

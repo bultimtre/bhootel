@@ -28,6 +28,9 @@
 .bRad-bottom{
     @include borderRaidus(0, 0px, 10px, 10px)
 }
+.bRad-all{
+    @include borderRaidus(10px, 10px, 10px, 10px)
+}
 
 //positon aboslute top50 left50
 .abs-50-50{
