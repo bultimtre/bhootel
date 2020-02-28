@@ -1,4 +1,4 @@
-
+r
 @extends('layouts.base')
 @section('apt-show')
 @include('components.header')
@@ -27,7 +27,7 @@
                         @method('DELETE')
                         <input type="submit" value="Elimina" class="btn btn-lg btn-danger">
                     </form>
-                @else
+e                @else
                     <p><a class="btn btn-lg btn-primary" href="{{route('guest-apt.show', $apartment->id)}}" role="button">Chiedi Informazioni</a></p>
                 @endif
                 @endauth --}}

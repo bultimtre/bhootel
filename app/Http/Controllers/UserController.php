@@ -45,7 +45,7 @@ class UserController extends Controller
 
     public function store(Request $request) {
 
-        // return Response()->json($request); //debug
+        return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'title' => 'required|max:80',
@@ -181,13 +181,12 @@ class UserController extends Controller
 
     public function userPanel()
     {
+        $user = Auth::user();
         $countMsg = 0;
         $allAdsApt = collect([]);;
-        $user = Auth::user();
         $allMsgsApt = collect([]);
         $apartments = $user -> apartments() -> get();
         $countHide = $apartments->where('show','=', 0);
-
         foreach ($apartments as $apartment) {
             $countMsg += $apartment->messages()->count();
             if (($apartment->messages()->where('apartment_id', '=', $apartment->id))->exists()) {

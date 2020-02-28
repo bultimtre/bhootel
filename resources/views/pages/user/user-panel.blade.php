@@ -170,6 +170,12 @@
                                             Nascondi appartamento
                                         </button>
 
+                                        <form action=" {{route('user-apt.destroy', $apartment->id)}} " method="GET">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="submit" value="Elimina" class="btn btn-lg btn-danger">
+                                        </form>
+
                                     </td>
                                 </tr>
                                 @endforeach

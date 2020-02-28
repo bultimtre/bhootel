@@ -84,7 +84,7 @@ function getCoordByAddress(e) {
 // send Apartment data with coord to UserApartmentsController@store
 function addNewApart(formData) {
     var locURL = window.location.origin;
-    var urlStore = locURL+"/user/store/";
+    var urlStore = locURL+"/user/store";
     var urlUpdate = locURL+"/user/update-apt/";
     var url = formData.has('id') ? urlUpdate : urlStore;
     $.ajax({
@@ -99,7 +99,7 @@ function addNewApart(formData) {
         success: function (data) {
             console.log("data_store", data);
             // window.location.href = locURL; //redirect finito create
-            window.location.href = locURL + "/user/apartment/" + data.apart_id; //redirect finito create to apartment show
+            window.location.href = 'http://localhost:8000'; //locURL + "/user/apartment/" + data.apart_id; //redirect finito create to apartment show
         },
         cache: false,
         contentType: false,

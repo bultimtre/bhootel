@@ -1,17 +1,16 @@
 @extends('layouts.base')
 @section('hosted')
 
-<main class="main-payment">
-<p>{{(Request::get('ads'))}}</p>
+<main class="main-payment py-5">
     <div class="payment col-7 col-xl-5 m-auto">
-        <div class="payment__wrap p-4" style="border: 1px solid red">
+        <div class="payment__wrap p-4">
                 <h2 class="text-center">Payment Form</h2>
                 <div class="spacer"></div>
 
                 <form action="{{route('payment.make',[$apartment ->id,Request::get('ads')])}}" method="POST" id="my-sample-form">
                         @csrf
                         @method('POST')
-                        <label for="email" class="col-md-4 col-form-label">Indirizzo Email</label>
+                        <label for="email" class="col-form-label">Indirizzo Email</label>
                         <input type="email" class="form-control  @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" name="email" value="{{ Auth::user() -> email }}" required autocomplete="off">
 
                         <div class="form-group">
@@ -78,7 +77,7 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="cc_number">Credit Card Number</label>
+                                <label id="label-cc" for="cc_number">Credit Card Number</label>
 
                                 <div class="form-group" id="card-number">
 
@@ -104,8 +103,6 @@
                         </div>
 
                         <div class="spacer"></div>
-
-                        <div id="paypal-button"></div>
 
                         <div class="spacer"></div>
 
