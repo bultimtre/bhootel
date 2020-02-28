@@ -13,12 +13,27 @@
     <title>BoolBnb</title>
 </head>
 <body>
+  <style>
+    .name-user {
+      
+      margin: 5px;
+      
+    }
+    .name-user h2{
+      display: inline-block;
+      border: 1px solid white;
+      border-radius: 3px;
+      color: beige;
+    }
+  </style>
 
     <div class="container">
       <div class="row">
-        <div class="col-6">
+        <div class="col-6 col-md-5 offset-1">
           @auth
+          <div class="name-user">
             <h2>{{ Auth::user() -> email }}</h2>  
+          </div>
           @else 
             <h2>GUEST</h2>
           @endauth         

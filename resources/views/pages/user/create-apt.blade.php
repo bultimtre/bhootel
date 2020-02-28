@@ -2,15 +2,76 @@
 
 @section('content')
 
+ <style>
+      
+            body {
+                 background-color: #1248a5;  
+                 }
+            .box 
+            {     
+               
+              margin: auto;
+              width: 70%;
+              padding: 2px;
+              background: rgba(0,0,0,.5);
+              box-sizing: border-box;
+              box-shadow: 0 15px 25px rgba(2,2,2,.3);
+              border-radius: 10px;
+                }
+                .box h1 {
+                       
+                        color: #fff;
+                        text-align: center;
+                    }
+                    
+                .box  input {
+                      width: 100%;
+                      padding: 5px 0;
+                      font-size: 1.2em;
+                      color: #fff;
+                      margin-bottom: 5px;
+                      border: none;
+                      border-bottom: 1px solid #fff;
+                      outline: none;
+                      background:transparent;
+                  }
+
+                   .box label
+                   {
+                      padding: 2px 5px;
+                      font-size: 1.2em;
+                      color: #fff;
+                      transition: .5s; 
+                    }
+
+                    .box .check-container
+                   {
+                     padding: 3px;
+                     background: #fff;
+                     border-radius: 5px;
+                    }
+                    
+                    .box .form-check label
+                   {
+                    color: black;
+                    }
+                    .box .form-check input
+                   {
+                     height: 25px;
+                    width: 25px;
+                    background-color: #eee;
+                    }
+        </style>
+<div class="box">
   <div class="container">
     <div class="row">
-      <div class="col-12">
-        <h1>Insert New Apartment: (create userApartments)</h1>
+      <div class="col-10">
+        <h1>Inserisci un nuovo appartamento</h1>
       </div>
-      <div class="col-12">
+      <div class="col-10">
 
       </div>
-      <div class="col-12">
+      <div class="col-10 offset-1">
         <form  method="post" class="addApartForm" enctype="multipart/form-data">
 
           <div class="form-group">
@@ -61,16 +122,19 @@
               data-parsley-range-message="exceed the maximum limit" />
           </div>
 
-          <div class="form-group">
-            @foreach ($configs as $config)
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="configs_id[]" value="{{ $config->id }}">
-                    <label class="form-check-label">
-                        {{ $config->service }}
-                    </label>
-                </div>
-            @endforeach
-          </div>
+          <div class="check-container">
+            <div class="form-group">
+              @foreach ($configs as $config)
+                  <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="configs_id[]" value="{{ $config->id }}">
+                      <label class="form-check-label">
+                          {{ $config->service }}
+                      </label>
+                  </div>
+              @endforeach
+            </div>
+         </div>
+          
 
           <div class="form-group">
             <label for="show">Rendi l'annuncio visibile a tutti?</label>
@@ -89,5 +153,5 @@
 
     </div>
   </div>
-
+</div>
 @endsection

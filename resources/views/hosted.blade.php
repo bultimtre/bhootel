@@ -9,7 +9,8 @@
       
             body {
                 margin: 0;
-                background-color: #1248a5;
+                padding: 0;
+               background-color: #1248a5; 
                  }
             .box 
             {       
