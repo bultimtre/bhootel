@@ -51888,7 +51888,7 @@ function addNewApart(formData) {
   $.ajax({
     url: url,
     enctype: 'multipart/form-data',
-    type: "POST",
+    type: "GET",
     headers: {
       'X-CSRF-TOKEN': CSRF_TOKEN
     },
@@ -52031,7 +52031,8 @@ module.exports = {
         'opacity': '1'
       });
     });
-  }
+  } //
+
 };
 
 /***/ }),
@@ -52043,7 +52044,7 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\n\r\n@import 'components/input_number.scss';\r\n       ^\r\n      Can't find stylesheet to import.\n   ╷\n16 │ @import 'components/input_number.scss';\r\n   │         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n  stdin 16:9  root stylesheet\r\n      in C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\resources\\sass\\app.scss (line 16, column 9)\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\webpack\\lib\\NormalModule.js:316:20\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass-loader\\dist\\index.js:89:7\n    at Function.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:56230:16)\n    at _render_closure1.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:34691:12)\n    at _RootZone.runBinary$3$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20227:18)\n    at _RootZone.runBinary$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20231:19)\n    at _FutureListener.handleError$1 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18696:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18984:40)\n    at Object._Future__propagateToListeners (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3500:88)\n    at _Future._completeError$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18820:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18219:12)\n    at Object._asyncRethrow (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3256:17)\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:10615:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3279:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18240:12)\n    at _awaitOnObject_closure0.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18232:25)\n    at _RootZone.runBinary$3$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20227:18)\n    at _RootZone.runBinary$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20231:19)\n    at _FutureListener.handleError$1 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18696:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18984:40)\n    at Object._Future__propagateToListeners (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3500:88)\n    at _Future._completeError$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18820:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18219:12)\n    at Object._asyncRethrow (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3256:17)\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:12510:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3279:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18240:12)\n    at _awaitOnObject_closure0.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18232:25)\n    at _RootZone.runBinary$3$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20227:18)\n    at _RootZone.runBinary$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20231:19)\n    at _FutureListener.handleError$1 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18696:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18984:40)\n    at Object._Future__propagateToListeners (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3500:88)");
 
 /***/ }),
 
@@ -52054,8 +52055,8 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Volumes/HDD-WORK/WORKS/2020/01_BOOLEAN CARRERS/CORSO/finalproject/bhootel/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\vigli\Desktop\Teamtre\bhootel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\vigli\Desktop\Teamtre\bhootel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
