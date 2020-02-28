@@ -1,81 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Checkout</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <style>
-      
-            body {
-                margin: 0;
-                padding: 0;
-               background-color: #1248a5; 
-                 }
-            .box 
-            {       
-              margin: auto;
-              width: 70%;
-              padding: 2px;
-              background: rgba(0,0,0,.5);
-              box-sizing: border-box;
-              box-shadow: 0 15px 25px rgba(2,2,2,.3);
-              border-radius: 10px;
-                }
-                .box h2 {
-                       
-                        color: #fff;
-                        text-align: center;
-                    }
-                    
-                .box  input {
-                      width: 100%;
-                      padding: 5px 0;
-                      font-size: 1.2em;
-                      color: #fff;
-                      margin-bottom: 5px;
-                      border: none;
-                      border-bottom: 1px solid #fff;
-                      outline: none;
-                      background:transparent;
-                  }
+@extends('layouts.base')
+@section('hosted')
 
-                   .box label
-                   {
-                      padding: 2px 5px;
-                      font-size: 1.2em;
-                      color: #fff;
-                   
-                      transition: .5s; 
-                    }
-
-                    .box input:focus ~ label,
-                    .boxx input:valid ~ label {
-                        top: -20px;
-                        left: 0;
-                        color: #03a9f4;
-                        font-size: 10px;
-                    }
-            .spacer {
-                margin-bottom: 24px;
-            }
-            .box #card-number, #cvv, #expiration-date {
-                background: white;
-                height: 35px;
-                border: 1px solid #CED4DA;
-                padding: 5px 5px;
-                border-radius: 10px;
-            }
-        </style>
-  </head>
-  <body>
-  <p>{{(Request::get('ads'))}}</p>
- <div class="box">
-      <div class="container">
-            <div class="col-md-6 offset-md-3">
-                <h2>Payment Form</h2>
+<main class="main-payment">
+<p>{{(Request::get('ads'))}}</p>
+    <div class="payment col-7 col-xl-5 m-auto">
+        <div class="payment__wrap p-4" style="border: 1px solid red">
+                <h2 class="text-center">Payment Form</h2>
                 <div class="spacer"></div>
-              
+
                 <form action="{{route('payment.make',[$apartment ->id,Request::get('ads')])}}" method="POST" id="my-sample-form">
                         @csrf
                         @method('POST')
@@ -177,25 +109,30 @@
 
                         <div class="spacer"></div>
 
-                        <input id="nonce" name="payment_method_nonce" type="hidden" />
-                        <button type="submit" class="btn btn-success">Submit Payment</button>
+                        <div class="text-right">
+                            <input id="nonce" name="payment_method_nonce" type="hidden" />
+                            <button type="submit" class="btn btn-success bh-btn-success" >Submit Payment</button>
+                        </div>
                     </form>
                     </div>
-        </div>
-        </div>
-    <script src="https://js.braintreegateway.com/web/3.57.0/js/client.min.js"></script>
-    <script src="https://js.braintreegateway.com/web/3.57.0/js/hosted-fields.min.js"></script>
-    
-    <script>
-      var form = document.querySelector('#my-sample-form');
-      var submit = document.querySelector('input[type="submit"]');
 
-      braintree.client.create({
+    </div>
+</main>
+
+<script src="https://js.braintreegateway.com/web/3.57.0/js/client.min.js"></script>
+<script src="https://js.braintreegateway.com/web/3.57.0/js/hosted-fields.min.js"></script>
+<script>
+    var form = document.querySelector('#my-sample-form');
+    var submit = document.querySelector('input[type="submit"]');
+
+    braintree.client.create({
         authorization: 'sandbox_24rsfnxv_8w4hz737npfm33s6'
-      }, function (clientErr, clientInstance) {
+    },
+
+    function (clientErr, clientInstance) {
         if (clientErr) {
-          console.error(clientErr);
-          return;
+        //console.error(clientErr);
+        return;
         }
 
         // This example shows Hosted Fields, but you can also use this
@@ -203,60 +140,61 @@
         // PayPal or Data Collector.
 
         braintree.hostedFields.create({
-          client: clientInstance,
-          styles: {
+        client: clientInstance,
+        styles: {
             'input': {
-              'font-size': '14px'
+            'font-size': '14px'
             },
             'input.invalid': {
-              'color': 'red'
+            'color': 'red'
             },
             'input.valid': {
-              'color': 'green'
+            'color': 'green'
             }
-          },
-          fields: {
+        },
+        fields: {
             number: {
-              selector: '#card-number',
-              placeholder: '4111 1111 1111 1111'
+            selector: '#card-number',
+            placeholder: '4111 1111 1111 1111'
             },
             cvv: {
-              selector: '#cvv',
-              placeholder: '123'
+            selector: '#cvv',
+            placeholder: '123'
             },
             expirationDate: {
-              selector: '#expiration-date',
-              placeholder: '12/2020'
+            selector: '#expiration-date',
+            placeholder: '12/2020'
             }
-          }
-        }, function (hostedFieldsErr, hostedFieldsInstance) {
-          if (hostedFieldsErr) {
-            console.error(hostedFieldsErr);
+        }
+        },
+        function (hostedFieldsErr, hostedFieldsInstance) {
+        if (hostedFieldsErr) {
+            //console.error(hostedFieldsErr);
             return;
-          }
+        }
 
-          //submit.removeAttribute('disabled');
+        //submit.removeAttribute('disabled');
 
-          form.addEventListener('submit', function (event) {
+        form.addEventListener('submit', function (event) {
             event.preventDefault();
 
             hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
-              if (tokenizeErr) {
+            if (tokenizeErr) {
                 console.error(tokenizeErr);
                 return;
-              }
-            
-              // If this was a real integration, this is where you would
-              // send the nonce to your server.
-                 document.querySelector('#nonce').value = payload.nonce;
+            }
+
+            // If this was a real integration, this is where you would
+            // send the nonce to your server.
+                document.querySelector('#nonce').value = payload.nonce;
                 form.submit();
-              //console.log('Got a nonce: ' + payload.nonce);
-            
+            //console.log('Got a nonce: ' + payload.nonce);
+
             });
-          }, false);
+        }, false);
         },);
-      });
-    </script>
-    
-  </body>
-</html>
+    });
+</script>
+
+
+@endsection

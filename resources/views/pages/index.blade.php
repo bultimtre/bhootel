@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    
+
 
     {{-- carousel --}}
     <div class="position-relative w-100" style="height:300px">
@@ -62,9 +62,10 @@
                 <div class="wrapper">
                     <img  class ="card-img-top w-100" src='{{asset ($apartment -> image) }}'/>
                     <div class="card-body w-100" style="">
+                        <p class="card-text"  style="height:80px; overflow-y:hidden">{{$apartment -> title}}</p>
                         <p class="card-text"  style="height:80px; overflow-y:hidden">{{$apartment -> description}}</p>
                         <div class="d-flex justify-content-end">
-                        
+
                         <a class="btn btn-primary" href="{{route (Auth::user() ? 'user-apt.show' :'guest-apt.show', $apartment -> id )}}"> Più informazioni</a>
                         </div>
                     </div>
