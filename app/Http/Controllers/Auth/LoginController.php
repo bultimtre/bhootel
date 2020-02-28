@@ -34,14 +34,15 @@ class LoginController extends Controller
      //temp route
     //protected $redirectTo = RouteServiceProvider::USER;
 
-    public function showLoginForm($status)
-    {
-        //dd($status);
-        return view('auth.login', compact('status'));
+    public function showLoginForm()
+    {/* , compact('status') */
+        return view('auth.login');
     }
+
 
     public function redirectTo(){
 
+        //dd(Auth::guard()->getRequest());
         $status = Auth::guard()->getRequest()->status;
         if($status == 'upr'){
             return '/user/user-panel';

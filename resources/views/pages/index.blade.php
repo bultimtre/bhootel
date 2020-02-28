@@ -4,6 +4,9 @@
 @include('components.header')
 
 <main>
+    @php
+        $now = date('Y-m-d H:i:s');
+    @endphp
 
     {{-- navbarbar --}}
     <div class="container-fluid wrapper main">
@@ -15,25 +18,29 @@
         </div>
     </div>
 
+    
+
     {{-- carousel --}}
     <div class="position-relative w-100" style="height:300px">
         <div id="carouselExampleIndicators" class="carousel col-9 slide m-auto position-absolute" style="top:calc(0% - 100px); left:50%; transform:translateX(-50%)" data-ride="carousel">
             <div class="carousel-inner">
-                @foreach ($adApts->chunk(3) as $key => $chunk)
+                @foreach ($adApts -> chunk(3) as $key => $chunk)
                     <div class="carousel-item {{$key == 0 ? 'active' : '' }}">
                         <div class="d-flex justify-content-center">
                             @foreach ($chunk as $apt)
-                                <div class="card flex-row" style="margin:20px; width:25%">
-                                    <div class="wrapper">
-                                        <img  class ="card-img-top w-100" src='{{asset ($apt -> image) }}'/>
-                                        <div class="card-body w-100" style="">
-                                            <p class="card-text"  style="height:80px; overflow-y:hidden">{{$apt -> description}}</p>
-                                            <div class="d-flex justify-content-end">
-                                            <a class="btn btn-primary" href="{{route (Auth::user() ? 'user-apt.show' :'guest-apt.show', $apt -> id )}}"> Più informazioni</a>
+                                @if($apt -> ads_expired > $now)
+                                    <div class="card flex-row" style="margin:20px; width:25%">
+                                        <div class="wrapper">
+                                            <img  class ="card-img-top w-100" src='{{asset ($apt -> image) }}'/>
+                                            <div class="card-body w-100" style="">
+                                                <p class="card-text"  style="height:80px; overflow-y:hidden">{{$apt -> description}}</p>
+                                                <div class="d-flex justify-content-end">
+                                                <a class="btn btn-primary" href="{{route (Auth::user() ? 'user-apt.show' :'guest-apt.show', $apt -> id )}}"> Più informazioni</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             @endforeach
                         </div>
                     </div>

@@ -78,11 +78,9 @@
               
                 <form action="{{route('payment.make',[$apartment ->id,Request::get('ads')])}}" method="POST" id="my-sample-form">
                         @csrf
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" class="inputBox" id="email">
-                            
-                        </div>
+                        @method('POST')
+                        <label for="email" class="col-md-4 col-form-label">Indirizzo Email</label>
+                        <input type="email" class="form-control  @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" name="email" value="{{ Auth::user() -> email }}" required autocomplete="off">
 
                         <div class="form-group">
                             <label for="name_on_card">Name on Card</label>
