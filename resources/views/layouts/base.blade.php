@@ -20,6 +20,7 @@
 		@yield('login')
 		@yield('register')
 		@yield('apt-show')
-		@yield('new-apt-upa')
+        @yield('new-apt-upa')
+        @yield('hosted')
 	</body>
 </html>
