@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Config;
-use App\Stat;
-use App\Message;
-use App\User;
-use App\Ad;
 
+use App\Ad;
 use App\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\Inline\Element\Code;
-
 
 class UserController extends Controller
 {
@@ -210,3 +206,9 @@ class UserController extends Controller
     }
     //commento provv
 }
+
+
+//use League\CommonMark\Inline\Element\Code;
+//use App\Stat;
+//use App\Message;
+//use App\User;

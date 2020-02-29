@@ -144,37 +144,19 @@
                                         </ul>
                                     </td>
                                     <td colspan="option">
-                                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#promo{{$apartment->id}}" aria-expanded="false" aria-controls="collapseExample">
+                                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#paypal">
                                             <i class="fab fa-paypal"></i>
                                         </button>
-                                        <div class="collapse" id="promo{{$apartment->id}}">
-                                            <form action="">
-                                                <ul>
-                                                    <li>
-                                                        <label for="price-a">2.99</label>
-                                                        <input type="radio" name="price" id="price-a" value="2.99">
-                                                    </li>
-                                                    <li>
-                                                        <label for="price-b">5.99</label>
-                                                        <input type="radio" name="price" id="price-b" value="5.99">
-                                                    </li>
-                                                    <li>
-                                                        <label for="price-b">6.99</label>
-                                                        <input type="radio" name="price" id="price-c" value="6.99">
-                                                    </li>
-                                                </ul>
-                                            </form>
-                                        </div>
 
-                                        <button type="button" class="btn btn-primary show-hide mb-3" data-toggle="button" aria-pressed="false" autocomplete="off">
-                                            Nascondi appartamento
+                                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#show-hide">
+                                           <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
 
-                                        <form action=" {{route('user-apt.destroy', $apartment->id)}} " method="GET">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="submit" value="Elimina" class="btn btn-lg btn-danger">
-                                        </form>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal" data-delid="{{$apartment->id}}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+
+                                        <a href="{{route('user-apt.edit', $apartment->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
 
                                     </td>
                                 </tr>
@@ -369,11 +351,110 @@
                 </div>
             </div>
         </div>
+        <div class="delete-item modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal" aria-hidden="true">
+            <div class="d-flex w-100 h-100 align-items-center">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title px-5" id="exampleModalLabel">Confermi di voler eliminare l'appartamento?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body d-flex flex-row justify-content-center">
+                            <form action=" {{route('user-apt.destroy', $apartment->id)}} " method="GET">
+                                @csrf
+                                @method('DELETE')
+                                <div class="card d-flex flex-row border-0">
+                                    <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">Annulla</span>
+                                    </button>
+                                    <div class="spacer mx-2"></div>
+                                    <button type="submit" id="delThisApt" name="del_apart" value="" class="btn btn-danger">Elimina</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="paypal modal fade" id="paypal" tabindex="-1" role="dialog" aria-labelledby="paypal" aria-hidden="true">
+            <div class="d-flex w-100 h-100 align-items-center">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title px-5" id="exampleModalLabel">Scegli L'offerta</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body d-flex flex-row justify-content-center">
+                            <div id="promo{{$apartment->id}}">
+                                <form action="">
+                                    <ul>
+                                        <li>
+                                            <label for="price-a">2.99</label>
+                                            <input type="radio" name="price" id="price-a" value="2.99">
+                                        </li>
+                                        <li>
+                                            <label for="price-b">5.99</label>
+                                            <input type="radio" name="price" id="price-b" value="5.99">
+                                        </li>
+                                        <li>
+                                            <label for="price-b">6.99</label>
+                                            <input type="radio" name="price" id="price-c" value="6.99">
+                                        </li>
+                                    </ul>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="show-hide modal fade" id="show-hide" tabindex="-1" role="dialog" aria-labelledby="show-hide" aria-hidden="true">
+            <div class="d-flex w-100 h-100 align-items-center">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title px-5" id="exampleModalLabel">Confermi di voler eliminare l'appartamento?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body d-flex flex-column justify-content-center">
+                            <p>
+                                Vuoi davvero nascondere l'appartamento dalla lista degli appartamenti?
+                                Ricordati di cliccare sull'occhiolino se vorrai mostrare nuovamente il tuo appartamento.
+                                Questa azione avrà effetto anche se il tuo appartamento è sponsorizzato!
+                            </p>
+                            <div class="buttons text-right">
+                                <button class="btn btn-danger">Procedi</button>
+                                <button class="btn btn-success">Annulla</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
 
 </main>
+
+
+
+<script>
+    $('#delete-modal').on('shown.bs.modal', function(evt) {
+        var delButton = $(evt.relatedTarget);
+        var idToDel = delButton.data('delid')
+        console.log(idToDel);
+        var delModal = $(this);
+        delModal.find(".modal-body #delThisApt").val(idToDel)
+
+})
+</script>
 
 @include('components.footer')
 @endsection

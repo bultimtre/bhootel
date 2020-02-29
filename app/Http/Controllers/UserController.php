@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Config;
 
+use App\Ad;
 use App\Apartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,37 +18,14 @@ class UserController extends Controller
         $this -> middleware('auth');
     }
 
-
-    /*  public function index()
-     {
-         //return if logged
-        $apartments= Apartment::orderBy('id', 'DESC')->paginate(10);
-        return view('pages.index', compact('apartments'));
-    } */
-
-
-    public function search(Request $request)
+    public function show(Request $request, $id)
     {
-        dd();
-        $data = $request -> all();
-        $result = strtolower($data['search_field']);
-        $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
-        return view('pages.search',compact('apartments', 'result'));
-    }
 
-
-    // public function show($id)
-    // {
-    //     $apartment= Apartment::findOrFail($id);
-    //     return view('pages.show',compact('apartment'));
-    // }
-
-    //nuova show per view count
-        public function show(Request $request, $id)
-    {
         $apartment= Apartment::findOrFail($id);
+        $ads = Ad::all();
         $apartment -> viewsCount($request, $id, $apartment);
-        return view('pages.show',compact('apartment'));
+
+        return view('pages.show',compact('apartment','ads'));
     }
 
 
@@ -63,11 +41,10 @@ class UserController extends Controller
 
     public function store(Request $request) {
 
-
         // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'title '=> 'required|max:850',
+            'title' => 'required|max:850',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -108,7 +85,8 @@ class UserController extends Controller
 
             return Response()->json([
                 "success" => true,
-                "description" => $validateApartmentData['description']
+                "description" => $validateApartmentData['description'],
+                "apart_id" => $apartment->id
             ]);
 
         }
@@ -134,8 +112,8 @@ class UserController extends Controller
         // return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'id' => 'required|exists:apartments,id',
-            'title' => 'required|max:850',
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'title' => 'required|max:850',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -174,7 +152,8 @@ class UserController extends Controller
 
             return Response()->json([
                 "success" => true,
-                "description" => $validateApartmentData['description']
+                "description" => $validateApartmentData['description'],
+                "apart_id" => $apartment->id
             ]);
         }
 
@@ -187,24 +166,62 @@ class UserController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        //dd($request->del_apart);
+        $id = $request->del_apart;
         $apartment = Apartment::findOrFail($id);
         $apartment->configs()->sync([]);
         $apartment->delete();
-
-        return redirect()->route('all.index');// nuova modifica
+        return back();
+        //return redirect()->route('all.index');// nuova modifica
     }
-
-
-
-
 
     public function userPanel()
     {
         $user = Auth::user();
+        $countMsg = 0;
+        $allAdsApt = collect([]);;
+        $allMsgsApt = collect([]);
         $apartments = $user -> apartments() -> get();
+        $countHide = $apartments->where('show','=', 0);
+        foreach ($apartments as $apartment) {
+            $countMsg += $apartment->messages()->count();
+            if (($apartment->messages()->where('apartment_id', '=', $apartment->id))->exists()) {
+                $allMsgsApt->push(
+                    $apartment->messages()->where('apartment_id', '=', $apartment->id)->get()
+                );
+            };
+            foreach ($apartment->ads as $ad) {
+                $adsActive = $ad->pivot->expire_date;
+                $allAdsApt->push(
+                    $adsActive
+                );
 
-        return view('pages.user.user-panel', compact('apartments'));
+            }
+        };
+
+
+        $$allMsgsApt = collect([['number' => 1],['number' => 2],['number' => 3]]);
+        $$allMsgsApt->all();
+        return view('pages.user.user-panel', compact('apartments', "countMsg",'allMsgsApt','countHide','allAdsApt'));
     }
+
+    /* public function search(Request $request)
+    {
+        dd();
+        $data = $request -> all();
+        $result = strtolower($data['search_field']);
+        $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
+        return view('pages.search',compact('apartments', 'result'));
+    } */
+
+
+    // public function show($id)
+    // {
+    //     $apartment= Apartment::findOrFail($id);
+    //     return view('pages.show',compact('apartment'));
+    // }
+
 }
+

@@ -23,6 +23,7 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
@@ -84,8 +85,9 @@ function getCoordByAddress(e) {
 }
 // send Apartment data with coord to UserApartmentsController@store
 function addNewApart(formData) {
-    var urlStore = "http://localhost:8000/user/store";
-    var urlUpdate = "http://localhost:8000/user/update-apt/";
+    var locURL = window.location.origin
+    var urlStore = locURL +"/user/store";
+    var urlUpdate = locURL +"/user/update-apt/";
     var url = formData.has('id') ? urlUpdate : urlStore;
     $.ajax({
         url: url,
@@ -98,7 +100,7 @@ function addNewApart(formData) {
         ,
         success: function (data) {
             console.log("data", data);
-            window.location.href = 'http://localhost:8000'; //redirect finito create
+            window.location.href = locURL + "/user/apartment/" + data.apart_id;  //redirect finito create
         },
         cache: false,
         contentType: false,
@@ -169,3 +171,7 @@ function init() {
         getApartMap();
     }
 };
+
+$(document).ready(init);
+
+
