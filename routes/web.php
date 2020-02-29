@@ -55,7 +55,7 @@ Route::post('/user/update-apt/', 'UserController@update') -> name('user-apt.upda
 Route::get('/user/create-apt', 'UserController@create') -> name('user-apt.create');
 Route::post('/user/store', 'UserController@store') -> name('user.store');
 
-Route::get('/user/destroy-apt/{id}', 'UserController@destroy') -> name('user-apt.destroy');
+Route::get('/user/destroy-apt', 'UserController@destroy') -> name('user-apt.destroy');
 
 Route::get('/user/user-panel', 'UserController@userPanel') -> name('user.user-panel');
 

@@ -51802,14 +51802,11 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // import parsleyjs for front-end validation
 
 
-__webpack_require__(/*! parsleyjs */ "./node_modules/parsleyjs/dist/parsley.js");
-
-var funct = __webpack_require__(/*! ./components/style.js */ "./resources/js/components/style.js"); //import validation
+__webpack_require__(/*! parsleyjs */ "./node_modules/parsleyjs/dist/parsley.js"); //import validation
 //require('./validation.js');
 
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-//import tom tom maps
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); //import tom tom maps
 //import tt from '@tomtom-international/web-sdk-maps';
 
 /**
@@ -51821,12 +51818,16 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+// const app = new Vue({
+//     el: '#app',
+// });
 
 var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'); //Refers to form http://localhost:8000/user/aparts/create
@@ -51882,21 +51883,20 @@ function getCoordByAddress(e) {
 
 function addNewApart(formData) {
   var locURL = window.location.origin;
-  var urlStore = locURL + "/user/store/";
+  var urlStore = locURL + "/user/store";
   var urlUpdate = locURL + "/user/update-apt/";
   var url = formData.has('id') ? urlUpdate : urlStore;
   $.ajax({
     url: url,
     enctype: 'multipart/form-data',
-    type: "GET",
+    type: "POST",
     headers: {
       'X-CSRF-TOKEN': CSRF_TOKEN
     },
     data: formData,
     success: function success(data) {
-      console.log("data_store", data); // window.location.href = locURL; //redirect finito create
-
-      window.location.href = locURL + "/user/apartment/" + data.apart_id; //redirect finito create to apartment show
+      console.log("data", data);
+      window.location.href = locURL + "/user/apartment/" + data.apart_id; //redirect finito create
     },
     cache: false,
     contentType: false,
@@ -51945,12 +51945,6 @@ function getApartMap() {
 }
 
 function init() {
-  if ($('#app-search').length) {
-    var appSearch = new Vue({
-      el: '#app-search'
-    });
-  }
-
   if ($('.addApartForm').length) {
     formApartValidation();
   }
@@ -51960,12 +51954,10 @@ function init() {
   if ($('#apart-map').length) {
     getApartMap();
   }
-
-  funct.buttonChange();
 }
 
 ;
-$(document).ready(init); //
+$(document).ready(init);
 
 /***/ }),
 
@@ -52014,29 +52006,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/components/style.js":
-/*!******************************************!*\
-  !*** ./resources/js/components/style.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = {
-  buttonChange: function buttonChange() {
-    $(".show-hide").click(function () {
-      $(this).text($(this).text() == 'Mostra negli annunci' ? 'Nascondi dagli annunci' : 'Mostra negli annunci');
-      $(this).css('opacity') === '1' ? $(this).css({
-        'opacity': '0.3'
-      }) : $(this).css({
-        'opacity': '1'
-      });
-    });
-  } //
-
-};
-
-/***/ }),
-
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -52044,7 +52013,7 @@ module.exports = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\n\r\n@import 'components/input_number.scss';\r\n       ^\r\n      Can't find stylesheet to import.\n   ╷\n16 │ @import 'components/input_number.scss';\r\n   │         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n   ╵\n  stdin 16:9  root stylesheet\r\n      in C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\resources\\sass\\app.scss (line 16, column 9)\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\webpack\\lib\\NormalModule.js:316:20\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass-loader\\dist\\index.js:89:7\n    at Function.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:56230:16)\n    at _render_closure1.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:34691:12)\n    at _RootZone.runBinary$3$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20227:18)\n    at _RootZone.runBinary$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20231:19)\n    at _FutureListener.handleError$1 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18696:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18984:40)\n    at Object._Future__propagateToListeners (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3500:88)\n    at _Future._completeError$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18820:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18219:12)\n    at Object._asyncRethrow (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3256:17)\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:10615:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3279:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18240:12)\n    at _awaitOnObject_closure0.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18232:25)\n    at _RootZone.runBinary$3$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20227:18)\n    at _RootZone.runBinary$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20231:19)\n    at _FutureListener.handleError$1 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18696:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18984:40)\n    at Object._Future__propagateToListeners (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3500:88)\n    at _Future._completeError$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18820:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18219:12)\n    at Object._asyncRethrow (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3256:17)\n    at C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:12510:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3279:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18240:12)\n    at _awaitOnObject_closure0.call$2 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18232:25)\n    at _RootZone.runBinary$3$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20227:18)\n    at _RootZone.runBinary$3 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:20231:19)\n    at _FutureListener.handleError$1 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18696:19)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:18984:40)\n    at Object._Future__propagateToListeners (C:\\Users\\vigli\\Desktop\\Teamtre\\bhootel\\node_modules\\sass\\sass.dart.js:3500:88)");
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 

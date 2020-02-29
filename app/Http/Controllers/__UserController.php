@@ -41,10 +41,10 @@ class UserController extends Controller
 
     public function store(Request $request) {
 
-        // return Response()->json($request); //debug
+        return Response()->json($request); //debug
         $validateApartmentData = $request -> validate([
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'title' => 'required|max:850',
+            'title' => 'required|max:80',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -113,7 +113,7 @@ class UserController extends Controller
         $validateApartmentData = $request -> validate([
             'id' => 'required|exists:apartments,id',
             'imagefile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'title' => 'required|max:850',
+            'title' => 'required|max:80',
             'description' => 'required|max:850',
             'address' => 'required|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -166,15 +166,13 @@ class UserController extends Controller
     }
 
 
-    public function destroy(Request $request)
+    public function destroy($id)
     {
-        //dd($request->del_apart);
-        $id = $request->del_apart;
         $apartment = Apartment::findOrFail($id);
         $apartment->configs()->sync([]);
         $apartment->delete();
-        return back();
-        //return redirect()->route('all.index');// nuova modifica
+
+        return redirect()->route('all.index');// nuova modifica
     }
 
     public function userPanel()
@@ -206,22 +204,11 @@ class UserController extends Controller
         $$allMsgsApt->all();
         return view('pages.user.user-panel', compact('apartments', "countMsg",'allMsgsApt','countHide','allAdsApt'));
     }
-
-    /* public function search(Request $request)
-    {
-        dd();
-        $data = $request -> all();
-        $result = strtolower($data['search_field']);
-        $apartments = Apartment::where('address', 'LIKE',strtolower('%'.$result.'%'))->get();
-        return view('pages.search',compact('apartments', 'result'));
-    } */
-
-
-    // public function show($id)
-    // {
-    //     $apartment= Apartment::findOrFail($id);
-    //     return view('pages.show',compact('apartment'));
-    // }
-
+    //commento provv
 }
 
+
+//use League\CommonMark\Inline\Element\Code;
+//use App\Stat;
+//use App\Message;
+//use App\User;

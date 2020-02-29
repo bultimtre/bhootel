@@ -2,14 +2,14 @@
 
 @section('content')
 
- <style>
-      
+<style>
+
             body {
-                 background-color: #1248a5;  
+                 background-color: #1248a5;
                  }
-            .box 
-            {     
-               
+            .box
+            {
+
               margin: auto;
               width: 70%;
               padding: 2px;
@@ -19,11 +19,11 @@
               border-radius: 10px;
                 }
                 .box h1 {
-                       
+
                         color: #fff;
                         text-align: center;
                     }
-                    
+
                 .box  input {
                       width: 100%;
                       padding: 5px 0;
@@ -41,7 +41,7 @@
                       padding: 2px 5px;
                       font-size: 1.2em;
                       color: #fff;
-                      transition: .5s; 
+                      transition: .5s;
                     }
 
                     .box .check-container
@@ -50,7 +50,7 @@
                      background: #fff;
                      border-radius: 5px;
                     }
-                    
+
                     .box .form-check label
                    {
                     color: black;
@@ -61,7 +61,8 @@
                     width: 25px;
                     background-color: #eee;
                     }
-        </style>
+</style>
+
 <div class="box">
   <div class="container">
     <div class="row">
@@ -84,7 +85,7 @@
               <input value="" id="apart-title" class="form-control" name="title" type="text" placeholder="Inserisci titolo"
               required data-parsley-maxlength="80" data-parsley-trigger="keyup"/>
           </div>
-          
+
           <div class="form-group">
               <label for="description">Descrizione</label>
               <input value="" id="apart-description" class="form-control" name="description" type="text" placeholder="Inserisci descrizione"
@@ -134,7 +135,7 @@
               @endforeach
             </div>
          </div>
-          
+
 
           <div class="form-group">
             <label for="show">Rendi l'annuncio visibile a tutti?</label>

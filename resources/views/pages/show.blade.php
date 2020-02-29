@@ -1,4 +1,3 @@
-
 @extends('layouts.base')
 @section('apt-show')
 @include('components.header')
@@ -18,19 +17,19 @@
                 @guest
                     <p style="border:1px solid red"><a class="btn btn-lg btn-primary plus-info" href="#plus-info" data-scroll="plus-info" role="button">Chiedi Informazioni</a></p>
                 @endguest
-                {{-- @auth
+                @auth
                 @if (Auth::user() -> id == $apartment -> user -> id)
                     <p><a class="btn btn-lg btn-primary" href="{{route('user-apt.edit', $apartment->id)}}" role="button">Modifica</a></p>
 
-                    <form action=" {{route('user-apt.destroy', $apartment->id)}} " method="GET">
+                    <form action=" {{route('user-apt.destroy')}} " method="GET">
                         @csrf
                         @method('DELETE')
-                        <input type="submit" value="Elimina" class="btn btn-lg btn-danger">
+                        <input type="submit" name="del_apart" value="{{$apartment->id}}" class="btn btn-lg btn-danger">
                     </form>
-                @else
+               @else
                     <p><a class="btn btn-lg btn-primary" href="{{route('guest-apt.show', $apartment->id)}}" role="button">Chiedi Informazioni</a></p>
                 @endif
-                @endauth --}}
+                @endauth
             </div>
         </div>
 
@@ -47,6 +46,8 @@
     <div class="col-xl-9 div-colored offset-xl-1 p-0">
         <h1>&#8220; {{ $apartment->title }} &#8221;</h1>
     </div>
+
+    @include('pages.charts')
 
 
     @auth
