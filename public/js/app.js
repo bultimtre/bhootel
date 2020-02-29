@@ -51802,14 +51802,11 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // import parsleyjs for front-end validation
 
 
-__webpack_require__(/*! parsleyjs */ "./node_modules/parsleyjs/dist/parsley.js");
-
-var funct = __webpack_require__(/*! ./components/style.js */ "./resources/js/components/style.js"); //import validation
+__webpack_require__(/*! parsleyjs */ "./node_modules/parsleyjs/dist/parsley.js"); //import validation
 //require('./validation.js');
 
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-//import tom tom maps
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); //import tom tom maps
 //import tt from '@tomtom-international/web-sdk-maps';
 
 /**
@@ -51821,12 +51818,16 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+// const app = new Vue({
+//     el: '#app',
+// });
 
 var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'); //Refers to form http://localhost:8000/user/aparts/create
@@ -51881,9 +51882,8 @@ function getCoordByAddress(e) {
 
 
 function addNewApart(formData) {
-  var locURL = window.location.origin;
-  var urlStore = locURL + "/user/store/";
-  var urlUpdate = locURL + "/user/update-apt/";
+  var urlStore = "http://localhost:8000/user/store";
+  var urlUpdate = "http://localhost:8000/user/update-apt/";
   var url = formData.has('id') ? urlUpdate : urlStore;
   $.ajax({
     url: url,
@@ -51894,9 +51894,8 @@ function addNewApart(formData) {
     },
     data: formData,
     success: function success(data) {
-      console.log("data_store", data); // window.location.href = locURL; //redirect finito create
-
-      window.location.href = locURL + "/user/apartment/" + data.apart_id; //redirect finito create to apartment show
+      console.log("data", data);
+      window.location.href = 'http://localhost:8000'; //redirect finito create
     },
     cache: false,
     contentType: false,
@@ -51945,12 +51944,6 @@ function getApartMap() {
 }
 
 function init() {
-  if ($('#app-search').length) {
-    var appSearch = new Vue({
-      el: '#app-search'
-    });
-  }
-
   if ($('.addApartForm').length) {
     formApartValidation();
   }
@@ -51960,12 +51953,9 @@ function init() {
   if ($('#apart-map').length) {
     getApartMap();
   }
-
-  funct.buttonChange();
 }
 
 ;
-$(document).ready(init); //
 
 /***/ }),
 
@@ -52011,28 +52001,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
-
-/***/ }),
-
-/***/ "./resources/js/components/style.js":
-/*!******************************************!*\
-  !*** ./resources/js/components/style.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = {
-  buttonChange: function buttonChange() {
-    $(".show-hide").click(function () {
-      $(this).text($(this).text() == 'Mostra negli annunci' ? 'Nascondi dagli annunci' : 'Mostra negli annunci');
-      $(this).css('opacity') === '1' ? $(this).css({
-        'opacity': '0.3'
-      }) : $(this).css({
-        'opacity': '1'
-      });
-    });
-  }
-};
 
 /***/ }),
 

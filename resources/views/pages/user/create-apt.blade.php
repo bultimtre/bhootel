@@ -171,7 +171,6 @@
       </div>
       <div class="col-12">
         <form  method="post" class="addApartForm" enctype="multipart/form-data">
-            @csrf
 
           <div class="form-group">
             <label for="formControlFile1">Inserisci immagine</label>
@@ -179,13 +178,14 @@
           </div>
 
           <div class="form-group">
-              <label for="description">title</label>
-              <input value="" id="apart-title" class="form-control" name="title" type="text" placeholder="Inserisci un breve titolo descrittivo"
+              <label for="title">Titolo</label>
+              <input value="" id="apart-title" class="form-control" name="title" type="text" placeholder="titolo"
               required data-parsley-maxlength="850" data-parsley-trigger="keyup"/>
           </div>
+
           <div class="form-group">
               <label for="description">Description</label>
-              <input value="" id="apart-desc" class="form-control" name="description" type="text" placeholder="Inserisci titolo"
+              <input value="" id="apart-title" class="form-control" name="description" type="text" placeholder="Inserisci descrizione"
               required data-parsley-maxlength="850" data-parsley-trigger="keyup"/>
           </div>
 
