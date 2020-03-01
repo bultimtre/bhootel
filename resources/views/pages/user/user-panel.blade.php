@@ -74,13 +74,13 @@
                 <div class="panel_right-cards--apts p-4 mx-sm-4">
                     <div class="card">
                         <div class="card-title">MESSAGGI</div>
-                        <h2>{{$countMsg}}</h2>
+                        <h2>{{$countMsg}}
                     </div>
                 </div>
                 <div class="panel_right-cards--views p-4 mx-sm-4">
                     <div class="card">
                         <div class="card-title">IN VETRINA</div>
-                        <h2>{{$allAdsApt->count()}}</h2>
+                        <h2>{{$activeCount->count()}}</h2>
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@
                                                     <i class="fa fa-credit-card" aria-hidden="true"></i>
                                                 </button>
 
-                                                <button type="button" class="btn btn-primary btn-eye mr-3" data-toggle="modal" data-target="#show-hide">
+                                                <button type="button" class="btn btn-primary btn-eye mr-3" data-toggle="modal" data-target="#show-hide" style="display:none">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </button>
 
@@ -192,7 +192,9 @@
                                                         <i class="fas fa-envelope    "></i>
                                                     </div>
                                                     <div class="msg-msg">
-                                                        {{$el->body}}
+                                                    <a href="{{route('user-apt.show', $el->apartment_id)}}" style="color:rgb(21, 37, 46)">
+                                                            {{$el->apartment_id}} - {{$el->body}}
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -208,35 +210,36 @@
                         <div class="title">
                             <h5 class="title p-3 mb-0">PROMO ATTIVE</h5>
                         </div>
-                        <table class="table" >
-                            <tbody>
-
+                        <div class="bh-table">
+                            <table class="table" >
+                                <tbody>
                                 @foreach($allAdsApt as $item)
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex">
-                                                <div class="ads-icon px-2">
-                                                    <i class="fas fa-award"></i>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <div class="ads-icon px-2">
+                                                        <i class="fas fa-award"></i>
+                                                    </div>
+                                                    <div class="ads-time activated">
+                                                        attivato il:{{\Carbon\Carbon::create($item)->isoFormat('MM/DD/YYYY')}}
+                                                    </div>
                                                 </div>
-                                                <div class="ads-time activated">
-                                                    attivato il:{{\Carbon\Carbon::create($item)->isoFormat('MM/DD/YYYY')}}
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
+                                            </td>
+                                            <td>
 
-                                            <div class="ads-time expire">
-                                            @if(( \Carbon\Carbon::now())->diffInDays($item, false) < 0)
-                                                stato: SCADUTO
-                                                @else
-                                                stato: ATTIVO
-                                            @endif
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                                <div class="ads-time expire">
+                                                @if(( \Carbon\Carbon::now())->diffInDays($item, false) < 0)
+                                                    stato: SCADUTO
+                                                    @else
+                                                    stato: ATTIVO
+                                                @endif
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

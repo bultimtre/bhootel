@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Config;
-
 use App\Ad;
+
+use App\Config;
 use App\Apartment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use League\CommonMark\Inline\Element\Code;
@@ -187,6 +188,7 @@ class UserController extends Controller
         $countMsg = 0;
         $allAdsApt = collect([]);;
         $allMsgsApt = collect([]);
+        $activeCount = collect([]);
         $apartments = $user -> apartments() -> get();
         $countHide = $apartments->where('show','=', 0);
         $adsTypo =AD::all();
@@ -202,6 +204,11 @@ class UserController extends Controller
                 $allAdsApt->push(
                     $adsActive
                 );
+                if(Carbon::now()->diffInDays($adsActive, false) >= 0){
+                    $activeCount->push(
+                        $adsActive
+                    );
+                }
 
             }
         };
@@ -209,7 +216,13 @@ class UserController extends Controller
 
         $$allMsgsApt = collect([['number' => 1],['number' => 2],['number' => 3]]);
         $$allMsgsApt->all();
-        return view('pages.user.user-panel', compact('apartments', "countMsg",'allMsgsApt','countHide','allAdsApt', 'adsTypo'));
+        return view('pages.user.user-panel', compact(   'apartments',
+                                                        "countMsg",'allMsgsApt',
+                                                        'countHide',
+                                                        'allAdsApt',
+                                                        'adsTypo',
+                                                        'activeCount'
+                                                    ));
     }
 
     /* public function search(Request $request)

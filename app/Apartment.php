@@ -19,6 +19,7 @@ class Apartment extends Model
         'beds',
         'bath',
         'square_mt',
+        'ads_expired',
         'show',
         'views'
     ];

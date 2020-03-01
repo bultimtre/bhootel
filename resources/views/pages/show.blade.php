@@ -6,7 +6,7 @@
 @endphp
 <main class='main-show nav-fix pb-5'>
     <p id="notouchid">{{$apartment->id}}</p>
-    <div class="jumbotron jumbotron-fluid" style="background-image: url('{{asset('/images/sea_4_1920.jpg')}}');">
+    <div class="jumbotron jumbotron-fluid" style="background-image: url('{{asset($apartment->image)}}');">
 
         {{-- status guest/upr/upra --}}
         <div class="container-fluid">
@@ -25,7 +25,7 @@
                     <p> <i class="fas fa-bahai"></i> Il tuo appartamento <br>
                         è visibile in vetrina, <br>non farlo scadere!<br>
                     </p>
-                    <button class="btn btn-danger mt-2" data-toggle="modal" data-target="#payment-modal">Rinnova ora!</button>
+                    <button class="btn btn-danger mt-2" data-toggle="modal" data-target="#payment-modal">più info</button>
                 @else
                     <p> <i class="fas fa-bahai"></i> Rendi il tuo appartamento <br>
                         visibile tra i primi i risultati!<br>

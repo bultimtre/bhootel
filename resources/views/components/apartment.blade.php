@@ -7,7 +7,7 @@
         </div>
         <div class="card__body-wrap d-flex flex-grow-1 py-3 pl-3 pr-0" style="background-color:#f2f2f2">
             <div class="card__body-text d-lg-flex flex-column pr-2">
-                <p class="card__body-title card-text  text-uppercase font-weight-bold m-0 mb-2" >@{{textTrim(25, "QUESTO E' IL TITOLO DELL'APPARTAMENTO")}}</p>
+                <p class="card__body-title card-text  text-uppercase font-weight-bold m-0 mb-2" >@{{textTrim(25, apartment.title)}}</p>
                 <p class="card__body-desc card-text m-0 flex-grow-1">@{{textTrim(50, apartment.description)}}</p>
                 <ul class="card__body-configs list-group list-group-horizontal justify-content-start">
                     <li class="card__body-configs--item list-group-item py-0 pr-2" v-for="aptConfig in apartment.configs"><i :class="aptConfig.icon"></i></li>
@@ -34,7 +34,7 @@
     template: "#apartment",
     data() {
         return {
-            title_trim:'', 
+            title_trim:'',
             state:'far',
             baseUrl: window.location.protocol + "//" + window.location.host + "/",
             auth_user: '',
