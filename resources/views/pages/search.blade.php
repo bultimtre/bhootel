@@ -14,10 +14,10 @@
     <div id="data_search_field" data-search="{{ $search_field }}" data-user="{{ Auth::user() ?  Auth::user()-> id : '' }}"></div>
     <div id="app-search" class="container px-0 pb-0">
 
-      <searchvue />
+      <searchvue/>
     </div>
 
 
 </main>
-@include('components.footer')
+{{-- @include('components.footer') --}}
 @endsection

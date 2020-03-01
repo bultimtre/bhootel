@@ -1,6 +1,9 @@
 @extends('layouts.base')
 @section('user-panel')
 @include('components.header')
+@php
+    $now = date('Y-m-d H:i:s');
+@endphp
 <main class='main-panel nav-fix'>
 
 
@@ -92,7 +95,7 @@
                                 <tbody>
                                     @isset($apartments)
                                     @foreach ($apartments as $apartment)
-                                    <tr class='first-row {{isset($apartment->ads_expired) && (\Carbon\Carbon::now())->diffInDays($apartment->ads_expired, false) >= 0 ? 'promo' : ''}}' >
+                                    <tr>
                                         <td class="col-img ">
                                             <a href="{{route('user-apt.show', $apartment -> id)}}">
                                                 <div class="img-apt">
@@ -143,8 +146,9 @@
                                         </td>
                                         <td colspan="option">
                                             <div class="d-flex align-items-center">
-                                                <button class="btn btn-primary mr-3 btn-paypal" type="button" data-toggle="modal" data-target="#paypal">
-                                                    <i class="fab fa-paypal"></i>
+
+                                                <button class="btn btn-primary mr-3 btn-paypal" type="button" data-toggle="modal" data-target="#paypal" data-payid="{{$apartment->id}}">
+                                                    <i class="fa fa-credit-card" aria-hidden="true"></i>
                                                 </button>
 
                                                 <button type="button" class="btn btn-primary btn-eye mr-3" data-toggle="modal" data-target="#show-hide">
@@ -158,7 +162,9 @@
                                                 </button>
 
                                             </div>
-
+                                            @if(isset($apartment->ads_expired) && (\Carbon\Carbon::now())->diffInDays($apartment->ads_expired, false) >= 0)
+                                            <div  class='text-uppercase promo py-3'><i class="fas fa-bahai"></i> PROMO Attiva</div>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
@@ -367,7 +373,7 @@
                                 </button>
                             </div>
                             <div class="modal-body d-flex flex-row justify-content-center">
-                                <form action=" {{route('user-apt.destroy', $apartment->id)}} " method="GET">
+                                <form action="" method="GET">
                                     @csrf
                                     @method('DELETE')
                                     <div class="card d-flex flex-row border-0">
@@ -388,30 +394,34 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title px-5" id="exampleModalLabel">Scegli L'offerta</h5>
+                            <h5 class="modal-title px-5" id="exampleModalLabel">Seleziona un'offerta</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body d-flex flex-row justify-content-center">
-                                <div id="promo{{$apartment->id}}">
-                                    <form action="">
-                                        <ul>
-                                            <li>
-                                                <label for="price-a">2.99</label>
-                                                <input type="radio" name="price" id="price-a" value="2.99">
-                                            </li>
-                                            <li>
-                                                <label for="price-b">5.99</label>
-                                                <input type="radio" name="price" id="price-b" value="5.99">
-                                            </li>
-                                            <li>
-                                                <label for="price-b">6.99</label>
-                                                <input type="radio" name="price" id="price-c" value="6.99">
-                                            </li>
-                                        </ul>
+                            <div class="modal-body d-flex flex-column justify-content-center" >
+
+                                    <form action="{{route('payment.pay', $apartment->id)}}" method="get">
+                                    @csrf
+                                            <div class="alert alert-success">
+                                                <p>Seleziona la tua sponsorizzazione:</p>
+                                                <div class="form-group">
+                                                @foreach ($adsTypo  as $ad)
+                                                        <input  type="radio" name="ads" value="{{ $ad->id}}">
+                                                        <label for="{{ $ad->price }}">
+                                                            {{ $ad->price/100 }} €
+                                                        </label>
+                                                        <br>
+                                                @endforeach
+                                                </div>
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">Annulla</span>
+                                                    </button>
+                                                    <button class="btn btn-dark" type="submit">Sponsorizza</button>
+                                                </div>
+                                        <input type="hidden" name="payID" value="" id="payID">
                                     </form>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -446,10 +456,6 @@
 
     </div>
 
-
-
-
-
 </main>
 
 
@@ -459,10 +465,17 @@
         var delButton = $(evt.relatedTarget);
         var idToDel = delButton.data('delid')
         console.log(idToDel);
-        var delModal = $(this);
-        delModal.find(".modal-body #delThisApt").val(idToDel)
-
+        var thisModal = $(this);
+        thisModal.find(".modal-body #delThisApt").val(idToDel)
     })
+
+    $('#paypal').on('shown.bs.modal', function(evt) {
+        var payButton = $(evt.relatedTarget);
+        var aptIDPay = payButton.data('payid')
+        var thisModal = $(this);
+        thisModal.find(".modal-body #payID").val(aptIDPay)
+    })
+
 </script>
 
 @include('components.footer')

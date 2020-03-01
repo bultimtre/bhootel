@@ -189,6 +189,7 @@ class UserController extends Controller
         $allMsgsApt = collect([]);
         $apartments = $user -> apartments() -> get();
         $countHide = $apartments->where('show','=', 0);
+        $adsTypo =AD::all();
         foreach ($apartments as $apartment) {
             $countMsg += $apartment->messages()->count();
             if (($apartment->messages()->where('apartment_id', '=', $apartment->id))->exists()) {
@@ -208,7 +209,7 @@ class UserController extends Controller
 
         $$allMsgsApt = collect([['number' => 1],['number' => 2],['number' => 3]]);
         $$allMsgsApt->all();
-        return view('pages.user.user-panel', compact('apartments', "countMsg",'allMsgsApt','countHide','allAdsApt'));
+        return view('pages.user.user-panel', compact('apartments', "countMsg",'allMsgsApt','countHide','allAdsApt', 'adsTypo'));
     }
 
     /* public function search(Request $request)

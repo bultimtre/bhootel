@@ -163,6 +163,12 @@ function formApartValidation() {
 
 function init() {
 
+    if ($('#app-search').length) {
+
+        var appSearch = new Vue({
+            el: '#app-search',
+        });
+    }
 
     if ($('.addApartForm').length) {
 
