@@ -1,7 +1,9 @@
 main{
     &.main-search,
     &.main-panel,
-    &.main-show{
+    &.main-show,
+    &.main-create,
+    &.main-update{
         &.nav-fix{
             margin-top:68.25px;
         }

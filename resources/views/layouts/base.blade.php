@@ -19,6 +19,8 @@
 		@yield('user-panel')
 		@yield('login')
 		@yield('register')
+		@yield('create')
+		@yield('update')
 		@yield('apt-show')
         @yield('new-apt-upa')
         @yield('hosted')

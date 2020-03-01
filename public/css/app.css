@@ -10924,7 +10924,9 @@ a.text-dark:focus {
 
 main.main-search.nav-fix,
 main.main-panel.nav-fix,
-main.main-show.nav-fix {
+main.main-show.nav-fix,
+main.main-create.nav-fix,
+main.main-update.nav-fix {
   margin-top: 68.25px;
 }
 
@@ -11553,7 +11555,7 @@ nav.navbar.dark {
   background-color: #ccfff7;
 }
 
-@media (max-width: 1169px) {
+@media (max-width: 1206px) {
   .main-panel .panel_right-cards--views {
     margin-top: 1.5rem;
   }

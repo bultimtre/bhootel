@@ -1,16 +1,81 @@
-@extends('layouts.user-aparts')
+@extends('layouts.base')
 
-@section('content')
+@section('update')
 
-  <div class="container">
+<style>
+
+            body {
+                 background-color: #1248a5;
+                 }
+            .main-create{
+
+            }
+            .main-create-content
+            {
+              margin: auto;
+              width: 70%;
+              padding: 2px;
+              background: rgba(0,0,0,.5);
+              box-sizing: border-box;
+              box-shadow: 0 15px 25px rgba(2,2,2,.3);
+              border-radius: 10px;
+            }
+            .main-create-content h1 {
+
+                    color: #fff;
+                    text-align: center;
+                }
+
+                .main-create-content  input {
+                      width: 100%;
+                      padding: 5px 0;
+                      font-size: 1.2em;
+                      color: #fff;
+                      margin-bottom: 5px;
+                      border: none;
+                      border-bottom: 1px solid #fff;
+                      outline: none;
+                      background:transparent;
+                  }
+
+                   .main-create-content label
+                   {
+                      padding: 2px 5px;
+                      font-size: 1.2em;
+                      color: #fff;
+                      transition: .5s;
+                    }
+
+                    .main-create-content .check-container
+                   {
+                     padding: 3px;
+                     background: #fff;
+                     border-radius: 5px;
+                    }
+
+                    .main-create-content .form-check label
+                   {
+                    color: black;
+                    }
+                    .main-create-content .form-check input
+                   {
+                     height: 25px;
+                    width: 25px;
+                    background-color: #eee;
+                    }
+</style>
+@include('components.header')
+
+<main class="main-update nav-fix py-5">
+<div class="container main-create-content py-5">
     <div class="row">
-      <div class="col-12">
+      <div class="col-10">
         <h1>Aggiorna appartamento</h1>
       </div>
-      <div class="col-12">
+      <div class="col-10">
 
       </div>
-      <div class="col-12">
+      <div class="col-10 offset-1">
         <form action="" class="addApartForm" method="post" enctype="multipart/form-data">
 
           <div class="form-group">
@@ -26,7 +91,7 @@
           <input value="{{$apartment->title}}" id="apart-title" class="form-control" name="title" type="text" placeholder="Inserisci titolo"
           required data-parsley-maxlength="80" data-parsley-trigger="keyup"/>
           </div>
-          
+
           <div class="form-group">
               <label for="description">Descrizione</label>
           <input value="{{$apartment->description}}" id="apart-title" class="form-control" name="description" type="text" placeholder="Inserisci descrizione"
@@ -64,16 +129,18 @@
               data-parsley-range-message="exceed the maximum limit" />
           </div>
 
-          <div class="form-group">
-            @foreach ($configs as $config)
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" class="config-check" name="configs_id[]" value="{{ $config->id }}"
-                    @if ($apartment -> configs() ->find($config ->id)) checked @endif>
-                    <label class="form-check-label" for="config-check">
-                        {{ $config->service }}
-                    </label>
-                </div>
-            @endforeach
+          <div class="check-container">
+            <div class="form-group">
+                @foreach ($configs as $config)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" class="config-check" name="configs_id[]" value="{{ $config->id }}"
+                        @if ($apartment -> configs() ->find($config ->id)) checked @endif>
+                        <label class="form-check-label" for="config-check">
+                            {{ $config->service }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
           </div>
 
           <div class="form-group">
@@ -93,4 +160,7 @@
 
     </div>
   </div>
+</main>
+
+@include('components.footer')
 @endsection

@@ -1,15 +1,17 @@
-@extends('layouts.user-aparts')
+@extends('layouts.base')
 
-@section('content')
+@section('create')
 
 <style>
 
             body {
                  background-color: #1248a5;
                  }
-            .box
-            {
+            .main-create{
 
+            }
+            .main-create-content
+            {
               margin: auto;
               width: 70%;
               padding: 2px;
@@ -17,14 +19,14 @@
               box-sizing: border-box;
               box-shadow: 0 15px 25px rgba(2,2,2,.3);
               border-radius: 10px;
+            }
+            .main-create-content h1 {
+
+                    color: #fff;
+                    text-align: center;
                 }
-                .box h1 {
 
-                        color: #fff;
-                        text-align: center;
-                    }
-
-                .box  input {
+                .main-create-content  input {
                       width: 100%;
                       padding: 5px 0;
                       font-size: 1.2em;
@@ -36,7 +38,7 @@
                       background:transparent;
                   }
 
-                   .box label
+                   .main-create-content label
                    {
                       padding: 2px 5px;
                       font-size: 1.2em;
@@ -44,27 +46,28 @@
                       transition: .5s;
                     }
 
-                    .box .check-container
+                    .main-create-content .check-container
                    {
                      padding: 3px;
                      background: #fff;
                      border-radius: 5px;
                     }
 
-                    .box .form-check label
+                    .main-create-content .form-check label
                    {
                     color: black;
                     }
-                    .box .form-check input
+                    .main-create-content .form-check input
                    {
                      height: 25px;
                     width: 25px;
                     background-color: #eee;
                     }
 </style>
+@include('components.header')
 
-<div class="box">
-  <div class="container">
+<main class="main-create nav-fix py-5">
+  <div class="container main-create-content py-5">
     <div class="row">
       <div class="col-10">
         <h1>Inserisci un nuovo appartamento</h1>
@@ -154,5 +157,6 @@
 
     </div>
   </div>
-</div>
+</main>
+@include('components.footer')
 @endsection

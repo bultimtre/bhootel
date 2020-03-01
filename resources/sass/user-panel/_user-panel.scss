@@ -57,7 +57,7 @@
                 &--views
                 {
                     @include bgColorLighten ($bh-default, $perc:40%);
-                    @media (max-width: 1169px) {
+                    @media (max-width: 1206px) {
                         margin-top: 1.5rem
                     }
                 }
