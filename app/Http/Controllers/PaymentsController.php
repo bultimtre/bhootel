@@ -22,9 +22,8 @@ class PaymentsController extends Controller
         $query = Ad::where('id','=',$adId)->select('price')->get();
         $price = $query[0]->price;
 
-
         return view('hosted',compact('apartment','price'));
-       // return view('drop-ui',compact('apartment','price'));
+
     }
 
     public function make(Request $request,$id,$adId)
@@ -75,15 +74,14 @@ class PaymentsController extends Controller
      $diff= $new_expire-> diffInRealHours($today,false);
 
 
+    //aggiorno l'expire-date
+          DB::table('ad_apartment')
+                    ->where('apartment_id',$id)
+                    ->update(['expire_date' => $new_expire]);
 
-  //aggiorno l'expire-date
-  DB::table('ad_apartment')
-            ->where('apartment_id',$id)
-            ->update(['expire_date' => $new_expire]);
-
-  DB::table('apartments')
-            ->where('id',$id)
-            ->update(['ads_expired' => $new_expire]);
+          DB::table('apartments')
+                    ->where('id',$id)
+                    ->update(['ads_expired' => $new_expire]);
 
 
 
@@ -100,6 +98,15 @@ class PaymentsController extends Controller
       if($result ->success){
 
         return view('pages.info-sponsor',compact('apartment','amount','time','today','new_expire'));
+
+      }
+      else{
+
+
+
+        $result = 'Il pagamento non è andato a buon fine';
+        $apartments = Apartment::findOrFail($id);
+        return view('pages.rejected',compact('result','apartments'));
 
       }
 }
