@@ -4,8 +4,8 @@
 <main class='main-panel nav-fix'>
 
 
-    <div class="panel container-fluid d-flex m-0 p-0">
-        <div class="panel_left col-md-3 m-0 p-0 pt-5">
+    <div class="panel d-flex container-fluid m-0 p-0">
+        <div class="panel_left col-3 col-md-3 m-0 p-0 pt-5  ">
             <div class="panel_left--avatar d-flex w-100 align-items-center py-2">
                 <div class="div-icon px-2">
                     <img src="https://img.icons8.com/cute-clipart/64/000000/iron-man.png">
@@ -56,116 +56,120 @@
             </div>
 
         </div>
-        <div class="panel_right d-md-flex flex-column flex-grow-1">
-            <div class="title-panel py-4 px-5">
+        <div class="panel_right col-9 d-md-flex flex-column">
+            <div class="title-panel py-4 px-sm-2 px-md-5">
                 <h3>La mia Dashboard</h3>
                 <p>opzioni e interazioni</p>
             </div>
-            <div class="panel_right-cards d-flex flex-row justify-content-around py-3 text-center">
-                <div class="panel_right-cards--msgs py-3 px-2">
+            <div class="panel_right-cards d-flex flex-row justify-content-center flex-wrap py-3 mt-xl-0 text-center">
+                <div class="panel_right-cards--msgs p-4 mx-sm-4 ">
                     <div class="card">
                         <div class="card-title">APPARTAMENTI</div>
-                        <h2>{{$apartments->count()}}</h2>
+                        <h2>@isset($apartments) {{$apartments->count()}} @else 0 @endisset</h2>
                     </div>
                 </div>
-                <div class="panel_right-cards--apts py-3 px-2">
+                <div class="panel_right-cards--apts p-4 mx-sm-4">
                     <div class="card">
                         <div class="card-title">MESSAGGI</div>
                         <h2>{{$countMsg}}</h2>
                     </div>
                 </div>
-                <div class="panel_right-cards--views py-3 px-2">
+                <div class="panel_right-cards--views p-4 mx-sm-4">
                     <div class="card">
                         <div class="card-title">IN VETRINA</div>
                         <h2>{{$allAdsApt->count()}}</h2>
                     </div>
                 </div>
             </div>
-            <div class="panel_right-table table-cont p-5 mb-5">
-                <div class="panel_right-table--apt ">
+            <div class="panel_right-table d-flex flex-column table-cont px-sm-2 px-md-5 py-5 mb-5">
+                <div class="d-flex flex-column panel_right-table--apt ">
                     <div class="title">
                         <h5 class="title p-3 mb-0">I MIEI APPARTAMENTI</h5>
                     </div>
-                    <div class="bh-table">
-                        <table class="table mt-0">
-                            <tbody>
-                                @foreach ($apartments as $apartment)
-                                <tr class="first-row">
-                                    <td class="col-img">
-                                        <a href="{{route('user-apt.show', $apartment -> id)}}">
-                                            <div class="img-apt">
-                                                <div class="wrap-div">
-                                                    <div class="img-div">
-                                                        <img src='{{ url('/') }}/{{$apartment -> image}}'/>
+                    <div class="bh-table-wrap w-100 d-flex">
+                        <div class="bh-table table-responsive ">
+                           <table class="table mt-0" style="min-width:635px;">
+                                <tbody>
+                                    @isset($apartments)
+                                    @foreach ($apartments as $apartment)
+                                    <tr class='first-row {{isset($apartment->ads_expired) && (\Carbon\Carbon::now())->diffInDays($apartment->ads_expired, false) >= 0 ? 'promo' : ''}}' >
+                                        <td class="col-img ">
+                                            <a href="{{route('user-apt.show', $apartment -> id)}}">
+                                                <div class="img-apt">
+                                                    <div class="wrap-div">
+                                                        <div class="img-div">
+                                                            <img src='{{ url('/') }}/{{$apartment -> image}}'/>
+                                                        </div>
+                                                        <div class="id-apt">
+                                                            {{$apartment->id}}
+                                                        </div>
                                                     </div>
-                                                    <div class="id-apt">
-                                                        {{$apartment->id}}
-                                                    </div>
+
                                                 </div>
+                                            </a>
+                                        </td>
+                                        <td class="col-infos">
+                                            <div class="title-apt">
+                                                {{$apartment->title}}
+                                            </div>
+                                            <div class="desc-apt text-truncate">
+                                                {{$apartment->description}}
+                                            </div>
+                                            <ul class="d-flex list-group list-group-horizontal justify-content-start mt-2">
+                                                @foreach ($apartment->configs as $config)
+                                                    @switch($config->service)
+                                                        @case('wifi')
+                                                        <i class="fas fa-wifi"></i>
+                                                            @break
+                                                        @case('parking')
+                                                        <i class="fas fa-parking"></i>
+                                                            @break
+                                                        @case('pool')
+                                                        <i class="fas fa-swimming-pool"></i>
+                                                            @break
+                                                        @case('reception')
+                                                        <i class="fas fa-concierge-bell"></i>
+                                                            @break
+                                                        @case('sauna')
+                                                        <i class="fas fa-hot-tub"></i>
+                                                            @break
+                                                        @case('sight')
+                                                        <i class="fas fa-eye"></i>
+                                                            @break
+                                                        @default
+                                                    @endswitch
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        <td colspan="option">
+                                            <div class="d-flex align-items-center">
+                                                <button class="btn btn-primary mr-3 btn-paypal" type="button" data-toggle="modal" data-target="#paypal">
+                                                    <i class="fab fa-paypal"></i>
+                                                </button>
+
+                                                <button type="button" class="btn btn-primary btn-eye mr-3" data-toggle="modal" data-target="#show-hide">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </button>
+
+                                                <a href="{{route('user-apt.edit', $apartment->id)}}" class="btn btn-success mr-3"><i class="fas fa-edit"></i></a>
+
+                                                <button type="button" class="btn btn-danger  " data-toggle="modal" data-target="#delete-modal" data-delid="{{$apartment->id}}">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
 
                                             </div>
-                                        </a>
-                                    </td>
-                                    <td class="col-title">
-                                        <div class="title-apt">
-                                            {{$apartment->title}}
-                                        </div>
-                                    </td>
-                                    <td class="col-desc">
-                                        <div class="desc-apt">
-                                            {{$apartment->description}}
-                                        </div>
-                                    </td>
-                                    <td class="col-config">
-                                        <ul class="list-group list-group-horizontal justify-content-start">
-                                            @foreach ($apartment->configs as $config)
-                                                @switch($config->service)
-                                                    @case('wifi')
-                                                    <li class="list-group-item py-0 pr-2"><i class="fas fa-wifi"></i></li>
-                                                        @break
-                                                    @case('parking')
-                                                    <li class="list-group-item py-0 pr-2"><i class="fas fa-parking"></i></li>
-                                                        @break
-                                                    @case('pool')
-                                                    <li class="list-group-item py-0 pr-2"><i class="fas fa-swimming-pool"></i></li>
-                                                        @break
-                                                    @case('reception')
-                                                    <li class="list-group-item py-0 pr-2"><i class="fas fa-concierge-bell"></i></li>
-                                                        @break
-                                                    @case('sauna')
-                                                    <li class="list-group-item py-0 pr-2"><i class="fas fa-hot-tub"></i></li>
-                                                        @break
-                                                    @case('sight')
-                                                    <li class="list-group-item py-0 pr-2"><i class="fas fa-eye"></i></li>
-                                                        @break
-                                                    @default
-                                                @endswitch
-                                            @endforeach
-                                        </ul>
-                                    </td>
-                                    <td colspan="option">
-                                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#paypal">
-                                            <i class="fab fa-paypal"></i>
-                                        </button>
 
-                                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#show-hide">
-                                           <i class="fa fa-eye" aria-hidden="true"></i>
-                                        </button>
-
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete-modal" data-delid="{{$apartment->id}}">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-
-                                        <a href="{{route('user-apt.edit', $apartment->id)}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                <div class="panel_right-table-group mt-5 d-flex justify-content-xl-around justify-content-between">
+
+                <div class="panel_right-table-group mt-5 d-lg-flex justify-content-xl-around justify-content-between">
                     <div class="panel_right-table--msg">
                         <div class="title">
                             <h5 class="title p-3 mb-0">POSTA IN ARRIVO</h5>
@@ -194,7 +198,7 @@
                         </div>
 
                     </div>
-                    <div class="panel_right-table--ads">
+                    <div class="panel_right-table--ads mt-5 mt-lg-0">
                         <div class="title">
                             <h5 class="title p-3 mb-0">PROMO ATTIVE</h5>
                         </div>
@@ -316,33 +320,35 @@
                 </div>
             </div>
         </div>
-        <div class="apt-disable modal fade" id="apt-disable" tabindex="-1" role="dialog" aria-labelledby="apt-disable" aria-hidden="true">
-            <div class="d-flex w-100 h-100 align-items-center">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title px-5" id="exampleModalLabel">Appartamenti che hai nascosto dal nostro portale</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body d-flex flex-row justify-content-center">
-                            <!-- First -->
-                            <div class="bh-modal-item bRad-all">
-                                <div class="card mb-5 mb-lg-0 h-100 bRad-all">
-                                    <div class="card-body p-0 bRad-top bRad-bottom">
-                                        <div class="apt_title p-3 pb-3 text-center bRad-top">
-                                        <h1 class="bRad-top mb-3">{{$countHide->count()}}</h1>
-                                            <p>nascosti</p>
+        @isset($apartment)
+            <div class="apt-disable modal fade" id="apt-disable" tabindex="-1" role="dialog" aria-labelledby="apt-disable" aria-hidden="true">
+                <div class="d-flex w-100 h-100 align-items-center">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title px-5" id="exampleModalLabel">Appartamenti che hai nascosto dal nostro portale</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body d-flex flex-row justify-content-center">
+                                <!-- First -->
+                                <div class="bh-modal-item bRad-all">
+                                    <div class="card mb-5 mb-lg-0 h-100 bRad-all">
+                                        <div class="card-body p-0 bRad-top bRad-bottom">
+                                            <div class="apt_title p-3 pb-3 text-center bRad-top">
+                                            <h1 class="bRad-top mb-3">{{$countHide->count()}}</h1>
+                                                <p>nascosti</p>
+                                            </div>
+                                            <div class="apt_info">
+                                                <div class="apt_details pt-2 px-3">
+                                                @foreach($countHide as $apt)
+                                                <div class="py-2">{{$apt->id}} - <a href="{{route('user-apt.show', $apartment -> id)}}">{{$apt->title}}</a></div>
+                                                @endforeach
+                                            </div>
                                         </div>
-                                        <div class="apt_info">
-                                            <div class="apt_details pt-2 px-3">
-                                            @foreach($countHide as $apt)
-                                            <div class="py-2">{{$apt->id}} - <a href="{{route('user-apt.show', $apartment -> id)}}">{{$apt->title}}</a></div>
-                                            @endforeach
+                                            <div class="price_footer p-2 bRad-bottom"></div>
                                         </div>
-                                    </div>
-                                        <div class="price_footer p-2 bRad-bottom"></div>
                                     </div>
                                 </div>
                             </div>
@@ -350,94 +356,97 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="delete-item modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal" aria-hidden="true">
-            <div class="d-flex w-100 h-100 align-items-center">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title px-5" id="exampleModalLabel">Confermi di voler eliminare l'appartamento?</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body d-flex flex-row justify-content-center">
-                            <form action=" {{route('user-apt.destroy', $apartment->id)}} " method="GET">
-                                @csrf
-                                @method('DELETE')
-                                <div class="card d-flex flex-row border-0">
-                                    <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">Annulla</span>
-                                    </button>
-                                    <div class="spacer mx-2"></div>
-                                    <button type="submit" id="delThisApt" name="del_apart" value="" class="btn btn-danger">Elimina</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="paypal modal fade" id="paypal" tabindex="-1" role="dialog" aria-labelledby="paypal" aria-hidden="true">
-            <div class="d-flex w-100 h-100 align-items-center">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title px-5" id="exampleModalLabel">Scegli L'offerta</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body d-flex flex-row justify-content-center">
-                            <div id="promo{{$apartment->id}}">
-                                <form action="">
-                                    <ul>
-                                        <li>
-                                            <label for="price-a">2.99</label>
-                                            <input type="radio" name="price" id="price-a" value="2.99">
-                                        </li>
-                                        <li>
-                                            <label for="price-b">5.99</label>
-                                            <input type="radio" name="price" id="price-b" value="5.99">
-                                        </li>
-                                        <li>
-                                            <label for="price-b">6.99</label>
-                                            <input type="radio" name="price" id="price-c" value="6.99">
-                                        </li>
-                                    </ul>
+            <div class="delete-item modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal" aria-hidden="true">
+                <div class="d-flex w-100 h-100 align-items-center">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title px-5" id="exampleModalLabel">Confermi di voler eliminare l'appartamento?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body d-flex flex-row justify-content-center">
+                                <form action=" {{route('user-apt.destroy', $apartment->id)}} " method="GET">
+                                    @csrf
+                                    @method('DELETE')
+                                    <div class="card d-flex flex-row border-0">
+                                        <button type="button" class="btn btn-success" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">Annulla</span>
+                                        </button>
+                                        <div class="spacer mx-2"></div>
+                                        <button type="submit" id="delThisApt" name="del_apart" value="" class="btn btn-danger">Elimina</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="show-hide modal fade" id="show-hide" tabindex="-1" role="dialog" aria-labelledby="show-hide" aria-hidden="true">
-            <div class="d-flex w-100 h-100 align-items-center">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title px-5" id="exampleModalLabel">Confermi di voler eliminare l'appartamento?</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body d-flex flex-column justify-content-center">
-                            <p>
-                                Vuoi davvero nascondere l'appartamento dalla lista degli appartamenti?
-                                Ricordati di cliccare sull'occhiolino se vorrai mostrare nuovamente il tuo appartamento.
-                                Questa azione avrà effetto anche se il tuo appartamento è sponsorizzato!
-                            </p>
-                            <div class="buttons text-right">
-                                <button class="btn btn-danger">Procedi</button>
-                                <button class="btn btn-success">Annulla</button>
+            <div class="paypal modal fade" id="paypal" tabindex="-1" role="dialog" aria-labelledby="paypal" aria-hidden="true">
+                <div class="d-flex w-100 h-100 align-items-center">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title px-5" id="exampleModalLabel">Scegli L'offerta</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body d-flex flex-row justify-content-center">
+                                <div id="promo{{$apartment->id}}">
+                                    <form action="">
+                                        <ul>
+                                            <li>
+                                                <label for="price-a">2.99</label>
+                                                <input type="radio" name="price" id="price-a" value="2.99">
+                                            </li>
+                                            <li>
+                                                <label for="price-b">5.99</label>
+                                                <input type="radio" name="price" id="price-b" value="5.99">
+                                            </li>
+                                            <li>
+                                                <label for="price-b">6.99</label>
+                                                <input type="radio" name="price" id="price-c" value="6.99">
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="show-hide modal fade" id="show-hide" tabindex="-1" role="dialog" aria-labelledby="show-hide" aria-hidden="true">
+                <div class="d-flex w-100 h-100 align-items-center">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title px-5" id="exampleModalLabel">Confermi di voler eliminare l'appartamento?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body d-flex flex-column justify-content-center">
+                                <p>
+                                    Vuoi davvero nascondere l'appartamento dalla lista degli appartamenti?
+                                    Ricordati di cliccare sull'occhiolino se vorrai mostrare nuovamente il tuo appartamento.
+                                    Questa azione avrà effetto anche se il tuo appartamento è sponsorizzato!
+                                </p>
+                                <div class="buttons text-right">
+                                    <button class="btn btn-danger">Procedi</button>
+                                    <button class="btn btn-success">Annulla</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endisset
+
     </div>
+
+
 
 
 
@@ -453,7 +462,7 @@
         var delModal = $(this);
         delModal.find(".modal-body #delThisApt").val(idToDel)
 
-})
+    })
 </script>
 
 @include('components.footer')

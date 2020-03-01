@@ -28,7 +28,7 @@ class StatController extends Controller
 
             return response() -> json($dateView);
         }
-        // return response() -> json($dateView);
+        //return response() -> json($dateView);
     }
 
 

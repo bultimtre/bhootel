@@ -168,12 +168,16 @@ class UserController extends Controller
 
     public function destroy(Request $request)
     {
-        //dd($request->del_apart);
+
         $id = $request->del_apart;
         $apartment = Apartment::findOrFail($id);
         $apartment->configs()->sync([]);
         $apartment->delete();
-        return back();
+        if(isset($request->home)){
+            return redirect('/');
+        } else {
+            return back();
+        }
         //return redirect()->route('all.index');// nuova modifica
     }
 

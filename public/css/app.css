@@ -11033,6 +11033,100 @@ main.main-access:not(.bh-modal) {
   transform: scaleY(-1);
 }
 
+#charts-modal .modal-dialog {
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  min-width: 290px;
+}
+
+@media (max-width: 575.98px) {
+  #charts-modal .modal-dialog .container-stats {
+    overflow-x: scroll;
+  }
+}
+
+#charts-modal .modal-dialog .container-stats .chart-container {
+  position: relative;
+  margin: auto;
+  height: 30vh;
+  min-height: 275px;
+  width: 40vw;
+  min-width: 300px;
+}
+
+.main-payment {
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-color: #1248a5;
+  box-sizing: border-box;
+}
+
+.main-payment .payment {
+  background: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(2, 2, 2, 0.3);
+  border-radius: 10px;
+}
+
+.main-payment .payment__wrap input {
+  padding: 5px 15px;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+  box-shadow: none;
+  color: #fff;
+  font-weight: 300;
+}
+
+.main-payment .payment__wrap label {
+  color: #00C4E6;
+  padding: 2px 5px;
+  font-size: 1.2em;
+}
+
+.main-payment .payment__wrap .spacer {
+  margin-bottom: 24px;
+}
+
+.main-payment .payment__wrap #card-number,
+.main-payment .payment__wrap #cvv,
+.main-payment .payment__wrap #expiration-date {
+  background: white;
+  height: 35px;
+  border: 1px solid #CED4DA;
+  padding: 5px 5px;
+  border-radius: 10px;
+}
+
+.main-payment .payment__wrap .bh-btn-success {
+  background-color: #ff00c2;
+  border: none;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.main-payment .payment__wrap #label-cc {
+  font-size: 1rem;
+}
+
+/* .box
+
+.box input:focus ~ label,
+.boxx input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #03a9f4;
+    font-size: 10px;
+} */
+
 nav.navbar a {
   font-size: 1.1rem;
   font-weight: 300;
@@ -11445,6 +11539,12 @@ nav.navbar.dark {
   background-color: #ffccf3;
 }
 
+@media (max-width: 825px) {
+  .main-panel .panel_right-cards--apts {
+    margin-top: 1.5rem;
+  }
+}
+
 .main-panel .panel_right-cards--msgs {
   background-color: #b4b4f6;
 }
@@ -11453,11 +11553,24 @@ nav.navbar.dark {
   background-color: #ccfff7;
 }
 
+@media (max-width: 1169px) {
+  .main-panel .panel_right-cards--views {
+    margin-top: 1.5rem;
+  }
+}
+
 .main-panel .panel_right-cards > * {
   width: 15%;
-  min-width: 250px;
+  min-width: 240px;
   border-radius: 10px;
   box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px rgba(90, 97, 105, 0.06), 0 7px 70px rgba(90, 97, 105, 0.1);
+}
+
+@media (max-width: 420px) {
+  .main-panel .panel_right-cards > * {
+    min-width: 200px;
+    max-width: 220px;
+  }
 }
 
 .main-panel .panel_right-cards > *:not(:last-child) {
@@ -11476,7 +11589,6 @@ nav.navbar.dark {
 
 .main-panel .panel_right-table--apt {
   height: 500px;
-  overflow: hidden;
   box-shadow: 0 2px 0 rgba(90, 97, 105, 0.11), 0 4px 8px rgba(90, 97, 105, 0.12), 0 10px 10px rgba(90, 97, 105, 0.06), 0 7px 70px rgba(90, 97, 105, 0.1);
 }
 
@@ -11496,31 +11608,50 @@ nav.navbar.dark {
   border-bottom-right-radius: 10px;
 }
 
+.main-panel .panel_right-table--apt .col-infos .desc-apt,
+.main-panel .panel_right-table--apt .bh-table .col-infos .desc-apt {
+  font-size: 0.9rem;
+  font-weight: 300;
+  max-width: 290px;
+}
+
+.main-panel .panel_right-table--apt .col-infos i.fas,
+.main-panel .panel_right-table--apt .bh-table .col-infos i.fas {
+  background: #00c4e6;
+  padding: 6px;
+  font-size: 0.8rem;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin-right: 5px;
+}
+
 .main-panel .panel_right-table--apt .title {
   background: #f5f6f8;
   color: #15252e;
 }
 
 .main-panel .panel_right-table--apt .bh-table {
-  height: 440px;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  height: 425px;
   background: #f5f6f8;
 }
 
-.main-panel .panel_right-table--apt .bh-table thead th {
-  font-weight: 500;
+.main-panel .panel_right-table--apt .bh-table tr.promo > td {
+  border-bottom: 3px solid #ff00c2;
+  border-top: 3px solid #ff00c2;
 }
 
-.main-panel .panel_right-table--apt .bh-table td.col-desc {
-  max-width: 250px;
-  color: #355d74;
-  font-size: 0.85rem;
-}
-
-.main-panel .panel_right-table--apt .bh-table button {
-  background-color: #ff00c2;
+.main-panel .panel_right-table--apt .bh-table .btn {
   border: none;
+}
+
+.main-panel .panel_right-table--apt .bh-table .btn-paypal {
+  background-color: #1e477a;
+}
+
+.main-panel .panel_right-table--apt .bh-table .btn-eye {
+  background-color: #ff00c2;
 }
 
 .main-panel .panel_right-table--apt .bh-table .img-apt .wrap-div {
@@ -11704,16 +11835,34 @@ nav.navbar.dark {
   font-weight: 300;
 }
 
+.main-show #notouchid {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
 .main-show .jumbotron {
   position: relative;
   height: 500px;
   min-height: 400px;
 }
 
+.main-show .jumbotron .greetings-sub p {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.main-show .jumbotron .greetings-sub .btn-danger {
+  background-color: #ff00c2;
+  font-size: 1.5rem;
+  font-weight: 600;
+  width: 250px;
+}
+
 .main-show .jumbotron .main-wrapper {
   position: absolute;
   width: 100%;
-  border: 1px solid red;
   bottom: -50%;
   left: 0;
   z-index: 1;
@@ -11760,13 +11909,31 @@ nav.navbar.dark {
   font-style: oblique;
   margin-left: 150px;
   width: 40%;
-  border: 1px solid red;
 }
 
 @media (max-width: 1199.98px) {
   .main-show .div-colored h1 {
     width: 30%;
   }
+}
+
+.main-show .infos_right {
+  height: 100%;
+  font-weight: 300;
+  background-color: #15252e;
+}
+
+.main-show .infos_right--wrap {
+  border: 1px dotted rgba(255, 255, 255, 0.5);
+}
+
+.main-show .infos_right--wrap .div-config {
+  color: white;
+}
+
+.main-show .infos_left {
+  height: 100%;
+  background-color: white;
 }
 
 .main-access .back-home,
@@ -11890,78 +12057,6 @@ nav.navbar.dark {
 .fade:not(.show){
     opacity:1;
 
-} */
-
-.main-payment {
-  color: #fff;
-  width: 100%;
-  height: 100%;
-  min-height: 100vh;
-  background-color: #1248a5;
-  box-sizing: border-box;
-}
-
-.main-payment .payment {
-  background: rgba(0, 0, 0, 0.5);
-  box-sizing: border-box;
-  box-shadow: 0 15px 25px rgba(2, 2, 2, 0.3);
-  border-radius: 10px;
-}
-
-.main-payment .payment__wrap input {
-  padding: 5px 15px;
-  font-size: 1.2em;
-  margin-bottom: 5px;
-  border: none;
-  border-bottom: 1px solid #fff;
-  outline: none;
-  background: transparent;
-  box-shadow: none;
-  color: #fff;
-  font-weight: 300;
-}
-
-.main-payment .payment__wrap label {
-  color: #00C4E6;
-  padding: 2px 5px;
-  font-size: 1.2em;
-}
-
-.main-payment .payment__wrap .spacer {
-  margin-bottom: 24px;
-}
-
-.main-payment .payment__wrap #card-number,
-.main-payment .payment__wrap #cvv,
-.main-payment .payment__wrap #expiration-date {
-  background: white;
-  height: 35px;
-  border: 1px solid #CED4DA;
-  padding: 5px 5px;
-  border-radius: 10px;
-}
-
-.main-payment .payment__wrap .bh-btn-success {
-  background-color: #ff00c2;
-  border: none;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
-
-.main-payment .payment__wrap #label-cc {
-  font-size: 1rem;
-}
-
-/* .box
-
-.box input:focus ~ label,
-.boxx input:valid ~ label {
-    top: -20px;
-    left: 0;
-    color: #03a9f4;
-    font-size: 10px;
 } */
 
 html,

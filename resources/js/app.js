@@ -7,6 +7,10 @@
 require('./bootstrap');
 // import parsleyjs for front-end validation
 require('parsleyjs');
+
+var funct = require('./components/style.js')
+var comps = require('./components/charts.js')
+
 //import validation
 //require('./validation.js');
 window.Vue = require('vue');
@@ -37,6 +41,7 @@ window.Vue = require('vue');
 // });
 
 var api_key = 'eHsDmslbcIzT8LG5Yw54AH9p2munbhhh';
+//var api_key = 'GdAAcHg1a6amrwAI2GNKSm3j4RLCLdzj';
 var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
 //Refers to form http://localhost:8000/user/aparts/create
@@ -170,6 +175,9 @@ function init() {
 
         getApartMap();
     }
+    funct.buttonChange();
+    comps.createCharts();
+
 };
 
 $(document).ready(init);

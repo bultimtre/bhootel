@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('apt-show')
 @include('components.header')
-<main>
+<main class="main-show">
 
 <div class="d-flex flex-wrap mt-3">
     <div class="col-4 p-5">

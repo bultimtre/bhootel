@@ -22,5 +22,6 @@
 		@yield('apt-show')
         @yield('new-apt-upa')
         @yield('hosted')
+        @yield('charts')
 	</body>
 </html>

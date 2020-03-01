@@ -1,17 +1,32 @@
 .main-show{
-
+    #notouchid{
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+    }
     .jumbotron
     {
         position: relative;
         height:500px;
         min-height: 400px;
-
-        .main-wrapper
+        .greetings-sub{
+            p{
+                color:white;
+                font-size:1.8rem;
+                font-weight: 600;
+            }
+            .btn-danger{
+                background-color: $bh-details;
+                font-size:1.5rem;
+                font-weight: 600;
+                width:250px
+            }
+        }
+        .main-wrapper //div maps in abs position
         {
             //
             position: absolute;
             width: 100%;
-            border:1px solid red;
             bottom:-50%;
             left:0;
             z-index:1;
@@ -51,12 +66,34 @@
             font-style: oblique;
             margin-left:150px;
             width:40%;
-            border:1px solid red;
             @media(max-width: 1199.98px) {
                 width:30%
              }
 
         }
+
+    }
+    .infos{
+        //height:300px;
+
+            &_right{
+                height: 100%;
+                font-weight: 300;
+                background-color:$bh-dark;
+                &--wrap{
+                    border:1px dotted rgba(255, 255, 255, 0.5);
+                    .div-config{
+                        color:white;
+                    }
+                }
+            }
+            &_left{
+                height: 100%;
+                background-color: white;
+                &--wrap{
+                    //border:1px dotted $bh-dark;
+                }
+            }
 
     }
 }
